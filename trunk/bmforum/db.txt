@@ -154,3 +154,18 @@ yetkileri kendisinden alınır.
 
 
 Gezegen:
+Gezegen bölümünde ise buraya kayıtlı olan kullanıcıların kişisel günlük
+adreslerindeki girdiler yayınlanır. Bu kişisel günlük adreslerinde; wordpress,
+blogspot gibi günlük yazma yazılımları bulunabilir. Bu ve bunun gibi günlük
+yazma yazılımları yardımıyla yazılan günlükler RSS denilen teknoloji sayesinde
+yayınlanır. Burdan yayınlanan yayınları gezegen dinler ve yeni bir yazı
+geldiğinde burada yayınlar. Buraya her günlük adresini (besleme) kullanıcılar
+kişisel olarak ekler. Kendi beslemesini ekleyen kullanıcı aynı zamanda bunu
+silebilir. Gezegende her girdi; gönderen kişi, gönderenen küçük resmi (avatar),
+gönderim tarihi, girdinin başlığı, girdinin içeriği, girdinin içerdiği imler ve
+diğer bilgiler bulunur. Girdinin içerdiği imlerin altında da o kişisel günlük
+adresinde yazılmış olan yorumların miktarı gözükür. Oraya tıklandığında ise
+ilgili girdinin yorum bölümüne gidilir.Girdinin başlığına tıkladığımızda 
+girdinin alındığı sayfaya gidilir. Aynı zamanda gezegen bölümünde sağ tarafta 
+gezegene yazan kullanıcıların listesi bulunur. Bunlara tıklandığında ilgili 
+kullanıcının eklenmiş olan kişisel günlük adresine gidilir.
