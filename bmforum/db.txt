@@ -41,7 +41,18 @@ uygulamasında oluşturulan girdinin başlığı ile yeni bir başlık açacak, 
 ile sınav uygulaması arası entegrasyonu sağlayıp kullanıcıların her iki 
 uygulamanında özelliklerinden sonuna kadar faydalanması için ortam yaratılır.
 
-Ders Notları:
+Ders Notları: 
+Öğrencilerin geçen yıllarda tuttukları ders notları, hocaların dağıttıkların
+dağıttıkları ders notları, dersle ilgili diğer kaynaklardan yapılmış derlemeler
+vs. için bir bölümdür, öncelik metin şeklinde olması olsada, yukarıda açıklanan
+sebeplerden dolayı resim şeklinde girdiler kabul edilecektir. Eğer lisans ihlai
+durumu görülürse moderatorler bu girdileri silebilirler. Ayrıca kullanıcılar
+lisans ihlali durumu için şikayet oluşturabilecekleri araçlarla
+destekleneceklerdir. Eğer dosya boyutu çok fazla ise, yada tek seferde
+yüklemenin uygun olmayacağı kadar çok sayfa barındırıyor ise her sayfa için
+sadece link olacak şekilde otomatik olarak bölünmesi düşünülmektedir. Ders
+notlarının ders ismi, dersi veren hoca, ders yılı bilgileri ayrıca tutulacak bu
+sayede kullanıcılar istdikleri gibi filtreleme yapabileceklerdir. 
 
 
 Dönem içi ödevler:
@@ -67,9 +78,9 @@ isterse projenin notu ve proje ile ilgili diğer bilgiler bulunur. Bitirme
 projesi ve raporları bölümünde yazılmış olan bir rapor ile ilgili herhangi
 bir uygunsuz durum tespitinde önceden belirlenmiş olan kurallar geçerli olur.
 Eğer bir moderatör herhangi bir uygunsuz durum tespit ederse bunu düzeltmeleri
-için o projenin sahibi/sahiplerini uyarır. Eğer uyarı verildikten bir süre sonra 
-da bu durum devam ediyorsa moderatör bu durumu düzeltir. Bu durumun tekrarı durumunda
-ilgili kişiye belirli bir süreliğine cezalar verilir. 
+için o projenin sahibi/sahiplerini uyarır. Eğer uyarı verildikten bir süre 
+sonra da bu durum devam ediyorsa moderatör bu durumu düzeltir. Bu durumun 
+tekrarı durumunda ilgili kişiye belirli bir süreliğine cezalar verilir. 
 
 Projeler:
 Projeler bölümünde, Bilgisayar Mühendisliği öğrencilerinin, kendi başlarına 
