@@ -61,15 +61,15 @@ durumda proje hazırlayanlar kısmına birden fazla kişi eklenebilir. Bir proje
 raporu silinmesi gibi bir durum var ise bunun için eğer bir kişi yapmış ise o
 bir kişinin onayı, eğer birden fazla kişi yapmışsa bütün yapanların onayı
 gerekmektedir. Bitirme Projesi ve Raporu sayfasında, ilgili projenin raporu,
-eğer varsa projenin sunumu, projenin kodları, proje ile karşılaşılan sorunlar, 
-ve ilgili diğer bilgiler bulunur. Bitirme projesi ve raporları bölümünde
-yazılmış olan bir rapor ile ilgili herhangi bir uygunsuz durum tespitinde
-önceden belirlenmiş olan kurallar geçerli olur. Eğer bir moderatör herhangi
-bir uygunsuz durum tespit ederse bunu düzeltmeleri için o projenin
-sahibi/sahiplerini uyarır. Eğer uyarı verildikten bir süre sonra da bu durum
-devam ediyorsa moderatör bu durumu düzeltir. Bu durumun tekrarı durumunda
+eğer varsa projenin sunumu, projenin kodları, proje ile karşılaşılan sorunlar,
+eğer proje başarılı bir şekilde bitmişse ve eğer projeyi yapan öğrenciler
+isterse projenin notu ve proje ile ilgili diğer bilgiler bulunur. Bitirme
+projesi ve raporları bölümünde yazılmış olan bir rapor ile ilgili herhangi
+bir uygunsuz durum tespitinde önceden belirlenmiş olan kurallar geçerli olur.
+Eğer bir moderatör herhangi bir uygunsuz durum tespit ederse bunu düzeltmeleri
+için o projenin sahibi/sahiplerini uyarır. Eğer uyarı verildikten bir süre sonra 
+da bu durum devam ediyorsa moderatör bu durumu düzeltir. Bu durumun tekrarı durumunda
 ilgili kişiye belirli bir süreliğine cezalar verilir. 
-
 
 Projeler:
 Projeler bölümünde, Bilgisayar Mühendisliği öğrencilerinin, kendi başlarına 
