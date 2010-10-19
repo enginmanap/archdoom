@@ -1,6 +1,8 @@
-Projenin amacı üniversite öğrenicilerinin okulla ilgili veya ilgisiz ihtiyaçlarını karşılayabilecekleri bir intenet portalı sağlamaktır.Bu portalda bulunması düşünülen özellikler 
+﻿Projenin amacı üniversite öğrenicilerinin okulla ilgili veya ilgisiz ihtiyaçlarını karşılayabilecekleri bir intenet portalı sağlamaktır.Bu portalda bulunması düşünülen özellikler 
 şunlardır
+
 forum:
+
 forum bölümü kullanıcıların istedikleri konularda fikir-bilgi paylaşımında bulunmaları içindir, burada bir kullanıcı bir başlık açacak, bu başlık altına konuyu açıklayan, sorusu varsa 
 sorusunu anlatan bir bir yazı yazacak, sonrasında bu başlık altında başlığa ait konuşmalar yapılacak.Forum genel amaçlı tasarlanıp, uygulanacak. Her başlık aynı özelliklere sahip olacak, 
 özel durumlar varsa diğer uygulamalardan(projeler, staj raporları gibi) faydalanılacak. Forumda birinci seviye başlıklar moderasyon tarafından oluşturulup değiştirilecek( örn: Ders 
@@ -9,14 +11,30 @@ düzeltme yetkileri olacak. Her Kullanıcı Bu Alt başlıklar altına düşünc
 açtıkları başlıkları, diğer kullanıcıların girdileri olabildiğinden dolayı silememeliler. Bu durumda, başlığın ilk girdisinin silinmeside mümkün olmamalıdır. Bütün forum girdilerinin 
 ayrıca oylanma hakkının olması, ve bu oylama durumunun görüntülenebilmesi istenmektedir. her girdi, kendi alanında girdi sahibi kişinin profiline bir köprü içerecektir. Forumda girdiler, 
 Zengin metin şeklinde alınabilecek, ayrıca resimler link olarak değil, doğrudan gönderilebilecektir.
-geçmiş sınavlar: Geçmiş yıllarda yapılmış sınav(quiz, vize, final) sorularının paylaşılması için kullanılacak. Bu bölümde ayrıca zorunlu olarak dersin adı, dersi vereh hocanın adı gibi 
+
+
+geçmiş sınavlar: 
+Geçmiş yıllarda yapılmış sınav(quiz, vize, final) sorularının paylaşılması için kullanılacak. Bu bölümde ayrıca zorunlu olarak dersin adı, dersi vereh hocanın adı gibi 
 bilgiler olacak. Bu bölüm forumla kısmen birleşip, soruların çözümleri gidi konularda öğrencilerin konuşup tartışmaları için gerekli ortamı oluşturacaktır.
+
+
 Ders Notları:
+
+
 Dönem içi ödevler:
+
+
 Staj Raporları:
+
+
 duyurular:
+
+
 Bitirme Projesi raporları:
+
+
 Projeler:
+
 Projeler bölümünde, Bilgisayar Mühendisliği öğrencilerinin, kendi başlarına uğraştığı projeler ve bunlar ile ilgili bilgiler bulunacaktır. Bu projeler bölümüne, herhangi bir öğrenci ders 
 içi veya ders dışı uğraşmış olduğu herhangi bir projeyi ekleyebilecektir. Her öğrencinin ayrı bir proje sayfası olacaktır. Bu proje sayfasında, projenin amacı, tam olarak ne işe yaradığı, 
 hangi teknolojilerin nasıl kullanıldığı, eğer var ise algoritmasının nasıl olduğu, nerelerde nasıl sorunlar yaşadığı, bunları nasıl çözdüğü, neden bu projeyi yaptığı, nerelerde 
@@ -35,4 +53,6 @@ belirlenmiş kuralların içerisinde yazmaktadır- hala uygunsuz durum devam edi
 süre için veya tamamen kapatılır. Bu durumda proje sahiplerine birer uyarı gönderilir. Eğer bu uyarıyı aldıktan sonra benzer bir durum ile uyarı alırsa, o kişiye bir süreliğine proje ile 
 ilgili cezalar verilir. Bu ceza örneğin 1 aylığına proje oluşturamamak veya ortak olamamak olabilir. Eğer ikinci uyarıdan sonra da ilgili kişi uyarı alırsa o kişinin proje bölümüyle 
 ilgili yetkileri kendisinden alınır.
+
+
 Gezegen:
