@@ -56,7 +56,18 @@ sayede kullanıcılar istdikleri gibi filtreleme yapabileceklerdir.
 
 
 Dönem içi ödevler:
-
+Kullanıcıların hazırladıkları ödevleri yayınlamaları için olan bu bölüm,
+öğrencilerin kaynaklarını arttırma amaçlıdır. ödevler oluşturan kullanıcılar
+tarafından silinebilirler. Yeni ödev oluşturulduğunda eşi bir forum başlığı
+Dönem içi ödevler ana başlığı altında oluşturulur. Eğer oluşturan kullanıcı
+ödevi silmek isterse, oluşturulan forum başlığı kilitlenip kaldırılır. Ödevler
+oylanabilir, yorum yapılabilir. her ödev ders ve dersi veren hoca bilgilerine
+sahip olmak zorundadır. Ödevler, çözüm olarak değil sadece verilen ödev
+şeklindede sunulabilir, diğer kullanıcılardan fikir yada örnek çözümler
+istenebilir. eğer çözüm tek seferde gösterime uygun olmayan bir büyüklükte ise,
+sayfa sayfa görüntülenir. Başlık altında sayfa sayfa link listesi şeklinde
+sunulur. eğer hem yazı hemde diğer materyaller varsa, önce metin kısımlar, sonra
+resimler gelecek şekilde otomatik düzenlenir.
 
 Staj Raporları:
 Staj Raporları bölümünde, Bilgisayar Mühendisliği bölümü öğrencilerinin 
@@ -165,7 +176,8 @@ silebilir. Gezegende her girdi; gönderen kişi, gönderenen küçük resmi (ava
 gönderim tarihi, girdinin başlığı, girdinin içeriği, girdinin içerdiği imler ve
 diğer bilgiler bulunur. Girdinin içerdiği imlerin altında da o kişisel günlük
 adresinde yazılmış olan yorumların miktarı gözükür. Oraya tıklandığında ise
-ilgili girdinin yorum bölümüne gidilir.Girdinin başlığına tıkladığımızda 
-girdinin alındığı sayfaya gidilir. Aynı zamanda gezegen bölümünde sağ tarafta 
-gezegene yazan kullanıcıların listesi bulunur. Bunlara tıklandığında ilgili 
+ilgili girdinin yorum bölümüne gidilir.Girdinin başlığına tıkladığımızda
+girdinin alındığı sayfaya gidilir. Aynı zamanda gezegen bölümünde sağ tarafta
+gezegene yazan kullanıcıların listesi bulunur. Bunlara tıklandığında ilgili
 kullanıcının eklenmiş olan kişisel günlük adresine gidilir.
+
