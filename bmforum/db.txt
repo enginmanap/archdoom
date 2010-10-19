@@ -59,7 +59,19 @@ Dönem içi ödevler:
 
 
 Staj Raporları:
-
+Staj Raporları bölümünde, Bilgisayar Mühendisliği bölümü öğrencilerinin 
+yapmış olduğu stajlar ve bunun raporları yer alacaktır. Bu bölümde, stajın 
+nerede yapılmış olduğu, stajın ne zaman yapılmış olduğu, staj boyunca nelerin
+yapıldığı, eğer var ise yazılmış olan kodlar, yapılan sunumlar ve staj ile 
+ilgili diğer bilgiler yer alacaktır. Oluşturulmuş olan bir staj raporunu,
+raporu oluşturan kişi silebilir, düzenleyebilir. Eğer öğrencinin stajı
+süresince yapmış olduğu projeye başka katkı sağlayan birileri varsa onları da
+katkıcılar olarak ekleyebilir. Eğer staj raporlarında uygunsuz bir durum
+tespit edilirse, moderatör tarafından raporu hazırlayan kişi uyarılır. Önceden
+de belirlenmiş olan bir süre zarfında eğer rapor düzeltilmez ise raporu
+hazırlayan kişi tekrar uyarılır ve düzeltilebiliyor ise moderatör tarafından
+düzeltilir. Bu durumun tekrarı halinde ilgili kişiye önceden belirlenecek bir
+ceza verilir.
 
 Duyurular:
 Duyurular bölümünde bölüm ve üniversite ile ilgili duyurular yapılacaktır. Bu
@@ -92,7 +104,9 @@ bir uygunsuz durum tespitinde önceden belirlenmiş olan kurallar geçerli olur.
 Eğer bir moderatör herhangi bir uygunsuz durum tespit ederse bunu düzeltmeleri
 için o projenin sahibi/sahiplerini uyarır. Eğer uyarı verildikten bir süre 
 sonra da bu durum devam ediyorsa moderatör bu durumu düzeltir. Bu durumun 
-tekrarı durumunda ilgili kişiye belirli bir süreliğine cezalar verilir. 
+tekrarı durumunda ilgili kişiye belirli bir süreliğine cezalar verilir. Eğer
+bitirme projesine, bitirme projesi yapan öğrenciler hariç katkıda bulunan
+varsa bunlar katkıcılar olarak eklenebilir.
 
 Projeler:
 Projeler bölümünde, Bilgisayar Mühendisliği öğrencilerinin, kendi başlarına 
