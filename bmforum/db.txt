@@ -61,7 +61,19 @@ Dönem içi ödevler:
 Staj Raporları:
 
 
-duyurular:
+Duyurular:
+Duyurular bölümünde bölüm ve üniversite ile ilgili duyurular yapılacaktır. Bu
+duyuruları ilgili moderatörler ekleyebilir. Yine duyuruları kaldırma işini de
+ilgili moderatörler yapacaktır. Duyurular bölümünde var olan duyurular
+yukarıdan aşağıya doğru kayan yazı şeklinde akacaktır. Üzerine gelindiğinde
+ise duyurular duracaktır. Herhangi bir duyuruya tıklandığında o duyuru ile
+ilgili olan forum sayfasına gidilir. Bu forum sayfasında da o duyuru ile
+ilgili çeşitli yorumlar yapılabilir. Herhangi bir duyuru ile ilgili yapılan
+herhangi bir yorum, yorumu yapan kişi tarafından kurallar dahilinde olması
+koşulu ile istediği gibi değiştirilebilir. Bir duyurunun yayınlamasından eğer
+önceden de belirlenmiş olan belirli bir süre geçmiş ise kayan yazıların olduğu
+bölümde o duyuru gözükmeyecektir. Eğer tüm duyurular görmek isteniyorsa bütün
+duyuruları göstere tıklayıp o bölüme gitmek gerekmektedir.
 
 
 Bitirme Projesi ve Raporları:
