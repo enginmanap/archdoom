@@ -1,0 +1,10 @@
+projenin amacý üniversite öðrenicilerinin okulla ilgili veya ilgisiz ihtiyaçlarýný karþýlayabilecekleri bir intenet portalý saðlamaktýr.Bu portalda bulunmasý düþünülen özellikler þunlardýr
+forum:
+Forum genel amaçlý tasarlanýp, uygulanacak. Forumda birinci seviye baþlýklar moderasyon tarafýndan oluþturulup deðiþtirilecek( örn: Ders içerikleri), ancak bu baþlýklar altýna kullanýcýlar baþlýk açabilecekler. Moderatorler gerekli gördükleri baþlýklarý listenin üstüne yerleþtirebilecekler, baþlýklarý kilitleme, silme, düzeltme yetkileri olacak.
+geçmiþ sýnavlar:
+Ders Notlarý:
+Dönem içi ödevler:
+Staj Raporlarý:
+duyurular:
+Bitirme Projesi raporlarý:
+projeler:
