@@ -1,21 +1,46 @@
-﻿Projenin amacı üniversite öğrenicilerinin okulla ilgili veya ilgisiz ihtiyaçlarını karşılayabilecekleri bir intenet portalı sağlamaktır.Bu portalda bulunması düşünülen özellikler 
-şunlardır
+﻿Projenin amacı üniversite öğrenicilerinin okulla ilgili veya ilgisiz 
+ihtiyaçlarını karşılayabilecekleri bir intenet portalı sağlamaktır.Bu portalda 
+bulunması düşünülen özellikler şunlardır
 
 forum:
 
-forum bölümü kullanıcıların istedikleri konularda fikir-bilgi paylaşımında bulunmaları içindir, burada bir kullanıcı bir başlık açacak, bu başlık altına konuyu açıklayan, sorusu varsa 
-sorusunu anlatan bir bir yazı yazacak, sonrasında bu başlık altında başlığa ait konuşmalar yapılacak.Forum genel amaçlı tasarlanıp, uygulanacak. Her başlık aynı özelliklere sahip olacak, 
-özel durumlar varsa diğer uygulamalardan(projeler, staj raporları gibi) faydalanılacak. Forumda birinci seviye başlıklar moderasyon tarafından oluşturulup değiştirilecek( örn: Ders 
-içerikleri), ancak bu başlıklar altına kullanıcılar başlık açabilecekler. Moderatorler gerekli gördükleri başlıkları listenin üstüne yerleştirebilecekler, başlıkları kilitleme, silme, 
-düzeltme yetkileri olacak. Her Kullanıcı Bu Alt başlıklar altına düşüncelerini yazabilecek. Kullanıcılar kendi yazdıkları yorumları düzenleme ve silme hakkı olmalı. Kullanıcılar kendi 
-açtıkları başlıkları, diğer kullanıcıların girdileri olabildiğinden dolayı silememeliler. Bu durumda, başlığın ilk girdisinin silinmeside mümkün olmamalıdır. Bütün forum girdilerinin 
-ayrıca oylanma hakkının olması, ve bu oylama durumunun görüntülenebilmesi istenmektedir. her girdi, kendi alanında girdi sahibi kişinin profiline bir köprü içerecektir. Forumda girdiler, 
-Zengin metin şeklinde alınabilecek, ayrıca resimler link olarak değil, doğrudan gönderilebilecektir.
+forum bölümü kullanıcıların istedikleri konularda fikir-bilgi paylaşımında 
+bulunmaları içindir, burada bir kullanıcı bir başlık açacak, bu başlık altına 
+konuyu açıklayan, sorusu varsa sorusunu anlatan bir bir yazı yazacak, 
+sonrasında bu başlık altında başlığa ait konuşmalar yapılacak.Forum genel 
+amaçlı tasarlanıp, uygulanacak. Her başlık aynı özelliklere sahip olacak, özel 
+durumlar varsa diğer uygulamalardan(projeler, staj raporları gibi) 
+faydalanılacak. Forumda birinci seviye başlıklar moderasyon tarafından 
+oluşturulup değiştirilecek( örn: Ders içerikleri), ancak bu başlıklar altına 
+kullanıcılar başlık açabilecekler. Moderatorler gerekli gördükleri başlıkları 
+listenin üstüne yerleştirebilecekler, başlıkları kilitleme, silme, düzeltme 
+yetkileri olacak. Her Kullanıcı Bu Alt başlıklar altına düşüncelerini 
+yazabilecek. Kullanıcılar kendi yazdıkları yorumları düzenleme ve silme hakkı 
+olmalı. Kullanıcılar kendi açtıkları başlıkları, diğer kullanıcıların girdileri
+ olabildiğinden dolayı silememeliler. Bu durumda, başlığın ilk girdisinin 
+silinmeside mümkün olmamalıdır. Bütün forum girdilerinin ayrıca oylanma 
+hakkının olması, ve bu oylama durumunun görüntülenebilmesi istenmektedir. her 
+girdi, kendi alanında girdi sahibi kişinin profiline bir köprü içerecektir. 
+Forumda girdiler, Zengin metin şeklinde alınabilecek, ayrıca resimler link 
+olarak değil, doğrudan gönderilebilecektir.
 
 
 geçmiş sınavlar: 
-Geçmiş yıllarda yapılmış sınav(quiz, vize, final) sorularının paylaşılması için kullanılacak. Bu bölümde ayrıca zorunlu olarak dersin adı, dersi vereh hocanın adı gibi 
-bilgiler olacak. Bu bölüm forumla kısmen birleşip, soruların çözümleri gidi konularda öğrencilerin konuşup tartışmaları için gerekli ortamı oluşturacaktır.
+Geçmiş yıllarda yapılmış sınav(quiz, vize, final) sorularının paylaşılması için
+ kullanılacak. Bu bölümde ayrıca zorunlu olarak dersin adı, dersi vereh hocanın
+ adı gibi bilgiler olacak. Bu bölüm forumla kısmen birleşip, soruların 
+çözümleri gidi konularda öğrencilerin konuşup tartışmaları için gerekli ortamı 
+oluşturacaktır. Geçmiş Sınavlar öncelikle yazı şeklinde olmalıdır, ancak hem 
+şekil vs. içerme ihtimali, hemde bazı matematik ifadelerinin yazımında ortaya 
+çıkan zorluklar göz önüne alındığında, resim formatlarınında girişlere 
+eklenebilmesi için gerekli adımların atılması gerektiği görülür. Geçmiş 
+sınavlar oylama sistemine dahil olacaktir, silinmesi ancak altına hiç yorum 
+yapılmadı ise ekleyen kişi tarafından olacak, yoksa moderasyon tarafından 
+silinecektir. Ayrıca eğer Hocanın cevap anahtarı var ise, ayrı bir alana bu 
+cevap anahtarıda girilebilecektir. Geçmiş sınav alanında yeni bir girdi 
+oluşturulduğunda, forum uygulaması, geçmiş sınavlar ana başlığı altında, sinav 
+uygulamasında oluşturulan girdinin başlığı ile yeni bir başlık açacak, forum 
+ile sınav uygulaması arası entegrasyonu sağlayıp kullanıcıların 
 
 
 Ders Notları:
@@ -35,24 +60,48 @@ Bitirme Projesi raporları:
 
 Projeler:
 
-Projeler bölümünde, Bilgisayar Mühendisliği öğrencilerinin, kendi başlarına uğraştığı projeler ve bunlar ile ilgili bilgiler bulunacaktır. Bu projeler bölümüne, herhangi bir öğrenci ders 
-içi veya ders dışı uğraşmış olduğu herhangi bir projeyi ekleyebilecektir. Her öğrencinin ayrı bir proje sayfası olacaktır. Bu proje sayfasında, projenin amacı, tam olarak ne işe yaradığı, 
-hangi teknolojilerin nasıl kullanıldığı, eğer var ise algoritmasının nasıl olduğu, nerelerde nasıl sorunlar yaşadığı, bunları nasıl çözdüğü, neden bu projeyi yaptığı, nerelerde 
-kullanılabileceği, yaptığı projenin kaynak kodu bulunabilir. Ayrıca bu sayfada, proje ile ilgili önemli olduğunu düşündüğü yerler varsa bunları da yazabilir. Her öğrenci kendi oluşturmuş 
-olduğu projeyi istediği şekilde düzenleyebilir, kodda değişiklik yapabilir. Ve eğer isterse kendi projesine başka katkıcılar ekleyebilir. Eğer projenin sahibi isterse bu katkıcılar 
-projenin yönetimi ile ilgili herhangi bir değişiklik yapabilir. Örneğin projenin amacını değiştirebilir, bir şeyler ekleyebilir. Eğer proje sahibi kendisi harici bir katkıcıya 
-bütün proje ile ilgili değişiklik hakkı verirse bu katkıcı artık o projenin ortağı olur. Bir proje ortağı ile proje sahibi o proje ile ilgili bütün işlemleri yapabilir. Eğer proje tek 
-sahipli ise o projenin sahibi bu projeyi silebilir fakat başka ortaklar var ise ilgili projeyi silmek için bütün ortaklardan tek tek onay alınması gerekir. Proje tek sahipli değilse 
-herhangi bir ortak o projeden çıkabilir. Eğer projenin 2 ortağı var ise ve bir ortak projeden ayrılırsa diğer ortak o projenin tek sahibi olur ve proje ile ilgili her şeyi yapma hakkına 
-sahip olur. Buna projeyi silmek de dahildir. Her projenin aynı zamanda yorumlar/öneriler/şikayetler bölümü de olacaktır. Bu bölüme her üyenin yazma hakkı bulunacaktır. Her projede yorum 
-bölümüne _yalnızca_ o proje ile ilgili yorumlar yapılmalıdır. Bunun kontrolünü de moderatörler ve proje sahipleri yapacaktır. Her yorum yapan kullanıcı kendi yorumunu silebilir, 
-düzenlemeler yapabilir. Aynı zamanda projeye katkıda bulunanlar, proje yetkileri ile birlikte proje sayfasında gözükeceklerdir. Buradan da bu kişilere Özel Mesaj atabilir. Özel mesaj, 
-kişiden kişiye atılır ve atılan kişiden başkası bu mesajı göremez. Eğer bir kişi isterse bütün proje sorumlularına aynı mesajı atabilir. Projenin içeriğinde daha önceden belirlenmiş olan 
-kurallara uygun olmayan bir durum bulunursa, öncelikle bunu bulan moderatör proje sahiplerini uyararak bunu düzeltmelerini ister, eğer uyarıdan bir süre sonra -bu süre de önceden 
-belirlenmiş kuralların içerisinde yazmaktadır- hala uygunsuz durum devam ediyorsa, duruma göre moderatör(ler) tarafından ya projenin uygun olmayan bölümü düzeltilir ya da proje geçici bir 
-süre için veya tamamen kapatılır. Bu durumda proje sahiplerine birer uyarı gönderilir. Eğer bu uyarıyı aldıktan sonra benzer bir durum ile uyarı alırsa, o kişiye bir süreliğine proje ile 
-ilgili cezalar verilir. Bu ceza örneğin 1 aylığına proje oluşturamamak veya ortak olamamak olabilir. Eğer ikinci uyarıdan sonra da ilgili kişi uyarı alırsa o kişinin proje bölümüyle 
-ilgili yetkileri kendisinden alınır.
+Projeler bölümünde, Bilgisayar Mühendisliği öğrencilerinin, kendi başlarına 
+uğraştığı projeler ve bunlar ile ilgili bilgiler bulunacaktır. Bu projeler 
+bölümüne, herhangi bir öğrenci ders içi veya ders dışı uğraşmış olduğu herhangi
+ bir projeyi ekleyebilecektir. Her öğrencinin ayrı bir proje sayfası olacaktır.
+ Bu proje sayfasında, projenin amacı, tam olarak ne işe yaradığı, hangi 
+teknolojilerin nasıl kullanıldığı, eğer var ise algoritmasının nasıl olduğu, 
+nerelerde nasıl sorunlar yaşadığı, bunları nasıl çözdüğü, neden bu projeyi 
+yaptığı, nerelerde kullanılabileceği, yaptığı projenin kaynak kodu bulunabilir.
+ Ayrıca bu sayfada, proje ile ilgili önemli olduğunu düşündüğü yerler varsa 
+bunları da yazabilir. Her öğrenci kendi oluşturmuş olduğu projeyi istediği 
+şekilde düzenleyebilir, kodda değişiklik yapabilir. Ve eğer isterse kendi 
+projesine başka katkıcılar ekleyebilir. Eğer projenin sahibi isterse bu 
+katkıcılar projenin yönetimi ile ilgili herhangi bir değişiklik yapabilir. 
+Örneğin projenin amacını değiştirebilir, bir şeyler ekleyebilir. Eğer proje 
+sahibi kendisi harici bir katkıcıya bütün proje ile ilgili değişiklik hakkı 
+verirse bu katkıcı artık o projenin ortağı olur. Bir proje ortağı ile proje 
+sahibi o proje ile ilgili bütün işlemleri yapabilir. Eğer proje tek sahipli ise
+ o projenin sahibi bu projeyi silebilir fakat başka ortaklar var ise ilgili 
+projeyi silmek için bütün ortaklardan tek tek onay alınması gerekir. Proje tek 
+sahipli değilse herhangi bir ortak o projeden çıkabilir. Eğer projenin 2 ortağı
+ var ise ve bir ortak projeden ayrılırsa diğer ortak o projenin tek sahibi olur
+ ve proje ile ilgili her şeyi yapma hakkına sahip olur. Buna projeyi silmek de 
+dahildir. Her projenin aynı zamanda yorumlar/öneriler/şikayetler bölümü de 
+olacaktır. Bu bölüme her üyenin yazma hakkı bulunacaktır. Her projede yorum 
+bölümüne "yalnızca" o proje ile ilgili yorumlar yapılmalıdır. Bunun kontrolünü 
+de moderatörler ve proje sahipleri yapacaktır. Her yorum yapan kullanıcı kendi 
+yorum"unu silebilir, düzenlemeler yapabilir. Aynı zamanda projeye katkıda 
+bulunanlar, proje yetkileri ile birlikte proje sayfasında gözükeceklerdir. 
+Buradan da bu kişilere Özel Mesaj atabilir. Özel mesaj, kişiden kişiye atılır 
+ve atılan kişiden başkası bu mesajı göremez. Eğer bir kişi isterse bütün proje 
+sorumlularına aynı mesajı atabilir. Projenin içeriğinde daha önceden 
+belirlenmiş olan kurallara uygun olmayan bir durum bulunursa, öncelikle bunu 
+bulan moderatör proje sahiplerini uyararak bunu düzeltmelerini ister, eğer 
+uyarıdan bir süre sonra -bu süre de önceden belirlenmiş kuralların içerisinde 
+yazmaktadır- hala uygunsuz durum devam ediyorsa, duruma göre moderatör(ler) 
+tarafından ya projenin uygun olmayan bölümü düzeltilir ya da proje geçici bir 
+süre için veya tamamen kapatılır. Bu durumda proje sahiplerine birer uyarı 
+gönderilir. Eğer bu uyarıyı aldıktan sonra benzer bir durum ile uyarı alırsa, 
+o kişiye bir süreliğine proje ile ilgili cezalar verilir. Bu ceza örneğin 1 
+aylığına proje oluşturamamak veya ortak olamamak olabilir. Eğer ikinci 
+uyarıdan sonra da ilgili kişi uyarı alırsa o kişinin proje bölümüyle ilgili 
+yetkileri kendisinden alınır.
 
 
 Gezegen:
