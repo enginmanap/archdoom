@@ -3,7 +3,6 @@ ihtiyaçlarını karşılayabilecekleri bir intenet portalı sağlamaktır.Bu po
 bulunması düşünülen özellikler şunlardır
 
 forum:
-
 forum bölümü kullanıcıların istedikleri konularda fikir-bilgi paylaşımında 
 bulunmaları içindir, burada bir kullanıcı bir başlık açacak, bu başlık altına 
 konuyu açıklayan, sorusu varsa sorusunu anlatan bir bir yazı yazacak, 
@@ -24,11 +23,10 @@ girdi, kendi alanında girdi sahibi kişinin profiline bir köprü içerecektir.
 Forumda girdiler, Zengin metin şeklinde alınabilecek, ayrıca resimler link 
 olarak değil, doğrudan gönderilebilecektir.
 
-
-geçmiş sınavlar: 
-Geçmiş yıllarda yapılmış sınav(quiz, vize, final) sorularının paylaşılması için
- kullanılacak. Bu bölümde ayrıca zorunlu olarak dersin adı, dersi vereh hocanın
- adı gibi bilgiler olacak. Bu bölüm forumla kısmen birleşip, soruların 
+geçmiş sınavlar:
+Geçmiş yıllarda yapılmış sınav(quiz, vize, final) sorularının paylaşılması
+için kullanılacak. Bu bölümde ayrıca zorunlu olarak dersin adı, dersi veren 
+hocanın adı gibi bilgiler olacak. Bu bölüm forumla kısmen birleşip, soruların 
 çözümleri gidi konularda öğrencilerin konuşup tartışmaları için gerekli ortamı 
 oluşturacaktır. Geçmiş Sınavlar öncelikle yazı şeklinde olmalıdır, ancak hem 
 şekil vs. içerme ihtimali, hemde bazı matematik ifadelerinin yazımında ortaya 
@@ -40,8 +38,8 @@ silinecektir. Ayrıca eğer Hocanın cevap anahtarı var ise, ayrı bir alana bu
 cevap anahtarıda girilebilecektir. Geçmiş sınav alanında yeni bir girdi 
 oluşturulduğunda, forum uygulaması, geçmiş sınavlar ana başlığı altında, sinav 
 uygulamasında oluşturulan girdinin başlığı ile yeni bir başlık açacak, forum 
-ile sınav uygulaması arası entegrasyonu sağlayıp kullanıcıların 
-
+ile sınav uygulaması arası entegrasyonu sağlayıp kullanıcıların her iki 
+uygulamanında özelliklerinden sonuna kadar faydalanması için ortam yaratılır.
 
 Ders Notları:
 
@@ -56,7 +54,6 @@ duyurular:
 
 
 Bitirme Projesi ve Raporları:
-
 Bitirme Projesi ve Raporları bölümünde, Bilgisayar Mühendisliğinde okuyan yada
 mezun öğrencilerin yapmış oldukları bitirme projelerinin raporlarını
 paylaşabilirler. Bir proje raporunu, birden fazla kişi yapmış olabilir. Bu
@@ -75,7 +72,6 @@ ilgili kişiye belirli bir süreliğine cezalar verilir.
 
 
 Projeler:
-
 Projeler bölümünde, Bilgisayar Mühendisliği öğrencilerinin, kendi başlarına 
 uğraştığı projeler ve bunlar ile ilgili bilgiler bulunacaktır. Bu projeler 
 bölümüne, herhangi bir öğrenci ders içi veya ders dışı uğraşmış olduğu herhangi
