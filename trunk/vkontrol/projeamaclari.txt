@@ -20,29 +20,32 @@ kayıt altına alınması ve bu değişikliklerin diğer geliştiricilere aktar�
 işlemlerinden sorumludur. 
 İki temel tipi vardır. Dağınık sürüm takip sistemleri ve merkezi sürüm takip 
 sistemleri. 
-Dağınık sürüm takip sistemlerinde sabit bir sunucu sistem yoktur,
+
+	Dağınık Sürüm Takip Sistemleri
+
+	Dağınık sürüm takip sistemlerinde sabit bir sunucu sistem yoktur,
 gelişitiriciler değişiklikleri birbirlerine bağlanarak 
 iletirler(Örnekler git, mercury).
 
 	Faydaları :
-
 - Offline olarak kod geliştirmeye izin verir .
-- Bütün kod bütün geliştiricilerde olduğu için felaket durumunda daha 
+- Kodun tamamı bütün geliştiricilerde olduğu için felaket durumunda daha 
 güvenlidir.
 
 	Zararları:
-
 - Lokal geliştirmeye destek verdiği için geliştiriciler arası iletişimi 
-zayıflatma riski var. 
-- Kod her geliştiricide tutulduğu için disk kullanımı yönünden verimsiz.
+zayıflatma riski vardır. 
+- Kod her geliştiricide tutulduğu için disk kullanımı yönünden verimsizdir.
 - Değişiklik sahibi gliştirici yaptığı bütün değişliklikleri bütün 
-geliştiricilere yollamak zorunda olduğu için bant genişliği yönünden verimsiz. 
-Merkezi Takip Sistemlerinde bir ana sunucu sürüm takip sistemi için kullanılır.
+geliştiricilere yollamak zorunda olduğu için bant genişliği yönünden 
+verimsizdir. 
+
+	Merkezi Takip Sistemleri
+	Merkezi Takip Sistemlerinde bir ana sunucu sürüm takip sistemi için kullanılır.
 Bütün geliştirme aşamaları ana sunucudadır. Geliştiricilerin elinde sadece
 çalıştıkları versiyon bulunur.
 
 	Faydaları:
-
 - Değişiklikleri sunucuya yollamaya konusunda geliştiricileri motive etmesi.
 - Geliştiricilerin diğer geliştiricilerle ilgilenmektense tek bir ana
 bilgisayarla sistemden faydalanabilmeleri. 
@@ -52,7 +55,6 @@ bilgisayarla sistemden faydalanabilmeleri.
 sağlaması
 
 	Zararları:
-
 - Felaket durumunda bilgilerin güvende olmaması
 - İnternet bağlantısı olmadan faydalanılamaması
 - Sürekli oarak birlikte çalışmaya zorladığı için birleştirme araçlarının güçlü
