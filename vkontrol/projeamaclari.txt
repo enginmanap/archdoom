@@ -1,0 +1,7 @@
+Çevik Yazılım Geliştirme yöntemleri ile Sürüm Takip sistemi hazırlanması.
+
+* Projenin Amacı
+
+* Sürümler
+
+* İterasysonlar
