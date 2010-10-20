@@ -2,6 +2,105 @@
 
 * Projenin Amacı
 
+Çevik yazılım geliştirme yöntemlerini kullanarak basit bir sürüm takip sistemi
+oluşturmaktır. 
+
+Çevik yazılım geliştirme yöntemi olarak "iterative development" 
+kullanılacaktır.
+
+Yazılım geliştirmek için "Java" Programlama dili kullanılacaktır.
+
+Sürüm Takip Sistemi nedir?
+
+	Sürüm takip sistemi bir projede geliştirme aşamasında kodda yapılan
+değişikliklerin takip edilebilmesine, gerektiğinde geri alınabilmesini sağlar.
+Aynı zamanda birden fazla kişinin farklı ortamlarda geliştirme yaptığı
+durumlarda herhangi bir geliştiricinin yaptıkları değişikliklerin düzenlenip 
+kayıt altına alınması ve bu değişikliklerin diğer geliştiricilere aktarılması
+işlemlerinden sorumludur. 
+İki temel tipi vardır. Dağınık sürüm takip sistemleri ve merkezi sürüm takip 
+sistemleri. 
+Dağınık sürüm takip sistemlerinde sabit bir sunucu sistem yoktur,
+gelişitiriciler değişiklikleri birbirlerine bağlanarak 
+iletirler(Örnekler git, mercury).
+
+	Faydaları :
+
+- Offline olarak kod geliştirmeye izin verir .
+- Bütün kod bütün geliştiricilerde olduğu için felaket durumunda daha 
+güvenlidir.
+
+	Zararları:
+
+- Lokal geliştirmeye destek verdiği için geliştiriciler arası iletişimi 
+zayıflatma riski var. 
+- Kod her geliştiricide tutulduğu için disk kullanımı yönünden verimsiz.
+- Değişiklik sahibi gliştirici yaptığı bütün değişliklikleri bütün 
+geliştiricilere yollamak zorunda olduğu için bant genişliği yönünden verimsiz. 
+Merkezi Takip Sistemlerinde bir ana sunucu sürüm takip sistemi için kullanılır.
+Bütün geliştirme aşamaları ana sunucudadır. Geliştiricilerin elinde sadece
+çalıştıkları versiyon bulunur.
+
+	Faydaları:
+
+- Değişiklikleri sunucuya yollamaya konusunda geliştiricileri motive etmesi.
+- Geliştiricilerin diğer geliştiricilerle ilgilenmektense tek bir ana
+bilgisayarla sistemden faydalanabilmeleri. 
+- Sürümlerin tek bir yerdee tutulmasının disk boyutu yönündn faydaları
+- Dosyaların tek merkezde tutumalarının bant genişliği yönünden faydaları 
+- Bütün dosyaların bulunduğu bir merkezin bulunmasının yönetimsel kolaylıklar
+sağlaması
+
+	Zararları:
+
+- Felaket durumunda bilgilerin güvende olmaması
+- İnternet bağlantısı olmadan faydalanılamaması
+- Sürekli oarak birlikte çalışmaya zorladığı için birleştirme araçlarının güçlü
+  olması gerekir.
+	
+Proje kapsamında merkezi sürüm takip sistemi örneği geliştirilecektir. 
+
+Projeden beklenenler:
+
+Proje iki programdan oluşacaktır. Sunucu ve istemci. bu iki
+uygulama ağ üzerinden haberlşerek sürüm takip sistemini oluştacaklardır.
+ 
+	İstemcinin özellikleri:
+
+- Herhangi bir klasörü sunucu ile eşleştirip temel kayıtları
+otomatik olarak yapmak. Geliştiricinin kullanıcı adı ve parolasını alıp sunucu
+aracılığıyla kimlik doğrulaması yapmak. 
+- Hangi dosyaların eşitleneceğine dair kayıt tutmak.
+- Karşı taraftan gelen değişiklikleri gerektiği dosyaları yansıtabilmek.
+	
+	Sunucunun özellikleri:
+
+- Yollanan dosyanın önceki sürümle farkını alıp kaydetmek 
+- Yolanan dosyaların tamamı için bir revizyon numarası atayıp bu revizyona
+  ulaşım sağlamak.
+- Herhangi bir dosya istemci tarafından istendiğinde istenen revizyona göre
+  dosyayı sağlamak.
+- Birden fazla kişinin yaptığı değişiklikleri tek bir dosyada birleştirebilmek  
+- Bütün projeyi indirmek için bir yöntem sağlamak.
+- Kimlik doğrulama için istemciyle gerekli işlemleri yapmak.
+
+Proje sorumluları:
+-080401018 Engin Manap
+-080401013 Mesutcan Kurt
+-080401005 Mustafa Şahin
+-080401009 Semih Erdem
+
+
+
+
+	 
+
+
+
 * Sürümler
+	
+	
+
+
 
 * İterasysonlar
