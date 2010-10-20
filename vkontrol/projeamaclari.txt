@@ -1,4 +1,4 @@
-Çevik Yazılım Geliştirme yöntemleri ile Sürüm Takip sistemi hazırlanması.
+﻿Çevik Yazılım Geliştirme yöntemleri ile Sürüm Takip sistemi hazırlanması.
 
 * Projenin Amacı
 
