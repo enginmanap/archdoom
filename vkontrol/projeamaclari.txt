@@ -5,11 +5,6 @@
 Çevik yazılım geliştirme yöntemlerini kullanarak basit bir sürüm takip sistemi
 oluşturmaktır. 
 
-Çevik yazılım geliştirme yöntemi olarak "iterative development" 
-kullanılacaktır.
-
-Yazılım geliştirmek için "Java" Programlama dili kullanılacaktır.
-
 Sürüm Takip Sistemi nedir?
 
 	Sürüm takip sistemi bir projede geliştirme aşamasında kodda yapılan
@@ -24,8 +19,8 @@ sistemleri.
 	Dağınık Sürüm Takip Sistemleri
 
 	Dağınık sürüm takip sistemlerinde sabit bir sunucu sistem yoktur,
-gelişitiriciler değişiklikleri birbirlerine bağlanarak 
-iletirler(Örnekler git, mercury).
+gelişitiriciler değişiklikleri birbirlerine bağlanarak iletirler (Örnekler 
+git, mercurial).
 
 	Faydaları :
 - Offline olarak kod geliştirmeye izin verir .
@@ -36,42 +31,45 @@ güvenlidir.
 - Lokal geliştirmeye destek verdiği için geliştiriciler arası iletişimi 
 zayıflatma riski vardır. 
 - Kod her geliştiricide tutulduğu için disk kullanımı yönünden verimsizdir.
-- Değişiklik sahibi gliştirici yaptığı bütün değişliklikleri bütün 
+- Değişiklik sahibi geliştirici yaptığı bütün değişliklikleri bütün 
 geliştiricilere yollamak zorunda olduğu için bant genişliği yönünden 
 verimsizdir. 
 
 	Merkezi Takip Sistemleri
-	Merkezi Takip Sistemlerinde bir ana sunucu sürüm takip sistemi için kullanılır.
-Bütün geliştirme aşamaları ana sunucudadır. Geliştiricilerin elinde sadece
-çalıştıkları versiyon bulunur.
+	Merkezi Takip Sistemlerinde bir ana sunucu sürüm takip sistemi için 
+kullanılır. Bütün geliştirme aşamaları ana sunucudadır. Geliştiricilerin 
+elinde sadece çalıştıkları versiyon bulunur (örnekler subversion, cvs).
 
 	Faydaları:
-- Değişiklikleri sunucuya yollamaya konusunda geliştiricileri motive etmesi.
+- Değişiklikleri sunucuya yollamaya konusunda geliştiricileri teşvik etmesi.
 - Geliştiricilerin diğer geliştiricilerle ilgilenmektense tek bir ana
 bilgisayarla sistemden faydalanabilmeleri. 
-- Sürümlerin tek bir yerdee tutulmasının disk boyutu yönündn faydaları
-- Dosyaların tek merkezde tutumalarının bant genişliği yönünden faydaları 
+- Sürümlerin tek bir yerde tutulmasının disk boyutu yönünden faydalıdır.
+- Dosyaların tek merkezde tutumalarının bant genişliği yönünden faydalıdır.
 - Bütün dosyaların bulunduğu bir merkezin bulunmasının yönetimsel kolaylıklar
-sağlaması
+sağlaması.
 
 	Zararları:
-- Felaket durumunda bilgilerin güvende olmaması
-- İnternet bağlantısı olmadan faydalanılamaması
+- Felaket durumunda bilgilerin güvende olmaması.
+- İnternet bağlantısı olmadan faydalanılamaması.
 - Sürekli oarak birlikte çalışmaya zorladığı için birleştirme araçlarının güçlü
   olması gerekir.
 	
 Proje kapsamında merkezi sürüm takip sistemi örneği geliştirilecektir. 
+Çevik yazılım geliştirme yöntemi olarak "Extreme programming" kullanılacaktır.
+Yazılım geliştirmek için "Java" Programlama dili kullanılacaktır.
 
-Projeden beklenenler:
+Projeden Hedefleri:
 
 Proje iki programdan oluşacaktır. Sunucu ve istemci. bu iki
-uygulama ağ üzerinden haberlşerek sürüm takip sistemini oluştacaklardır.
+uygulama ağ üzerinden haberleşerek sürüm takip sistemini oluştacaklardır.
  
 	İstemcinin özellikleri:
 
-- Herhangi bir klasörü sunucu ile eşleştirip temel kayıtları
-otomatik olarak yapmak. Geliştiricinin kullanıcı adı ve parolasını alıp sunucu
-aracılığıyla kimlik doğrulaması yapmak. 
+- Herhangi bir klasörü sunucu ile eşleştirip temel kayıtları otomatik olarak 
+yapmak. 
+-Geliştiricinin kullanıcı adı ve parolasını alıp sunucu aracılığıyla kimlik 
+doğrulaması yapmak. 
 - Hangi dosyaların eşitleneceğine dair kayıt tutmak.
 - Karşı taraftan gelen değişiklikleri gerektiği dosyaları yansıtabilmek.
 	
@@ -87,6 +85,7 @@ aracılığıyla kimlik doğrulaması yapmak.
 - Kimlik doğrulama için istemciyle gerekli işlemleri yapmak.
 
 Proje sorumluları:
+
 -080401018 Engin Manap
 -080401013 Mesutcan Kurt
 -080401005 Mustafa Şahin
