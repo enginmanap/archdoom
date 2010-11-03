@@ -1,0 +1,85 @@
+Sürüm 1 için iterasyonlar:
+=========================
+
+1. İterasyon:
+------------
+
+    * Dosya oku.
+
+    Herhangi bir metin dosyasını, bütün içeriği belleğe kopyalayacak 
+    şekilde okuyabilmek.
+
+    * Fark al.
+
+    Okunmuş olan iki dosya arasındaki farkın satır bazlı olarak 
+    alabilmek.
+
+    * Dosyaya yaz.
+
+    Alınmış olan dosyalar arası bu farkın bir dosyaya yazabilmek.
+
+    HEDEFLER
+
+    Bir dosya üzerinde, bir dosya içinde yapılmış olan değişikliklerin 
+    bulunup kaydedilmesi hedeflenmektedir.
+
+
+2. İterasyon:
+------------
+
+    * Başlangıç işlemleri. (Devamlılık için yeni eklenen ve silinen)
+
+    Sürüme dahil olan dosyaların ve dizinlerin kayıtlarını tutmak 
+    yollarını ve revizyonunu kaydedebilmek.
+
+    * Fark uygulama.
+
+    Sürüme dahil olan bir dosya için önceki fark dosyaları ile daha ileri 
+    bir sürümü elde edebilmek.
+
+    HEDEFLER
+
+    Hangi dosyaların ve dizinlerin revizyona dahil olduğunun kaydını 
+    tutabilmek ve fark dosyaları aracılığıyla bir önceki revizyon 
+    dosyalarından güncel revizyon dosyalarını elde edebilmek.
+
+3. İterasyon:
+------------
+
+    * Fark birleştirme.
+
+    Birden fazla fark dosyası aracılığıyla çoklu revizyon değişiklikleri 
+    için dosyaları elde edebilmek.
+
+    * Dosya çekme.
+
+    Sunucuya yollanacak bir komutla bütün dizin yapısını ve dosyaları 
+    çekebilmek.
+
+    HEDEFLER
+
+    İstenen herhangi bir revizyon numarasına uygun bir şekilde bütün 
+    dizin yapısını istemci tarafında edinebilmek.
+
+4. İterasyon:
+------------
+
+    * Dosya yollama.
+
+    Revizyona dahil olan dizin yapısının tamamını sunucuya yollayabilmek.
+
+    * Karşı taraf için yeni revizyona gitme.
+
+    Yeni gelen dosyaların elde bulunan revizyonları ile farklarını 
+    alabilmek ve bu farkları kaydedebilmek.
+
+    HEDEFLER
+
+    İstemci tarafında yapılan geliştirmelerin eski revizyonları bozmadan 
+    sunucu tarafına doğru bir şekilde aktarabilmek.
+
+HEDEFLER
+
+Sürüm sonunda istemci tarafında eşitlenmiş olan dizinde yapılan değişiklikleri 
+istenen sıklıkta sunucuya yollayabilmek, sunucunun, yollanan her bir kodu 
+kaydedebilmesi, istendiğinde yollanan herhangi bir revizyondan ulaşılabilmesi.
