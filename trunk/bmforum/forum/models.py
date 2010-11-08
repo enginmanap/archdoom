@@ -16,7 +16,7 @@ class Topic(models.Model):
 
 class Entry(models.Model):
 	user = models.ForeignKey(User, related_name = "entry_author")
-	topic = models.ForeignKey(Topic, related_name = "topic_of_entry")
+	topic = models.ForeignKey(Topic, related_name = "topic_of_entry", null=False, blank=False)
 	text = models.TextField(verbose_name = "icerik")
 	date = models.DateTimeField("date_submitted", default = datetime.now())
 	isHidden = models.BooleanField("entry_deleted?", default = False)
@@ -25,8 +25,8 @@ class Entry(models.Model):
 
 #FIXME edit should be a new class	
 	isEdited = models.BooleanField("entry_edited?", default = False)
-	editdate = models.DateTimeField("date_edited")
-	editBy = models.ForeignKey(User, related_name ="entry_editer")
+	editdate = models.DateTimeField("date_edited", blank=True, null=True)
+	editBy = models.ForeignKey(User, related_name ="entry_editer", blank=True, null=True)
 
 
 	
