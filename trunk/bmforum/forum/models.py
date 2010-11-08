@@ -1,12 +1,6 @@
 from django.db import models
 from datetime import datetime
-
-# Create your models here.
-
-class User(models.Model):
-
-
-
+from django.contrib.auth.models import User
 
 class Entry(models.Model):
 	user = models.ForeignKey(User, related_name = "entry_author")
@@ -22,9 +16,18 @@ class Entry(models.Model):
 	editdate = models.DateTimeField("date_edited")
 	editBy = models.ForeignKey(User, related_name ="entry_editer")
 
+class TopicPriorities(models.Model):
+	name = models.CharField(max_length = 100)
+	
+	def __unicode__(self):
+		return self.name
+
 class Topic(models.Model):
-
-
+	title = models.charField(max_length = 100, verbose_name = "baslik")
+	priority = models.ForeignKey(TopicPriorities, blank=false, null=false, verbose_name = "onem")
+	subTopic = models.ForeignKey(Topic,blank=true,null=true,verbose_name = "ait_oldugu_baslik")
+	owner = models.ForeignKey(User, related_name = "creater_of_topic")
+	
 
 
 
