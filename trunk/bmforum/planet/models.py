@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Planet(models.Model):
     blogAddress = models.URLField(verbose_name = "blog_adresi")
@@ -7,6 +8,6 @@ class Planet(models.Model):
     
 class BlogEntry(models.Model):
     blog = models.ForeignKey(Planet, related_name = "blog")
-    title = models.CharField(verbose_name = "girdi_basligi")
+    title = models.CharField(max_length = 512, verbose_name = "girdi_basligi")
     text = models.TextField(verbose_name = "girdi_icerigi")
     date = models.DateTimeField(verbose_name = "girdi_tarihi")
