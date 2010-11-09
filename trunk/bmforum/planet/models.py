@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-class Planet(models.Model):
+class Blog(models.Model):
     blogAddress = models.URLField(verbose_name = "blog_adresi")
     isHidden = models.BooleanField(verbose_name = "silindi_mi?", default=False)
     user = models.ForeignKey(User, related_name = "blog_sahibi")
