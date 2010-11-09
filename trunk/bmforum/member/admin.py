@@ -5,3 +5,4 @@ from django.contrib import admin
 from bmforum.member.models import *
 
 admin.site.register(Member)
+admin.site.register(NotifyOptions)
