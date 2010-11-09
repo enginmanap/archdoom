@@ -7,7 +7,7 @@ class Blog(models.Model):
     user = models.ForeignKey(User, related_name = "blog_sahibi")
     
 class BlogEntry(models.Model):
-    blog = models.ForeignKey(Planet, related_name = "blog")
+    blog = models.ForeignKey(Blog, related_name = "blog")
     title = models.CharField(max_length = 512, verbose_name = "girdi_basligi")
     text = models.TextField(verbose_name = "girdi_icerigi")
     date = models.DateTimeField(verbose_name = "girdi_tarihi")
