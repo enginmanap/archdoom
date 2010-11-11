@@ -4,8 +4,14 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.List;
+
+import difflib.*;
+
 
 
 public class Sunucu {
@@ -60,6 +66,29 @@ public class Sunucu {
 		}
 		return strLine;
 		
+	}
+	
+	private List<String> dosyadanSatira(String filename) {
+        List<String> lines = new LinkedList<String>();
+        String line = "";
+        try {
+                BufferedReader in = new BufferedReader(new FileReader(filename));
+                while ((line = in.readLine()) != null) {
+                        lines.add(line);
+                }
+        } catch (IOException e) {
+                e.printStackTrace();
+        }
+        return lines;
+	}
+
+	public List<Delta> farkAl(String dosya1, String dosya2) {
+		List<String> ilkDosya = dosyadanSatira(dosya1);
+		List<String> ikinciDosya = dosyadanSatira(dosya2);
+		
+		Patch patch = DiffUtils.diff(ilkDosya, ikinciDosya);
+//		System.out.println(patch);
+		return patch.getDeltas();
 	}
 
 }
