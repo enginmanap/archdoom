@@ -8,10 +8,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.List;
 
 import junit.framework.TestCase;
 
 import org.junit.Before;
+
+import difflib.Delta;
 
 
 public class I1SunucuTest extends TestCase{
@@ -21,36 +24,29 @@ public class I1SunucuTest extends TestCase{
 		super.setUp();
 	}
 
-	public void testDosyaOkuma(){
-		File dosya = new File("deneme.txt");
-		File dosya2 = new File("olmayan.dosya");
-		assertEquals(true, dosya.exists());
-		assertEquals(false, dosya2.exists());
+	public void testDosyaDizinOkuma(){
+		Sunucu sunucu = new Sunucu();
+		assertEquals(true, sunucu.varMi("deneme.txt"));
+		assertEquals(false, sunucu.varMi("mesutcank.txt"));
+		assertEquals(true, sunucu.varMi("src"));
 		
-		File klasor = new File("src");
-		assertEquals(true, dosya.isFile());
-		assertEquals(false, dosya2.isFile());
-		assertEquals(true, dosya.canRead());
-		assertEquals(true, klasor.canRead());
+		assertEquals(true, sunucu.dosyaMi("deneme.txt"));
+		assertEquals(true, sunucu.dizinMi("src"));
 		
-		//Dosyanin icinde ne yaziyor bakilacak
-		FileReader dosyaOkuyucu = null;
-		try {
-			dosyaOkuyucu = new FileReader(dosya);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		BufferedReader girisAkisi = new BufferedReader(dosyaOkuyucu);
+		assertEquals(true, sunucu.okunabilirMi("deneme.txt"));
+		assertEquals(true, sunucu.okunabilirMi("src"));
 		
-		//DataInputStream dosyaakisi = new DataInputStream(dosya);
-		String satir = null;
-		try {
-			satir = girisAkisi.readLine();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		// satir degiskeninde bir satir var artik.
+		assertNotNull(sunucu.satirOku("deneme.txt"));
+		assertNull(sunucu.satirOku("mesutcan.txt"));
+	}
+	
+	public void testFarkAlma(){
+		Sunucu sunucu = new Sunucu();
+		
+		List<Delta> fark = sunucu.farkAl("deneme.txt", "mesutcan.txt");
+		
+		assertNotNull(fark);
+		
+		
 	}
 }
