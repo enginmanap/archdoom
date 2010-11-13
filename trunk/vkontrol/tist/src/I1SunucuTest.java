@@ -1,19 +1,6 @@
-import static org.junit.Assert.*;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
 import java.util.List;
-
 import junit.framework.TestCase;
-
 import org.junit.Before;
-
 import difflib.Delta;
 
 
@@ -46,7 +33,6 @@ public class I1SunucuTest extends TestCase{
 		List<Delta> fark = sunucu.farkAl("deneme.txt", "mesutcan.txt");
 		
 		assertNotNull(fark);
-		
 		
 	}
 }

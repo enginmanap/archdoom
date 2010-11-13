@@ -1,4 +1,3 @@
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
@@ -9,10 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.List;
-
 import difflib.*;
-
-
 
 public class Sunucu {
 
@@ -41,12 +37,10 @@ public class Sunucu {
 	}
 
 	public String satirOku(String dosyaAdi) {
-//		File dosya = new File(dosyaAdi);
 		FileInputStream fstream = null;
 		try {
 			fstream = new FileInputStream(dosyaAdi);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		DataInputStream in = new DataInputStream(fstream);
@@ -55,13 +49,11 @@ public class Sunucu {
 		try {
 			strLine=br.readLine();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
 			in.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return strLine;
@@ -85,9 +77,7 @@ public class Sunucu {
 	public List<Delta> farkAl(String dosya1, String dosya2) {
 		List<String> ilkDosya = dosyadanSatira(dosya1);
 		List<String> ikinciDosya = dosyadanSatira(dosya2);
-		
 		Patch patch = DiffUtils.diff(ilkDosya, ikinciDosya);
-//		System.out.println(patch);
 		return patch.getDeltas();
 	}
 
