@@ -4,7 +4,7 @@ import org.junit.Before;
 import difflib.Delta;
 
 
-public class I1SunucuTest extends TestCase{
+public class SunucuTest extends TestCase{
 
 	@Before
 	public void setUp() throws Exception {
