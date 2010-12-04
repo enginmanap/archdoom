@@ -35,6 +35,7 @@ public class DosyaTest extends TestCase {
 		
 		sahteYazici.verify();
 	}
+	
 	public void testDosyaOkuma(){
 		List<String> dummyFile = new ArrayList<String>();
 		dummyFile.add("engin");

@@ -7,10 +7,9 @@ import java.io.ObjectInputStream;
 public class OkunacakDosya {
 
 	private ObjectInputStream objeGirisAkisi;
+	private FileInputStream dosyaGirisAkisi = null;
 	
 	public OkunacakDosya(String dosyaYolu) {
-		FileInputStream dosyaGirisAkisi = null;
-		
 		try {
 			dosyaGirisAkisi = new FileInputStream(dosyaYolu);
 			objeGirisAkisi = new ObjectInputStream(dosyaGirisAkisi);

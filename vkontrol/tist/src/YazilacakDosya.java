@@ -6,13 +6,10 @@ import java.io.ObjectOutputStream;
 
 public class YazilacakDosya {
 
-	
 	private ObjectOutputStream objeCikisAkisi;
+	private FileOutputStream dosyaCikisAkisi = null;
 	
 	public YazilacakDosya(String dosyaYolu) {
-		FileOutputStream dosyaCikisAkisi = null;
-	
-		
 		try {
 			dosyaCikisAkisi = new FileOutputStream(dosyaYolu);
 			objeCikisAkisi = new ObjectOutputStream(dosyaCikisAkisi);
@@ -30,6 +27,7 @@ public class YazilacakDosya {
 	public boolean satirYaz(String yazilacakSatir){
 		try {
 			objeCikisAkisi.writeUTF(yazilacakSatir);
+			objeCikisAkisi.flush();
 			return true;
 		} catch (IOException e) {
 			System.out.println("Utf akisina yazilamadi");
