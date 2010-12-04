@@ -25,7 +25,7 @@ public class DosyaTest extends TestCase {
 		sahteYazici.addExpectedLine("mesutcan");
 		sahteYazici.addExpectedLine("semih");
 		
-		Dosya deneme = new Dosya("deneme.txt");
+		YazilacakDosya deneme = new YazilacakDosya("deneme.txt");
 		deneme.setWriter(sahteYazici);
 		
 		deneme.satirYaz("engin");
@@ -52,7 +52,7 @@ public class DosyaTest extends TestCase {
 		sahteOkuyucu.addExpectedLine("mesutcan");
 		sahteOkuyucu.addExpectedLine("semih");
 		
-		Dosya deneme = new Dosya("deneme.txt");
+		OkunacakDosya deneme = new OkunacakDosya("deneme.txt");
 		deneme.setReader(sahteOkuyucu);
 		
 		assertEquals("engin", deneme.satirOku());
