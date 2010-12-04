@@ -13,6 +13,7 @@ public class I1SunucuTest extends TestCase{
 
 	public void testDosyaDizinOkuma(){
 		Sunucu sunucu = new Sunucu();
+		
 		assertEquals(true, sunucu.varMi("deneme.txt"));
 		assertEquals(false, sunucu.varMi("mesutcank.txt"));
 		assertEquals(true, sunucu.varMi("src"));
