@@ -1,7 +1,7 @@
-import java.util.List;
 import junit.framework.TestCase;
 import org.junit.Before;
 import difflib.Delta;
+import difflib.Patch;
 
 
 public class SunucuTest extends TestCase{
@@ -10,29 +10,29 @@ public class SunucuTest extends TestCase{
 	public void setUp() throws Exception {
 		super.setUp();
 	}
-
-	public void testDosyaDizinOkuma(){
-		Sunucu sunucu = new Sunucu();
-		
-		assertEquals(true, sunucu.varMi("deneme.txt"));
-		assertEquals(false, sunucu.varMi("mesutcank.txt"));
-		assertEquals(true, sunucu.varMi("src"));
-		
-		assertEquals(true, sunucu.dosyaMi("deneme.txt"));
-		assertEquals(true, sunucu.dizinMi("src"));
-		
-		assertEquals(true, sunucu.okunabilirMi("deneme.txt"));
-		assertEquals(true, sunucu.okunabilirMi("src"));
-		
-		assertNotNull(sunucu.satirOku("deneme.txt"));
-		assertNull(sunucu.satirOku("mesutcan.txt"));
-	}
 	
 	public void testFarkAlma(){
 		Sunucu sunucu = new Sunucu();
 		
-		List<Delta> fark = sunucu.farkAl("deneme.txt", "mesutcan.txt");
+		YazilacakDosya ilkDosya = new YazilacakDosya("ilkdosya.txt");
+		ilkDosya.satirYaz("engin");
+		ilkDosya.satirYaz("mustafa");
+		ilkDosya.satirYaz("mesutcan");
+		ilkDosya.satirYaz("semih");
 		
+		YazilacakDosya ikinciDosya = new YazilacakDosya("ikincidosya.txt");
+		ikinciDosya.satirYaz("engin");
+		ikinciDosya.satirYaz("mustafa");
+		ikinciDosya.satirYaz("mesutcan");
+		ikinciDosya.satirYaz("semih");
+		
+		
+		Patch fark = sunucu.farkAl("ilkdosya.txt", "ikincidosya.txt");
+		
+		for(int i=0;i<fark.getDeltas().size();i++){
+			
+			System.out.println(fark.getDelta(i));
+		}
 		assertNotNull(fark);
 		
 	}
