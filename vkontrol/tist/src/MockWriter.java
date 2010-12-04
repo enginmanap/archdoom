@@ -27,6 +27,10 @@ public class MockWriter extends ObjectOutputStream {
 		Assert.assertEquals(beklenenSatir, yazilacakSatir);
 		actualList.add(yazilacakSatir);
 		}
+	@Override
+	public void flush() throws IOException {
+		// flush islemi yapýlmadýgýndan, bos birakilmistir.
+	}
 	
 	public void verify(){
 		if (expectedList.size() != actualList.size())

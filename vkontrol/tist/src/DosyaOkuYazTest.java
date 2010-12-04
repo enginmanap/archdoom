@@ -5,7 +5,7 @@ import java.util.List;
 import junit.framework.TestCase;
 import org.junit.Before;
 
-public class DosyaTest extends TestCase {
+public class DosyaOkuYazTest extends TestCase {
 
 	@Before
 	public void setUp() throws Exception {
