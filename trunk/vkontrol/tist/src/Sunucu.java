@@ -5,7 +5,7 @@ import difflib.*;
 public class Sunucu {
 
 	
-	private List<String> dosyadanSatira(String filename) {
+	public List<String> dosyadanSatira(String filename) {
         List<String> lines = new LinkedList<String>();
         
         OkunacakDosya dosya = new OkunacakDosya(filename);
