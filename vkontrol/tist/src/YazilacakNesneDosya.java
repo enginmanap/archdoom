@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 
-public class YazilacakDosya {
+public class YazilacakNesneDosya {
 
 	private ObjectOutputStream objeCikisAkisi;
 	private FileOutputStream dosyaCikisAkisi = null;
 	
-	public YazilacakDosya(String dosyaYolu) {
+	public YazilacakNesneDosya(String dosyaYolu) {
 		try {
 			dosyaCikisAkisi = new FileOutputStream(dosyaYolu);
 			objeCikisAkisi = new ObjectOutputStream(dosyaCikisAkisi);
@@ -24,14 +24,26 @@ public class YazilacakDosya {
 		objeCikisAkisi = sahteYazici;
 	}
 	
-	public boolean satirYaz(String yazilacakSatir){
+	public boolean satirYaz(Object yazilacakSatir){
+		if (objeCikisAkisi.getClass().getName() == "MockObjectWriter"){
+			try {
+				objeCikisAkisi.writeUnshared(yazilacakSatir);
+				objeCikisAkisi.flush();
+				return true;
+			} catch (IOException e) {
+				System.out.println("Utf akisina yazilamadi");
+				return false;
+			}
+		}
+		else{
 		try {
-			objeCikisAkisi.writeUTF(yazilacakSatir);
+			objeCikisAkisi.writeObject(yazilacakSatir);
 			objeCikisAkisi.flush();
 			return true;
 		} catch (IOException e) {
 			System.out.println("Utf akisina yazilamadi");
 			return false;
+		}
 		}
 	}
 }

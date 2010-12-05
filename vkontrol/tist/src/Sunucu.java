@@ -1,16 +1,18 @@
 import java.util.LinkedList;
 import java.util.List;
-import difflib.*;
+
+import difflib.DiffUtils;
+import difflib.Patch;
 
 public class Sunucu {
 
 	
-	public List<String> dosyadanSatira(String filename) {
-        List<String> lines = new LinkedList<String>();
+	public List<Object> dosyadanSatira(String filename) {
+        List<Object> lines = new LinkedList<Object>();
         
-        OkunacakDosya dosya = new OkunacakDosya(filename);
+        OkunacakNesneDosya dosya = new OkunacakNesneDosya(filename);
         while(true){
-        	String newLine = dosya.satirOku();
+        	Object newLine = dosya.satirOku();
         	if (newLine != null)
         		lines.add(newLine);
         	else
@@ -20,8 +22,8 @@ public class Sunucu {
 	}
 
 	public Patch farkAl(String dosya1, String dosya2) {
-		List<String> ilkDosya = dosyadanSatira(dosya1);
-		List<String> ikinciDosya = dosyadanSatira(dosya2);
+		List<Object> ilkDosya = dosyadanSatira(dosya1);
+		List<Object> ikinciDosya = dosyadanSatira(dosya2);
 		Patch patch = DiffUtils.diff(ilkDosya, ikinciDosya);
 		return patch;
 	}
