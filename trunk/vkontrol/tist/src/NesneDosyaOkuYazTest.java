@@ -6,7 +6,7 @@ import junit.framework.TestCase;
 
 import org.junit.Before;
 
-public class DosyaOkuYazTest extends TestCase {
+public class NesneDosyaOkuYazTest extends TestCase {
 
 	@Before
 	public void setUp() throws Exception {
@@ -26,15 +26,15 @@ public class DosyaOkuYazTest extends TestCase {
 		sahteYazici.addExpectedLine("mesutcan");
 		sahteYazici.addExpectedLine("semih");
 		
-		YazilacakNesneDosya deneme = new YazilacakNesneDosya("deneme.txt");
-		//deneme.setWriter(sahteYazici);
+		YazilacakNesneDosya deneme = new YazilacakNesneDosya("deneme.obj");
+		deneme.setWriter(sahteYazici);
 		
 		deneme.satirYaz("engin");
 		deneme.satirYaz("mustafa");
 		deneme.satirYaz("mesutcan");
 		deneme.satirYaz("semih");
 		
-		//sahteYazici.verify();
+		sahteYazici.verify();
 	}
 	
 	public void testDosyaOkuma(){
@@ -54,12 +54,12 @@ public class DosyaOkuYazTest extends TestCase {
 		sahteOkuyucu.addExpectedLine("mesutcan");
 		sahteOkuyucu.addExpectedLine("semih");
 		
-		OkunacakNesneDosya deneme = new OkunacakNesneDosya("deneme.txt");
-		//deneme.setReader(sahteOkuyucu);
+		OkunacakNesneDosya deneme = new OkunacakNesneDosya("deneme.obj");
+		deneme.setReader(sahteOkuyucu);
 		assertEquals("engin", deneme.satirOku());
 		assertEquals("mustafa", deneme.satirOku());
 		assertEquals("mesutcan", deneme.satirOku());
 		assertEquals("semih", deneme.satirOku());
-		//sahteOkuyucu.verify();
+		sahteOkuyucu.verify();
 	}
 }
