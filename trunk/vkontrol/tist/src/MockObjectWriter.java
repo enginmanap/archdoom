@@ -6,11 +6,11 @@ import java.util.List;
 import junit.framework.Assert;
 
 
-public class MockWriter extends ObjectOutputStream {
-	private List<String> expectedList = new ArrayList<String>();
-	private List<String> actualList = new ArrayList<String>();
+public class MockObjectWriter extends ObjectOutputStream {
+	private List<Object> expectedList = new ArrayList<Object>();
+	private List<Object> actualList = new ArrayList<Object>();
 	
-	public MockWriter() throws SecurityException, IOException{
+	public MockObjectWriter() throws SecurityException, IOException{
 		super();
 	}
 
@@ -18,12 +18,11 @@ public class MockWriter extends ObjectOutputStream {
 		expectedList.add(beklenenSatir);
 	}
 
-	@Override
-	public void writeUTF(String yazilacakSatir) throws IOException {
+	public void writeUnshared (Object yazilacakSatir) throws IOException {
 		if(expectedList.size() <= actualList.size())
 			Assert.fail("beklenen deger sayisindan fazla");
 		int index = actualList.size();
-		String beklenenSatir = expectedList.get(index);
+		Object beklenenSatir = expectedList.get(index);
 		Assert.assertEquals(beklenenSatir, yazilacakSatir);
 		actualList.add(yazilacakSatir);
 		}

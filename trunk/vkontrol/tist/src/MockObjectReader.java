@@ -7,27 +7,27 @@ import junit.framework.Assert;
 
 
 
-public class MockReader extends ObjectInputStream{
-	private List<String> expectedList = new ArrayList<String>();
-	private List<String> actualList = new ArrayList<String>();
-	private List<String> dosya;
+public class MockObjectReader extends ObjectInputStream {
+	private List<Object> expectedList = new ArrayList<Object>();
+	private List<Object> actualList = new ArrayList<Object>();
+	private List<Object> sanalDosya;
 	
-	public MockReader(List<String> dosyaIcerigi) throws IOException {
+	public MockObjectReader(List<Object> dosyaIcerigi) throws IOException {
 		super();
-		dosya = dosyaIcerigi;
+		sanalDosya = dosyaIcerigi;
 	}
 
-	public void addExpectedLine(String string) {
-		expectedList.add(string);
+	public void addExpectedLine(Object beklenen) {
+		expectedList.add(beklenen);
 	}
-
+	
 	@Override
-	public String readUTF() throws IOException {
+	public Object readUnshared(){
 		if(expectedList.size() <= actualList.size())
 			Assert.fail("beklenen deger sayisindan fazla");
 		int index = actualList.size();
-		String beklenenSatir = expectedList.get(index);
-		String okunanSatir = dosya.get(index);
+		Object beklenenSatir = expectedList.get(index);
+		Object okunanSatir = sanalDosya.get(index);
 		Assert.assertEquals(beklenenSatir, okunanSatir);
 		actualList.add(okunanSatir);
 		return okunanSatir;
