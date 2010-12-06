@@ -27,9 +27,8 @@ class Entry(models.Model):
 	editdate = models.DateTimeField("date_edited", blank=True, null=True)
 	editBy = models.ForeignKey(User, related_name ="entry_editer", blank=True, null=True)
 
-class PrivateMessage(models.Model):
-	title = models.CharField(max_length = 100, verbose_name="mesaj_basligi")
-	text = models.TextField(verbose_name = "mesaj_icerigi")
-	date = models.DateTimeField(verbose_name = "mesaj_yollama_tarihi", default=datetime.now())
-	pmFrom = models.ForeignKey(User, related_name="mesaj_yollayan")
-	pmTo = models.ForeignKey(User, related_name="mesaj_alan")
+class Vote(models.Model):
+	vote = models.IntegerField()
+	entry = models.ForeignKey("Entry")
+	voter = models.ForeignKey(User, related_name = "voter_user")
+
