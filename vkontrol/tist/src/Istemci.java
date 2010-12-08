@@ -5,7 +5,7 @@ public class Istemci {
 	private String dosyaYolu;
 	private String sunucuIP;
 	public Istemci(String IP) {
-		this.dosyaYolu = System.getProperty("user.dir"); //O anki dizini geri döndürür
+		this.dosyaYolu = System.getProperty("user.dir"); //O anki dizini geri dondurur
 		System.out.println("dosyaYaolu="+dosyaYolu);
 		this.sunucuIP = IP;
 	}

@@ -49,8 +49,12 @@ public class Sunucu {
 		patch = sunucu.farkAl("Temp/yenidosya.txt", "Head/eskidosya.txt");
 		for(int i=0;i<patch.getDeltas().size();i++)
 			System.out.println(patch.getDelta(i));
-		List<String> unifiedPatch = DiffUtils.generateUnifiedDiff("Temp/yenidosya.txt", "Head/eskidosya.txt", sunucu.dosyadanSatira("Temp/yenidosya.txt"), patch, 2);
-		YazilacakMetinDosya deltaDosya = new YazilacakMetinDosya("Deltas/delta.txt");
+		List<String> unifiedPatch = DiffUtils.generateUnifiedDiff("Temp/yenidosya.txt", "Head/dosya.txt", sunucu.dosyadanSatira("Temp/dosya.txt"), patch, 2);
+		YazilacakMetinDosya deltaDosya = new YazilacakMetinDosya("Deltas/dosya.delta.r01.txt");
+		deltaDosya.satirYaz(unifiedPatch);
+		
+		unifiedPatch = DiffUtils.generateUnifiedDiff("Temp/yenidosya.txt", "Head/dosya.txt", sunucu.dosyadanSatira("Temp/dosya.txt"), patch, 2);
+		deltaDosya = new YazilacakMetinDosya("Deltas/dosya.delta.r02.txt");
 		deltaDosya.satirYaz(unifiedPatch);
 		
 		Patch patch2 = DiffUtils.parseUnifiedDiff(sunucu.dosyadanSatira("delta.txt"));
