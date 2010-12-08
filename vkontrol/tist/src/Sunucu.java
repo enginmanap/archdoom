@@ -1,5 +1,7 @@
+import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
 import difflib.DiffUtils;
 import difflib.Patch;
@@ -43,23 +45,47 @@ public class Sunucu {
 		}
 	}
 	
+	public void baslangicIslemleri() {
+		System.out.println("calisma klasoru icin yol giriniz :");
+		Scanner in = new Scanner(System.in);
+		String dosyaYolu = in.nextLine();
+		DizinOlustur workdir = new DizinOlustur(dosyaYolu);
+		workdir.olustur();
+		DizinOlustur temp = new DizinOlustur(dosyaYolu+"\\Temp");
+		temp.olustur();
+		DizinOlustur head = new DizinOlustur(dosyaYolu+"\\Head");
+		head.olustur();
+		DizinOlustur deltas = new DizinOlustur(dosyaYolu+"\\Deltas");
+		deltas.olustur();
+		YazilacakMetinDosya sunucuAyarDosya= new YazilacakMetinDosya("ayarlar.cfg");
+		sunucuAyarDosya.satirYaz(dosyaYolu);
+		}
+	
 	public static void main(String[] args) {
 		Sunucu sunucu = new Sunucu();
+		
+		OkunacakMetinDosya ayarlar = new OkunacakMetinDosya("ayarlar.cfg");
+		String calismaKlasoru = ayarlar.satirOku();
+		if (args.length != 0){
+			if (args[0] == "baslat") sunucu.baslangicIslemleri();
+		}
+		
+		if (calismaKlasoru == null){
+			sunucu.baslangicIslemleri();
+		}
+		
 		Patch patch = new Patch();
-		patch = sunucu.farkAl("Temp/yenidosya.txt", "Head/eskidosya.txt");
-		for(int i=0;i<patch.getDeltas().size();i++)
-			System.out.println(patch.getDelta(i));
-		List<String> unifiedPatch = DiffUtils.generateUnifiedDiff("Temp/yenidosya.txt", "Head/dosya.txt", sunucu.dosyadanSatira("Temp/dosya.txt"), patch, 2);
-		YazilacakMetinDosya deltaDosya = new YazilacakMetinDosya("Deltas/dosya.delta.r01.txt");
+		patch = sunucu.farkAl(calismaKlasoru+"\\Temp\\dosya.txt", calismaKlasoru+"\\Head\\dosya.txt");
+		List<String> unifiedPatch = DiffUtils.generateUnifiedDiff(calismaKlasoru+"\\Temp\\yenidosya.txt", calismaKlasoru+"\\Head\\dosya.txt", sunucu.dosyadanSatira(calismaKlasoru+"\\Temp\\dosya.txt"), patch, 2);
+		YazilacakMetinDosya deltaDosya = new YazilacakMetinDosya(calismaKlasoru+"\\Deltas\\dosya.delta.r01.txt");
 		deltaDosya.satirYaz(unifiedPatch);
 		
-		unifiedPatch = DiffUtils.generateUnifiedDiff("Temp/yenidosya.txt", "Head/dosya.txt", sunucu.dosyadanSatira("Temp/dosya.txt"), patch, 2);
-		deltaDosya = new YazilacakMetinDosya("Deltas/dosya.delta.r02.txt");
+		unifiedPatch = DiffUtils.generateUnifiedDiff(calismaKlasoru+"\\Temp\\yenidosya.txt", calismaKlasoru+"\\Head\\dosya.txt", sunucu.dosyadanSatira(calismaKlasoru+"\\Temp\\dosya.txt"), patch, 2);
+		deltaDosya = new YazilacakMetinDosya(calismaKlasoru+"\\Deltas\\dosya.delta.r02.txt");
 		deltaDosya.satirYaz(unifiedPatch);
 		
-		Patch patch2 = DiffUtils.parseUnifiedDiff(sunucu.dosyadanSatira("delta.txt"));
+		Patch patch2 = DiffUtils.parseUnifiedDiff(sunucu.dosyadanSatira(calismaKlasoru+"\\Deltas\\dosya.delta.r01.txt"));
 		
-		// fark dosyasýnýn okunmasýndan sonra, okunan patch2 nesnesini incelemek icin ekrana yazdýran dongu.
 		pacthEkranaYazdir(patch2);
 		
 	}
