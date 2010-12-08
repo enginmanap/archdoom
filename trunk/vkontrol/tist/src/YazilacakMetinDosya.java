@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 
 public class YazilacakMetinDosya {
@@ -22,6 +23,12 @@ public class YazilacakMetinDosya {
 		dosyaYazici.flush();
 		return true;
 		}
+
+	public void satirYaz(List<String> yazilacakSatirlar) {
+		for(String satir: yazilacakSatirlar)
+			dosyaYazici.println(satir);
+		dosyaYazici.flush();
+	}
 	
 	
 	

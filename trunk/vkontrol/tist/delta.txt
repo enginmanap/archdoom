@@ -1,0 +1,6 @@
+--- Temp/yenidosya.txt
++++ Head/eskidosya.txt
+@@ -4,3 +4,1 @@
+ sahin
+-mesutcan
+-semih
