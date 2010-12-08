@@ -19,13 +19,13 @@ public class SunucuTest extends TestCase{
 	public void testFarkAlma(){
 		Sunucu sunucu = new Sunucu();
 		
-		YazilacakNesneDosya ilkDosya = new YazilacakNesneDosya("ilkdosya.txt");
-		//ilkDosya.satirYaz("engin");
+		YazilacakMetinDosya ilkDosya = new YazilacakMetinDosya("ilkdosya.txt");
+		ilkDosya.satirYaz("engin");
 		ilkDosya.satirYaz("mustafa");
-		ilkDosya.satirYaz("mesutcan");
+		//ilkDosya.satirYaz("mesutcan");
 		ilkDosya.satirYaz("semih");
 		
-		YazilacakNesneDosya ikinciDosya = new YazilacakNesneDosya("ikincidosya.txt");
+		YazilacakMetinDosya ikinciDosya = new YazilacakMetinDosya("ikincidosya.txt");
 		ikinciDosya.satirYaz("engin");
 		//ikinciDosya.satirYaz("mustafa");
 		ikinciDosya.satirYaz("mesutcan");
@@ -35,9 +35,13 @@ public class SunucuTest extends TestCase{
 		Patch fark = sunucu.farkAl("ilkdosya.txt", "ikincidosya.txt");
 		
 		for(int i=0;i<fark.getDeltas().size();i++){
-			
-			System.out.println("[ChangeDelta, position: " + fark.getDelta(i).getOriginal().getPosition() + ", lines: "
-					+ fark.getDelta(i).getOriginal().getLines() + " to " + fark.getDelta(i).getRevised().getLines() + "]");
+			System.out.println("okunan dosya:");
+			// ChangeDelta sýnýfýnýn, toString() metodu eklenmemiþ, bu yuzden boyle bir etrafýndan dolaþma kullanýyoruz.
+			if (fark.getDelta(i).getClass().getName() == "difflib.ChangeDelta")
+				System.out.println("[ChangeDelta, position: " + fark.getDelta(i).getOriginal().getPosition() + ", lines: "
+	                + fark.getDelta(i).getOriginal().getLines() + " to " + fark.getDelta(i).getRevised().getLines() + "]");
+			else
+				System.out.println(fark.getDelta(i));
 		}
 		
 
