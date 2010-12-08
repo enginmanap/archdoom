@@ -1,4 +1,3 @@
-import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,7 +8,7 @@ import difflib.Patch;
 
 public class Sunucu {
 
-	
+	private static String calismaKlasoru = null;
 	public List<String> dosyadanSatira(String filename) {
         List<String> lines = new LinkedList<String>();
         
@@ -31,17 +30,26 @@ public class Sunucu {
 		return patch;
 	}
 
-
-	private static void pacthEkranaYazdir(Patch patch2) {
-		System.out.println("dosya okundu " + patch2.getDeltas().size() + " fark,");
-		for(int i=0;i<patch2.getDeltas().size();i++){
+	private static Patch patchDosyayaYazdir(Sunucu sunucu, String dosyaAdi) {
+		Patch patch = new Patch();
+		patch = sunucu.farkAl(calismaKlasoru+"\\Temp\\"+dosyaAdi, calismaKlasoru+"\\Head\\"+dosyaAdi);
+		List<String> unifiedPatch = DiffUtils.generateUnifiedDiff(calismaKlasoru+"\\Temp\\"+dosyaAdi, calismaKlasoru+"\\Head\\"+dosyaAdi, sunucu.dosyadanSatira(calismaKlasoru+"\\Temp\\"+dosyaAdi), patch, 2);
+		YazilacakMetinDosya deltaDosya = new YazilacakMetinDosya(calismaKlasoru+"\\Deltas\\"+dosyaAdi+".delta.r01.txt");
+		deltaDosya.satirYaz(unifiedPatch);
+		return patch;
+	}
+	
+	
+	public static void patchEkranaYazdir(Patch patch) {
+		System.out.println("dosya okundu " + patch.getDeltas().size() + " fark,");
+		for(int i=0;i<patch.getDeltas().size();i++){
 			System.out.println("okunan dosya:");
 			// ChangeDelta sýnýfýnýn, toString() metodu eklenmemiþ, bu yuzden boyle bir etrafýndan dolaþma kullanýyoruz.
-			if (patch2.getDelta(i).getClass().getName() == "difflib.ChangeDelta")
-				System.out.println("[ChangeDelta, position: " + patch2.getDelta(i).getOriginal().getPosition() + ", lines: "
-	                + patch2.getDelta(i).getOriginal().getLines() + " to " + patch2.getDelta(i).getRevised().getLines() + "]");
+			if (patch.getDelta(i).getClass().getName() == "difflib.ChangeDelta")
+				System.out.println("[ChangeDelta, position: " + patch.getDelta(i).getOriginal().getPosition() + ", lines: "
+	                + patch.getDelta(i).getOriginal().getLines() + " to " + patch.getDelta(i).getRevised().getLines() + "]");
 			else
-				System.out.println(patch2.getDelta(i));
+				System.out.println(patch.getDelta(i));
 		}
 	}
 	
@@ -64,30 +72,36 @@ public class Sunucu {
 	public static void main(String[] args) {
 		Sunucu sunucu = new Sunucu();
 		
-		OkunacakMetinDosya ayarlar = new OkunacakMetinDosya("ayarlar.cfg");
-		String calismaKlasoru = ayarlar.satirOku();
 		if (args.length != 0){
-			if (args[0] == "baslat") sunucu.baslangicIslemleri();
+			System.out.println("arguman alindi :" + args[0] +": uzunlugu :");
+			
+			if ( args[0].equals("baslat")) {
+				
+				sunucu.baslangicIslemleri();
+			}
 		}
+		
+		OkunacakMetinDosya ayarlar = new OkunacakMetinDosya("ayarlar.cfg");
+		calismaKlasoru = ayarlar.satirOku();
+		
 		
 		if (calismaKlasoru == null){
 			sunucu.baslangicIslemleri();
 		}
 		
-		Patch patch = new Patch();
-		patch = sunucu.farkAl(calismaKlasoru+"\\Temp\\dosya.txt", calismaKlasoru+"\\Head\\dosya.txt");
-		List<String> unifiedPatch = DiffUtils.generateUnifiedDiff(calismaKlasoru+"\\Temp\\yenidosya.txt", calismaKlasoru+"\\Head\\dosya.txt", sunucu.dosyadanSatira(calismaKlasoru+"\\Temp\\dosya.txt"), patch, 2);
-		YazilacakMetinDosya deltaDosya = new YazilacakMetinDosya(calismaKlasoru+"\\Deltas\\dosya.delta.r01.txt");
-		deltaDosya.satirYaz(unifiedPatch);
+		ayarlar = new OkunacakMetinDosya("ayarlar.cfg");
+		calismaKlasoru = ayarlar.satirOku();
+		String dosyaAdi = new String("dosya.txt");
+
+		Sunucu.patchDosyayaYazdir(sunucu, dosyaAdi);
 		
-		unifiedPatch = DiffUtils.generateUnifiedDiff(calismaKlasoru+"\\Temp\\yenidosya.txt", calismaKlasoru+"\\Head\\dosya.txt", sunucu.dosyadanSatira(calismaKlasoru+"\\Temp\\dosya.txt"), patch, 2);
-		deltaDosya = new YazilacakMetinDosya(calismaKlasoru+"\\Deltas\\dosya.delta.r02.txt");
-		deltaDosya.satirYaz(unifiedPatch);
-		
+				
 		Patch patch2 = DiffUtils.parseUnifiedDiff(sunucu.dosyadanSatira(calismaKlasoru+"\\Deltas\\dosya.delta.r01.txt"));
 		
-		pacthEkranaYazdir(patch2);
+		patchEkranaYazdir(patch2);
 		
 	}
+
+
 
 }
