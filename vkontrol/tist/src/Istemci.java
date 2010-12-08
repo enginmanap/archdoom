@@ -20,8 +20,8 @@ public class Istemci {
 	}
 
 	public void baslangicIslemleri() {
-		File dosya = new File(dosyaYolu+"\\.tist");
-		dosya.mkdir();
+		DizinOlustur dizin = new DizinOlustur(dosyaYolu+"\\.tist");
+		dizin.olustur();
 		YazilacakMetinDosya sunucuIPDosya= new YazilacakMetinDosya(dosyaYolu+"\\.tist\\sunucu.txt");
 		sunucuIPDosya.satirYaz(sunucuIP);
 	}
