@@ -4,7 +4,10 @@ import org.junit.Before;
 
 import difflib.Patch;
 
-
+/* change to için tostring
+"[ChangeDelta, position: " + fark.getDelta(i).getOriginal().getPosition() + ", lines: "
++ fark.getDelta(i).getOriginal().getLines() + " to " + fark.getDelta(i).getRevised().getLines() + "]"
+*/
 
 public class SunucuTest extends TestCase{
 
@@ -33,7 +36,8 @@ public class SunucuTest extends TestCase{
 		
 		for(int i=0;i<fark.getDeltas().size();i++){
 			
-			System.out.println(fark.getDelta(i));
+			System.out.println("[ChangeDelta, position: " + fark.getDelta(i).getOriginal().getPosition() + ", lines: "
+					+ fark.getDelta(i).getOriginal().getLines() + " to " + fark.getDelta(i).getRevised().getLines() + "]");
 		}
 		
 

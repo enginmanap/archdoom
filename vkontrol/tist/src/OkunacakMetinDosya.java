@@ -18,7 +18,7 @@ public class OkunacakMetinDosya {
 	public String satirOku(){
 	try {
 		String satir = dosya.readLine();
-		System.out.println(satir);
+		//System.out.println(satir);
 		return satir;
 	}
 	catch (EOFException e){

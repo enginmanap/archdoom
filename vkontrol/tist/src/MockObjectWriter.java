@@ -14,7 +14,7 @@ public class MockObjectWriter extends ObjectOutputStream {
 		super();
 	}
 
-	public void addExpectedLine(String beklenenSatir) {
+	public void addExpectedLine(Object beklenenSatir) {
 		expectedList.add(beklenenSatir);
 	}
 

@@ -31,7 +31,7 @@ public class YazilacakNesneDosya {
 				objeCikisAkisi.flush();
 				return true;
 			} catch (IOException e) {
-				System.out.println("Utf akisina yazilamadi");
+				System.out.println("Mock Obje akisina yazilamadi");
 				return false;
 			}
 		}
@@ -41,7 +41,8 @@ public class YazilacakNesneDosya {
 			objeCikisAkisi.flush();
 			return true;
 		} catch (IOException e) {
-			System.out.println("Utf akisina yazilamadi");
+			System.out.println("Obje akisina yazilamadi");
+			e.printStackTrace();
 			return false;
 		}
 		}
