@@ -10,6 +10,7 @@ public class YazilacakMetinDosya {
 		try {
 			dosyaYazici = new PrintWriter(dosyaYolu);
 		} catch (IOException e) {
+			System.out.println(dosyaYolu+" icin, ");
 			System.out.print("Metin cikis akisi baslatilamadi. ");
 		}
 	}

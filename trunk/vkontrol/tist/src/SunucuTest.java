@@ -1,8 +1,11 @@
+import java.util.List;
+
 import junit.framework.TestCase;
 
 import org.junit.Before;
 
 import difflib.Patch;
+
 
 /* change to için tostring
 "[ChangeDelta, position: " + fark.getDelta(i).getOriginal().getPosition() + ", lines: "
@@ -19,30 +22,29 @@ public class SunucuTest extends TestCase{
 	public void testFarkAlma(){
 		Sunucu sunucu = new Sunucu();
 		
-		YazilacakMetinDosya ilkDosya = new YazilacakMetinDosya("ilkdosya.txt");
-		ilkDosya.satirYaz("engin");
-		ilkDosya.satirYaz("mustafa");
-		//ilkDosya.satirYaz("mesutcan");
-		ilkDosya.satirYaz("semih");
+		YazilacakMetinDosya ilkYazilacakDosya = new YazilacakMetinDosya(Sunucu.getCalismaKlasoru()+"\\Temp\\denemedosya.txt");
+		ilkYazilacakDosya.satirYaz("engin");
+		ilkYazilacakDosya.satirYaz("mustafa");
+		ilkYazilacakDosya.satirYaz("mesutcan");
+		ilkYazilacakDosya.satirYaz("semih");
 		
-		YazilacakMetinDosya ikinciDosya = new YazilacakMetinDosya("ikincidosya.txt");
-		ikinciDosya.satirYaz("engin");
-		//ikinciDosya.satirYaz("mustafa");
-		ikinciDosya.satirYaz("mesutcan");
-		ikinciDosya.satirYaz("semih");
+		YazilacakMetinDosya ikinciYazilacakDosya = new YazilacakMetinDosya(Sunucu.getCalismaKlasoru()+"\\Head\\denemedosya.txt");
+		ikinciYazilacakDosya.satirYaz("engin");
+		//ikinciYazilacakDosya.satirYaz("mustafa");
+		ikinciYazilacakDosya.satirYaz("mesutcan");
+		ikinciYazilacakDosya.satirYaz("semih");
+		sunucu.patchDosyayaYazdir("denemedosya.txt",1);
 		
+		OkunacakMetinDosya ilkOkunacakDosya = new OkunacakMetinDosya(Sunucu.getCalismaKlasoru()+"\\Temp\\denemedosya.txt");
+		OkunacakMetinDosya ikinciOkunacakDosya = new OkunacakMetinDosya(Sunucu.getCalismaKlasoru()+"\\head\\denemedosya.txt");
 		
-		Patch fark = sunucu.farkAl("ilkdosya.txt", "ikincidosya.txt");
+		Patch fark = sunucu.farkAl(ilkOkunacakDosya, ikinciOkunacakDosya);
+		Patch okunanFark = sunucu.patchDosyadanOku("denemedosya.txt", 1);
+		sunucu.patchEkranaYazdir(fark);
+		sunucu.patchEkranaYazdir(okunanFark);
+		assertTrue(fark.equals(okunanFark));
+		//Sunucu.patchEkranaYazdir();
 		
-		for(int i=0;i<fark.getDeltas().size();i++){
-			System.out.println("okunan dosya:");
-			// ChangeDelta sýnýfýnýn, toString() metodu eklenmemiþ, bu yuzden boyle bir etrafýndan dolaþma kullanýyoruz.
-			if (fark.getDelta(i).getClass().getName() == "difflib.ChangeDelta")
-				System.out.println("[ChangeDelta, position: " + fark.getDelta(i).getOriginal().getPosition() + ", lines: "
-	                + fark.getDelta(i).getOriginal().getLines() + " to " + fark.getDelta(i).getRevised().getLines() + "]");
-			else
-				System.out.println(fark.getDelta(i));
-		}
 		
 
 	}
