@@ -8,13 +8,39 @@ import difflib.Patch;
 
 public class Sunucu {
 
+	public Sunucu() {
+		OkunacakMetinDosya ayarlar = new OkunacakMetinDosya("ayarlar.cfg");
+		calismaKlasoru = ayarlar.satirOku();
+		if (calismaKlasoru == null){
+			this.baslangicIslemleri();
+		}
+	}
+
 	private static String calismaKlasoru = null;
+	
+	public static String getCalismaKlasoru() {
+		return calismaKlasoru;
+	}
+
 	public List<String> dosyadanSatira(String filename) {
         List<String> lines = new LinkedList<String>();
         
         OkunacakMetinDosya dosya = new OkunacakMetinDosya(filename);
         while(true){
         	String newLine = dosya.satirOku();
+        	if (newLine != null)
+        		lines.add(newLine);
+        	else
+        		break;
+		}
+        return lines;
+	}
+	
+	private List<String> dosyadanSatira(OkunacakMetinDosya okunacakDosya) {
+    List<String> lines = new LinkedList<String>();
+        
+        while(true){
+        	String newLine = okunacakDosya.satirOku();
         	if (newLine != null)
         		lines.add(newLine);
         	else
@@ -30,17 +56,26 @@ public class Sunucu {
 		return patch;
 	}
 
-	private static Patch patchDosyayaYazdir(Sunucu sunucu, String dosyaAdi) {
-		Patch patch = new Patch();
-		patch = sunucu.farkAl(calismaKlasoru+"\\Temp\\"+dosyaAdi, calismaKlasoru+"\\Head\\"+dosyaAdi);
-		List<String> unifiedPatch = DiffUtils.generateUnifiedDiff(calismaKlasoru+"\\Temp\\"+dosyaAdi, calismaKlasoru+"\\Head\\"+dosyaAdi, sunucu.dosyadanSatira(calismaKlasoru+"\\Temp\\"+dosyaAdi), patch, 2);
-		YazilacakMetinDosya deltaDosya = new YazilacakMetinDosya(calismaKlasoru+"\\Deltas\\"+dosyaAdi+".delta.r01.txt");
-		deltaDosya.satirYaz(unifiedPatch);
+	public Patch farkAl(OkunacakMetinDosya ilkOkunacakDosya,
+			OkunacakMetinDosya ikinciOkunacakDosya) {
+		List<String> ilkDosya = dosyadanSatira(ilkOkunacakDosya);
+		List<String> ikinciDosya = dosyadanSatira(ikinciOkunacakDosya);
+		Patch patch = DiffUtils.diff(ilkDosya, ikinciDosya);
 		return patch;
 	}
 	
+
+
+	public void patchDosyayaYazdir(String dosyaAdi, int dosyaRevizyonu) {
+		Patch patch = new Patch();
+		patch = this.farkAl(calismaKlasoru+"\\Temp\\"+dosyaAdi, calismaKlasoru+"\\Head\\"+dosyaAdi);
+		List<String> unifiedPatch = DiffUtils.generateUnifiedDiff(calismaKlasoru+"\\Temp\\"+dosyaAdi, calismaKlasoru+"\\Head\\"+dosyaAdi, this.dosyadanSatira(calismaKlasoru+"\\Temp\\"+dosyaAdi), patch, 2);
+		YazilacakMetinDosya deltaDosya = new YazilacakMetinDosya(calismaKlasoru+"\\Deltas\\"+dosyaAdi+".delta.r"+dosyaRevizyonu+".txt");
+		deltaDosya.satirYaz(unifiedPatch);
+	}
 	
-	public static void patchEkranaYazdir(Patch patch) {
+	
+	public void patchEkranaYazdir(Patch patch) {
 		System.out.println("dosya okundu " + patch.getDeltas().size() + " fark,");
 		for(int i=0;i<patch.getDeltas().size();i++){
 			System.out.println("okunan dosya:");
@@ -69,6 +104,11 @@ public class Sunucu {
 		sunucuAyarDosya.satirYaz(dosyaYolu);
 		}
 	
+	public Patch patchDosyadanOku(String DosyaAdi, int DosyaRevizyonu){
+		return DiffUtils.parseUnifiedDiff(this.dosyadanSatira(calismaKlasoru+"\\Deltas\\"+DosyaAdi+".delta.r"+DosyaRevizyonu+".txt"));
+	}
+	
+	
 	public static void main(String[] args) {
 		Sunucu sunucu = new Sunucu();
 		
@@ -81,26 +121,18 @@ public class Sunucu {
 			}
 		}
 		
-		OkunacakMetinDosya ayarlar = new OkunacakMetinDosya("ayarlar.cfg");
-		calismaKlasoru = ayarlar.satirOku();
-		
-		
-		if (calismaKlasoru == null){
-			sunucu.baslangicIslemleri();
-		}
-		
-		ayarlar = new OkunacakMetinDosya("ayarlar.cfg");
-		calismaKlasoru = ayarlar.satirOku();
 		String dosyaAdi = new String("dosya.txt");
-
-		Sunucu.patchDosyayaYazdir(sunucu, dosyaAdi);
+		int DosyaRevizyonu = 1;
+		sunucu.patchDosyayaYazdir(dosyaAdi,DosyaRevizyonu);
 		
-				
-		Patch patch2 = DiffUtils.parseUnifiedDiff(sunucu.dosyadanSatira(calismaKlasoru+"\\Deltas\\dosya.delta.r01.txt"));
-		
-		patchEkranaYazdir(patch2);
+		String patchDosyasiAdi = new String("dosya.txt");
+		int patchDosyasiRevizyonu = 1;
+		Patch patch2 = sunucu.patchDosyadanOku(patchDosyasiAdi,patchDosyasiRevizyonu);
+		sunucu.patchEkranaYazdir(patch2);
 		
 	}
+
+
 
 
 

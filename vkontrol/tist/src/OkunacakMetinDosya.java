@@ -11,7 +11,7 @@ public class OkunacakMetinDosya {
 		try {
 			dosya = new BufferedReader(new FileReader(dosyaYolu));
 		} catch (FileNotFoundException e) {
-			System.out.println("okunacak Dosya Bulunamadi");
+			System.out.println("okunacak Dosya "+dosyaYolu+" Bulunamadi");
 		}
 	}
 
