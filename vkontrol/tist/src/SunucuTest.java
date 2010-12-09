@@ -1,16 +1,9 @@
-import java.util.List;
-
 import junit.framework.TestCase;
 
 import org.junit.Before;
 
 import difflib.Patch;
 
-
-/* change to için tostring
-"[ChangeDelta, position: " + fark.getDelta(i).getOriginal().getPosition() + ", lines: "
-+ fark.getDelta(i).getOriginal().getLines() + " to " + fark.getDelta(i).getRevised().getLines() + "]"
-*/
 
 public class SunucuTest extends TestCase{
 
