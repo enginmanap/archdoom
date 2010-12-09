@@ -79,11 +79,6 @@ public class Sunucu {
 		System.out.println("dosya okundu " + patch.getDeltas().size() + " fark,");
 		for(int i=0;i<patch.getDeltas().size();i++){
 			System.out.println("okunan dosya:");
-			// ChangeDelta sýnýfýnýn, toString() metodu eklenmemiþ, bu yuzden boyle bir etrafýndan dolaþma kullanýyoruz.
-			if (patch.getDelta(i).getClass().getName() == "difflib.ChangeDelta")
-				System.out.println("[ChangeDelta, position: " + patch.getDelta(i).getOriginal().getPosition() + ", lines: "
-	                + patch.getDelta(i).getOriginal().getLines() + " to " + patch.getDelta(i).getRevised().getLines() + "]");
-			else
 				System.out.println(patch.getDelta(i));
 		}
 	}
