@@ -3,17 +3,17 @@ import java.util.zip.*;
 
 public class Zip implements Zipleme {
    static final int BUFFER = 2048;
-   private String dosyaYolu = null;
+   private String zipYolu = null;
    
    public Zip(String dosyaYolu){
-	   this.dosyaYolu = dosyaYolu;
+	   this.zipYolu = dosyaYolu+File.separatorChar+".tist"+File.separatorChar+"ornek.zip";
    }
    
    public String ziple(){
 	   try {
 	         BufferedInputStream origin = null;
 	         FileOutputStream dest = new 
-	           FileOutputStream(dosyaYolu+"/.tist/ornek.zip");
+	           FileOutputStream(zipYolu);
 	         ZipOutputStream out = new ZipOutputStream(new 
 	           BufferedOutputStream(dest));
 	         //out.setMethod(ZipOutputStream.DEFLATED);
@@ -44,7 +44,7 @@ public class Zip implements Zipleme {
 	         e.printStackTrace();
 	      }
 	      
-	      return dosyaYolu+"/.tist/ornek.zip";
+	      return zipYolu;
 
    }
 	      
