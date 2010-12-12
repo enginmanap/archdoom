@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.zip.*;
 
-public class Zip {
+public class Zip implements Zipleme {
    static final int BUFFER = 2048;
    private String dosyaYolu = null;
    
