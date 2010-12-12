@@ -40,8 +40,6 @@ public class Istemci {
 			}
 		}
 		
-		Zip zip = new Zip(System.getProperty("user.dir"));
-		
 	}
 
 }
