@@ -1,3 +1,5 @@
+import java.io.File;
+
 
 
 
@@ -19,10 +21,9 @@ public class Istemci {
 	}
 
 	public void baslangicIslemleri() {
-		//FIXME:  Eger win ise \ ile linux ise / ile dosyaYolu bulunmali. separatorChar
-		DizinOlustur dizin = new DizinOlustur(dosyaYolu+"/.tist");
+		DizinOlustur dizin = new DizinOlustur(dosyaYolu+File.separatorChar+".tist");
 		dizin.olustur();
-		YazilacakMetinDosya sunucuIPDosya= new YazilacakMetinDosya(dosyaYolu+"/.tist/sunucu.txt");
+		YazilacakMetinDosya sunucuIPDosya= new YazilacakMetinDosya(dosyaYolu+File.separatorChar+".tist"+File.separatorChar+"sunucu.txt");
 		sunucuIPDosya.satirYaz(sunucuIP);
 	}
 	
@@ -38,6 +39,8 @@ public class Istemci {
 				
 			}
 		}
+		
+		Zip zip = new Zip(System.getProperty("user.dir"));
 		
 	}
 
