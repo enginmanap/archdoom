@@ -19,9 +19,10 @@ public class Istemci {
 	}
 
 	public void baslangicIslemleri() {
-		DizinOlustur dizin = new DizinOlustur(dosyaYolu+"\\.tist");
+		//FIXME:  Eger win ise \ ile linux ise / ile dosyaYolu bulunmali. separatorChar
+		DizinOlustur dizin = new DizinOlustur(dosyaYolu+"/.tist");
 		dizin.olustur();
-		YazilacakMetinDosya sunucuIPDosya= new YazilacakMetinDosya(dosyaYolu+"\\.tist\\sunucu.txt");
+		YazilacakMetinDosya sunucuIPDosya= new YazilacakMetinDosya(dosyaYolu+"/.tist/sunucu.txt");
 		sunucuIPDosya.satirYaz(sunucuIP);
 	}
 	
@@ -32,7 +33,8 @@ public class Istemci {
 				if (args.length < 2)
 					System.exit(1);
 				
-				istemci = new Istemci(args[1]);	
+				istemci = new Istemci(args[1]);
+				istemci.baslangicIslemleri();
 				
 			}
 		}
