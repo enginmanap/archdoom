@@ -6,7 +6,6 @@ public class Istemci {
 	private String sunucuIP;
 	public Istemci(String IP) {
 		this.dosyaYolu = System.getProperty("user.dir"); //O anki dizini geri dondurur
-		System.out.println("dosyaYaolu="+dosyaYolu);
 		this.sunucuIP = IP;
 	}
 
@@ -27,7 +26,17 @@ public class Istemci {
 	}
 	
 	public static void main(String[] args) {
+		Istemci istemci = null;
+		if (args.length != 0){
+			if (args[0].equals("getir")){
+				if (args.length < 2)
+					System.exit(1);
 				
+				istemci = new Istemci(args[1]);	
+				
+			}
+		}
+		
 	}
 
 }
