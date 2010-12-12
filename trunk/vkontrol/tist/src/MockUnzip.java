@@ -4,12 +4,12 @@ import java.util.List;
 import junit.framework.Assert;
 
 
-public class MockZip implements Zipleme {
+public class MockUnzip implements Unzipleme{
 	private List<String> expectedList = new ArrayList<String>();
 	private List<String> actualList = new ArrayList<String>();
 	private List<String> sanalDosya = null;
 	
-	public MockZip(List<String> dosyaIcerigi){
+	public MockUnzip(List<String> dosyaIcerigi){
 		this.sanalDosya = dosyaIcerigi;
 		
 	}
@@ -18,7 +18,7 @@ public class MockZip implements Zipleme {
 		expectedList.add(beklenen);
 	}
 	
-	public String ziple(){
+	public String unziple(){
 		if(expectedList.size() <= actualList.size())
 			Assert.fail("beklenen deger sayisindan fazla");
 		int index = actualList.size();
