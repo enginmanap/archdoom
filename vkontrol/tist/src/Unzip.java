@@ -6,7 +6,7 @@ public class Unzip implements Unzipleme{
 	private String zipYolu = null;
 	final int BUFFER = 2048;
 	public Unzip(String dosyaYolu, String zipAdi){
-		this.zipYolu = dosyaYolu+"/.tist/"+zipAdi;
+		this.zipYolu = dosyaYolu+File.separatorChar+".tist"+File.separatorChar+zipAdi;
 		
 	}
 	
