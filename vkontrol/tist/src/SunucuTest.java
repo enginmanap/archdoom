@@ -33,7 +33,7 @@ public class SunucuTest extends TestCase{
 		sunucu.patchDosyayaYazdir("denemedosya.txt",1);
 				
 		Patch okunanPatch = sunucu.patchDosyadanOku("denemedosya.txt",1);
-		if (Sunucu.debug)
+		if (Sunucu.DEBUG)
 			sunucu.patchEkranaYazdir(okunanPatch);
 		
 		// patch islemi basarili oldumu testi

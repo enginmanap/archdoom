@@ -8,9 +8,11 @@ import difflib.PatchFailedException;
 
 
 public class Sunucu {
-	public final static boolean debug = false;
+	public final static boolean DEBUG = true;
 	private static final int OrtakSatir = 2;
+	public static int DEFAULTPORT = 13267;
 	private String calismaKlasoru = null;
+	@SuppressWarnings("unused")
 	private int revizyonNumarasi = 0; 
 
 	public Sunucu() {
@@ -114,12 +116,11 @@ public class Sunucu {
 	public boolean patchUygula(String farkUygulanacakDosya, Patch uygulanacakFark) {
 		
 		List <String> eskiDosya = dosyadanSatira(farkUygulanacakDosya);
-		if (Sunucu.debug){
+		if (Sunucu.DEBUG){
 			System.out.println("okunan dosyanin satirlari:");
 			for (String satir:eskiDosya) System.out.println(satir);
 		}
 		try {
-			
 @SuppressWarnings("unchecked")
 			List<String> yeniDosya = (List<String>) DiffUtils.patch(dosyadanSatira(farkUygulanacakDosya), uygulanacakFark);
 			YazilacakMetinDosya yazilacakDosya = new YazilacakMetinDosya(farkUygulanacakDosya);
@@ -137,8 +138,8 @@ public class Sunucu {
 		Sunucu sunucu = new Sunucu();
 		
 		if (args.length != 0){
-			if (debug) 
-				System.out.println("arguman alindi :" + args[0] +": uzunlugu :");
+			if (DEBUG) 
+				System.out.println("arguman alindi :" + args[0] +": uzunlugu :"+args.length);
 			if ( args[0].equals("baslat")) {
 				sunucu.baslangicIslemleri();
 			}
