@@ -38,6 +38,13 @@ public class Istemci {
 				istemci.baslangicIslemleri();
 				
 			}
+			if (args[0].equals("yolla")){
+				OkunacakMetinDosya sunucutxt = new OkunacakMetinDosya(System.getProperty("user.dir")+File.separatorChar+".tist"+File.separatorChar+"sunucu.txt");
+				String sunucuIP = sunucutxt.satirOku();
+				istemci = new Istemci(sunucuIP);
+				Zip yollanacakZip = new Zip(istemci.getDosyaYolu(), "ornek17.zip");
+				yollanacakZip.ziple();
+			}
 		}
 		
 	}
