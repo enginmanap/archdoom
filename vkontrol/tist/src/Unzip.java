@@ -4,9 +4,12 @@ import java.util.zip.*;
 
 public class Unzip implements Unzipleme{
 	private String zipYolu = null;
+	private String dizinYolu = null;
 	final int BUFFER = 2048;
 	public Unzip(String dosyaYolu, String zipAdi){
 		this.zipYolu = dosyaYolu+File.separatorChar+".tist"+File.separatorChar+zipAdi;
+//		this.zipYolu = System.getProperty("user.dir")+File.separatorChar+".tist"+File.separatorChar+zipAdi;
+		this.dizinYolu = dosyaYolu + File.separatorChar;
 		
 	}
 	
@@ -23,8 +26,11 @@ public class Unzip implements Unzipleme{
 		        int count;
 		        byte data[] = new byte[BUFFER];
 		        // write the files to the disk
-		        FileOutputStream fos = new 
-			    FileOutputStream(entry.getName());
+		        int index = entry.getName().lastIndexOf("/");
+		        File dosya = new File(dizinYolu + entry.getName().substring(0, index));
+		        if (!dosya.exists())
+		        	dosya.mkdir();
+		        FileOutputStream fos = new FileOutputStream(dizinYolu + entry.getName());
 		        dest = new 
 		              BufferedOutputStream(fos, BUFFER);
 		        while ((count = zis.read(data, 0, BUFFER)) 
@@ -41,6 +47,11 @@ public class Unzip implements Unzipleme{
 		
 		return zipYolu;
 		
+	}
+	
+	public static void main(String[] args) {
+		Unzip unzip = new Unzip("/home/mesutcan/workspace/w", "ornek.zip");
+		unzip.unziple();
 	}
 	
 

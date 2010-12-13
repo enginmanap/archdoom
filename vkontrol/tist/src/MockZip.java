@@ -9,7 +9,7 @@ public class MockZip implements Zipleme {
 	private List<String> actualList = new ArrayList<String>();
 	private List<String> sanalDosya = null;
 	
-	public MockZip(List<String> dosyaIcerigi){
+	public MockZip(List<String> dosyaIcerigi, String zipAdi){
 		this.sanalDosya = dosyaIcerigi;
 		
 	}

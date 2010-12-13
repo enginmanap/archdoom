@@ -7,13 +7,15 @@ import junit.framework.TestCase;
 
 public class ZipUnzipTest extends TestCase {
 	public void testZip(){
-		Zip zip = new Zip(System.getProperty("user.dir"));
+		String zipName = "ornek.zip";
+//		Zip zip = new Zip(System.getProperty("user.dir"), zipName);
+		
 		List<String> dummyFile = new ArrayList<String>();
 		dummyFile.add("engin.txt");
 		dummyFile.add("mustafa.txt");
 		dummyFile.add("mesutcan.txt");
 		dummyFile.add("semih.txt");
-		MockZip sahteZip = new MockZip(dummyFile);
+		MockZip sahteZip = new MockZip(dummyFile, zipName);
 		sahteZip.addExpectedLine("engin.txt");
 		sahteZip.addExpectedLine("mustafa.txt");
 		sahteZip.addExpectedLine("mesutcan.txt");
@@ -26,7 +28,7 @@ public class ZipUnzipTest extends TestCase {
 		
 		sahteZip.verify();
 		
-		zip.ziple();
+//		zip.ziple();
 	}
 	
 	public void testUnzip(){
