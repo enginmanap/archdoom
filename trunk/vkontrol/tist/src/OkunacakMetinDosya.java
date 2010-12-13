@@ -19,12 +19,12 @@ public class OkunacakMetinDosya {
 	public String satirOku(){
 	try {
 		String satir = dosya.readLine();
-		if (Sunucu.debug)
+		if (Sunucu.DEBUG)
 			System.out.println(satir);
 		return satir;
 	}
 	catch (EOFException e){
-		if (Sunucu.debug)
+		if (Sunucu.DEBUG)
 			System.out.println("Dosya sonu");
 		return null;
 	}

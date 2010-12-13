@@ -47,7 +47,7 @@ public class OkunacakNesneDosya {
 			try {
 				return objeGirisAkisi.readObject();
 			} catch (EOFException e) {
-				if (Sunucu.debug)
+				if (Sunucu.DEBUG)
 					System.out.println("DosyaSonu");
 				return null;
 			} catch (IOException e) {

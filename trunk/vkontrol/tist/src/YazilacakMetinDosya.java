@@ -21,7 +21,7 @@ public class YazilacakMetinDosya {
 	
 	public boolean satirYaz(String yazilacakSatir){
 		dosyaYazici.println(yazilacakSatir);
-		if (Sunucu.debug) 
+		if (Sunucu.DEBUG) 
 			System.out.println("dosyaya yazilan satir: "+ yazilacakSatir);
 		dosyaYazici.flush();
 		return true;
