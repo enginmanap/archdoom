@@ -4,9 +4,14 @@ import java.util.Scanner;
 
 import difflib.DiffUtils;
 import difflib.Patch;
+import difflib.PatchFailedException;
 
 
 public class Sunucu {
+	public final static boolean debug = false;
+	private static final int OrtakSatir = 2;
+	private String calismaKlasoru = null;
+	private int revizyonNumarasi = 0; 
 
 	public Sunucu() {
 		OkunacakMetinDosya ayarlar = new OkunacakMetinDosya("ayarlar.cfg");
@@ -14,11 +19,11 @@ public class Sunucu {
 		if (calismaKlasoru == null){
 			this.baslangicIslemleri();
 		}
+		revizyonNumarasi = Integer.parseInt(ayarlar.satirOku());
+		ayarlar.dosyaKapat();
 	}
-
-	private static String calismaKlasoru = null;
 	
-	public static String getCalismaKlasoru() {
+	public String getCalismaKlasoru() {
 		return calismaKlasoru;
 	}
 
@@ -26,8 +31,10 @@ public class Sunucu {
         List<String> lines = new LinkedList<String>();
         
         OkunacakMetinDosya dosya = new OkunacakMetinDosya(filename);
+        
+        String newLine = null;
         while(true){
-        	String newLine = dosya.satirOku();
+        	newLine = dosya.satirOku();
         	if (newLine != null)
         		lines.add(newLine);
         	else
@@ -63,17 +70,14 @@ public class Sunucu {
 		Patch patch = DiffUtils.diff(ilkDosya, ikinciDosya);
 		return patch;
 	}
-	
-
 
 	public void patchDosyayaYazdir(String dosyaAdi, int dosyaRevizyonu) {
-		Patch patch = new Patch();
-		patch = this.farkAl(calismaKlasoru+"\\Temp\\"+dosyaAdi, calismaKlasoru+"\\Head\\"+dosyaAdi);
-		List<String> unifiedPatch = DiffUtils.generateUnifiedDiff(calismaKlasoru+"\\Temp\\"+dosyaAdi, calismaKlasoru+"\\Head\\"+dosyaAdi, this.dosyadanSatira(calismaKlasoru+"\\Temp\\"+dosyaAdi), patch, 2);
-		YazilacakMetinDosya deltaDosya = new YazilacakMetinDosya(calismaKlasoru+"\\Deltas\\"+dosyaAdi+".delta.r"+dosyaRevizyonu+".txt");
+		Patch patch = this.farkAl(calismaKlasoru+"\\Head\\"+dosyaAdi, calismaKlasoru+"\\Temp\\"+dosyaAdi);
+		List<String> unifiedPatch = DiffUtils.generateUnifiedDiff(calismaKlasoru+"\\Head\\"+dosyaAdi, calismaKlasoru+"\\Temp\\"+dosyaAdi, this.dosyadanSatira(calismaKlasoru+"\\Head\\"+dosyaAdi), patch, OrtakSatir);
+		YazilacakMetinDosya deltaDosya = new YazilacakMetinDosya(calismaKlasoru+"\\Deltas\\"+dosyaAdi+".delta.r"+dosyaRevizyonu);
 		deltaDosya.satirYaz(unifiedPatch);
+		deltaDosya.dosyaKapat();
 	}
-	
 	
 	public void patchEkranaYazdir(Patch patch) {
 		System.out.println("dosya okundu " + patch.getDeltas().size() + " fark,");
@@ -97,25 +101,49 @@ public class Sunucu {
 		deltas.olustur();
 		YazilacakMetinDosya sunucuAyarDosya= new YazilacakMetinDosya("ayarlar.cfg");
 		sunucuAyarDosya.satirYaz(dosyaYolu);
+		sunucuAyarDosya.satirYaz("1");
+		sunucuAyarDosya.dosyaKapat();
+		calismaKlasoru = dosyaYolu;
+		revizyonNumarasi = 1;
 		}
 	
 	public Patch patchDosyadanOku(String DosyaAdi, int DosyaRevizyonu){
-		return DiffUtils.parseUnifiedDiff(this.dosyadanSatira(calismaKlasoru+"\\Deltas\\"+DosyaAdi+".delta.r"+DosyaRevizyonu+".txt"));
+		return DiffUtils.parseUnifiedDiff(this.dosyadanSatira(calismaKlasoru+"\\Deltas\\"+DosyaAdi+".delta.r"+DosyaRevizyonu));
 	}
 	
+	public boolean patchUygula(String farkUygulanacakDosya, Patch uygulanacakFark) {
+		
+		List <String> eskiDosya = dosyadanSatira(farkUygulanacakDosya);
+		if (Sunucu.debug){
+			System.out.println("okunan dosyanin satirlari:");
+			for (String satir:eskiDosya) System.out.println(satir);
+		}
+		try {
+			
+@SuppressWarnings("unchecked")
+			List<String> yeniDosya = (List<String>) DiffUtils.patch(dosyadanSatira(farkUygulanacakDosya), uygulanacakFark);
+			YazilacakMetinDosya yazilacakDosya = new YazilacakMetinDosya(farkUygulanacakDosya);
+			yazilacakDosya.satirYaz(yeniDosya);
+			return true;
+		} catch (PatchFailedException e) {
+			System.out.println("yama uygulanamadi");
+			e.printStackTrace();
+			return false;
+		}
+
+	}
 	
 	public static void main(String[] args) {
 		Sunucu sunucu = new Sunucu();
 		
 		if (args.length != 0){
-			System.out.println("arguman alindi :" + args[0] +": uzunlugu :");
-			
+			if (debug) 
+				System.out.println("arguman alindi :" + args[0] +": uzunlugu :");
 			if ( args[0].equals("baslat")) {
-				
 				sunucu.baslangicIslemleri();
 			}
 		}
-		
+		/*
 		String dosyaAdi = new String("dosya.txt");
 		int DosyaRevizyonu = 1;
 		sunucu.patchDosyayaYazdir(dosyaAdi,DosyaRevizyonu);
@@ -124,11 +152,6 @@ public class Sunucu {
 		int patchDosyasiRevizyonu = 1;
 		Patch patch2 = sunucu.patchDosyadanOku(patchDosyasiAdi,patchDosyasiRevizyonu);
 		sunucu.patchEkranaYazdir(patch2);
-		
+		*/
 	}
-
-
-
-
-
 }
