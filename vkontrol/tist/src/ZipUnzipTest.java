@@ -7,7 +7,7 @@ import junit.framework.TestCase;
 
 public class ZipUnzipTest extends TestCase {
 	public void testZip(){
-//		Zip zip = new Zip(System.getProperty("user.dir"));
+		Zip zip = new Zip(System.getProperty("user.dir"));
 		List<String> dummyFile = new ArrayList<String>();
 		dummyFile.add("engin.txt");
 		dummyFile.add("mustafa.txt");
@@ -26,7 +26,7 @@ public class ZipUnzipTest extends TestCase {
 		
 		sahteZip.verify();
 		
-//		zip.ziple();
+		zip.ziple();
 	}
 	
 	public void testUnzip(){

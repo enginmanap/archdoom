@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.EOFException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 
 
 public class OkunacakMetinDosya {
@@ -18,11 +19,13 @@ public class OkunacakMetinDosya {
 	public String satirOku(){
 	try {
 		String satir = dosya.readLine();
-		//System.out.println(satir);
+		if (Sunucu.debug)
+			System.out.println(satir);
 		return satir;
 	}
 	catch (EOFException e){
-		System.out.println("Dosya sonu");
+		if (Sunucu.debug)
+			System.out.println("Dosya sonu");
 		return null;
 	}
 	catch (Exception e){
@@ -33,6 +36,17 @@ public class OkunacakMetinDosya {
 
 	public void setReader(BufferedReader sahteOkuyucu) {
 		dosya = sahteOkuyucu;
+		
+	}
+	
+	public boolean dosyaKapat(){
+		try {
+			dosya.close();
+			return true;
+		} catch (IOException e) {
+			System.out.println("dosya kapatilamadi");
+			return false;
+		}
 		
 	}
 }

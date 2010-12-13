@@ -21,6 +21,8 @@ public class YazilacakMetinDosya {
 	
 	public boolean satirYaz(String yazilacakSatir){
 		dosyaYazici.println(yazilacakSatir);
+		if (Sunucu.debug) 
+			System.out.println("dosyaya yazilan satir: "+ yazilacakSatir);
 		dosyaYazici.flush();
 		return true;
 		}
@@ -31,6 +33,8 @@ public class YazilacakMetinDosya {
 		dosyaYazici.flush();
 	}
 	
-	
+	public void dosyaKapat(){
+		dosyaYazici.close();
+	}
 	
 }
