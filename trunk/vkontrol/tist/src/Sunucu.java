@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -74,9 +76,9 @@ public class Sunucu {
 	}
 
 	public void patchDosyayaYazdir(String dosyaAdi, int dosyaRevizyonu) {
-		Patch patch = this.farkAl(calismaKlasoru+"\\Head\\"+dosyaAdi, calismaKlasoru+"\\Temp\\"+dosyaAdi);
-		List<String> unifiedPatch = DiffUtils.generateUnifiedDiff(calismaKlasoru+"\\Head\\"+dosyaAdi, calismaKlasoru+"\\Temp\\"+dosyaAdi, this.dosyadanSatira(calismaKlasoru+"\\Head\\"+dosyaAdi), patch, OrtakSatir);
-		YazilacakMetinDosya deltaDosya = new YazilacakMetinDosya(calismaKlasoru+"\\Deltas\\"+dosyaAdi+".delta.r"+dosyaRevizyonu);
+		Patch patch = this.farkAl(calismaKlasoru+File.separatorChar+"Head"+File.separatorChar+dosyaAdi, calismaKlasoru+File.separatorChar+"Temp"+File.separatorChar+dosyaAdi);
+		List<String> unifiedPatch = DiffUtils.generateUnifiedDiff(calismaKlasoru+File.separatorChar+"Head"+File.separatorChar+dosyaAdi, calismaKlasoru+File.separatorChar+"Temp"+File.separatorChar+dosyaAdi, this.dosyadanSatira(calismaKlasoru+File.separatorChar+"Head"+File.separatorChar+dosyaAdi), patch, OrtakSatir);
+		YazilacakMetinDosya deltaDosya = new YazilacakMetinDosya(calismaKlasoru+File.separatorChar+"Deltas"+File.separatorChar+dosyaAdi+".delta.r"+dosyaRevizyonu);
 		deltaDosya.satirYaz(unifiedPatch);
 		deltaDosya.dosyaKapat();
 	}
@@ -95,11 +97,11 @@ public class Sunucu {
 		String dosyaYolu = in.nextLine();
 		DizinOlustur workdir = new DizinOlustur(dosyaYolu);
 		workdir.olustur();
-		DizinOlustur temp = new DizinOlustur(dosyaYolu+"\\Temp");
+		DizinOlustur temp = new DizinOlustur(dosyaYolu+File.separatorChar+"Temp");
 		temp.olustur();
-		DizinOlustur head = new DizinOlustur(dosyaYolu+"\\Head");
+		DizinOlustur head = new DizinOlustur(dosyaYolu+File.separatorChar+"Head");
 		head.olustur();
-		DizinOlustur deltas = new DizinOlustur(dosyaYolu+"\\Deltas");
+		DizinOlustur deltas = new DizinOlustur(dosyaYolu+File.separatorChar+"Deltas");
 		deltas.olustur();
 		YazilacakMetinDosya sunucuAyarDosya= new YazilacakMetinDosya("ayarlar.cfg");
 		sunucuAyarDosya.satirYaz(dosyaYolu);
@@ -110,7 +112,7 @@ public class Sunucu {
 		}
 	
 	public Patch patchDosyadanOku(String DosyaAdi, int DosyaRevizyonu){
-		return DiffUtils.parseUnifiedDiff(this.dosyadanSatira(calismaKlasoru+"\\Deltas\\"+DosyaAdi+".delta.r"+DosyaRevizyonu));
+		return DiffUtils.parseUnifiedDiff(this.dosyadanSatira(calismaKlasoru+File.separatorChar+"Deltas"+File.separatorChar+DosyaAdi+".delta.r"+DosyaRevizyonu));
 	}
 	
 	public boolean patchUygula(String farkUygulanacakDosya, Patch uygulanacakFark) {
@@ -144,6 +146,27 @@ public class Sunucu {
 				sunucu.baslangicIslemleri();
 			}
 		}
+		/*Dosya Çekme Denemesi
+		AgDosyaCek cekilenDosya = new AgDosyaCek(sunucu.calismaKlasoru+File.separatorChar+"istemci-r"+sunucu.revizyonNumarasi+".zip");
+		try {
+			cekilenDosya.dosyaCek("192.168.1.41");
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+		*/
+		
+		
+		/* dosya sunma denemesi
+		AgDosyaSun sunulanDosya = new AgDosyaSun("ayarlar.cfg");
+		try {
+			sunulanDosya.dosyaSun();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		*/
+		
+		
 		/*
 		String dosyaAdi = new String("dosya.txt");
 		int DosyaRevizyonu = 1;
