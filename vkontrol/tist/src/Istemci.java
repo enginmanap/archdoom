@@ -1,4 +1,8 @@
 import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 
 
@@ -44,6 +48,39 @@ public class Istemci {
 				istemci = new Istemci(sunucuIP);
 				Zip yollanacakZip = new Zip(istemci.getDosyaYolu(), "ornek17.zip");
 				yollanacakZip.ziple();
+				byte[] bytedizi = new byte[1];
+				bytedizi[0] = 1;
+				
+				
+				try {
+					Socket socket = new Socket(sunucuIP, Sunucu.DEFAULTPORT);
+					if (Sunucu.DEBUG)
+						System.out.println("Bekleniyor");
+					// eger baska bir atama yapimadi ise otomatik olarak agdan yollanacak
+					OutputStream cikisAkisi = null;
+					if (cikisAkisi==null){
+						
+						if (Sunucu.DEBUG)
+							System.out.println("Baglant� kabul edildi : " + socket);
+							cikisAkisi = socket.getOutputStream();
+						}
+						if (Sunucu.DEBUG)
+							System.out.println("Dosya yoll");
+						cikisAkisi.write(bytedizi,0,bytedizi.length);
+						cikisAkisi.flush();
+						cikisAkisi.close();
+						socket.close();
+				
+						AgDosyaSun agdanYollanacakDosya = new AgDosyaSun("/home/mesutcan/workspace/tist/.tist/ornek17.zip");
+						agdanYollanacakDosya.dosyaSun();
+				} catch (UnknownHostException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			}
 		}
 		
