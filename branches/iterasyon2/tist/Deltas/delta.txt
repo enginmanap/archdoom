@@ -1,0 +1,10 @@
+--- Temp/yenidosya.txt
++++ Head/eskidosya.txt
+@@ -3,7 +3,4 @@
+ manap
+ sahin
+-mesutcan
+-semih
+ ahmet
+ mehmet
+-veli
