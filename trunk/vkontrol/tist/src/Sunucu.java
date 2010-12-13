@@ -1,5 +1,8 @@
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -12,9 +15,9 @@ import difflib.PatchFailedException;
 public class Sunucu {
 	public final static boolean DEBUG = true;
 	private static final int OrtakSatir = 2;
+	private static final byte COMMIT = 1;
 	public static int DEFAULTPORT = 13267;
 	private String calismaKlasoru = null;
-	@SuppressWarnings("unused")
 	private int revizyonNumarasi = 0; 
 
 	public Sunucu() {
@@ -23,8 +26,11 @@ public class Sunucu {
 		if (calismaKlasoru == null){
 			this.baslangicIslemleri();
 		}
-		revizyonNumarasi = Integer.parseInt(ayarlar.satirOku());
 		ayarlar.dosyaKapat();
+		OkunacakMetinDosya ayarlar2 = new OkunacakMetinDosya("ayarlar.cfg");
+		calismaKlasoru = ayarlar2.satirOku();
+		revizyonNumarasi = Integer.parseInt(ayarlar2.satirOku());
+		ayarlar2.dosyaKapat();
 	}
 	
 	public String getCalismaKlasoru() {
@@ -135,6 +141,24 @@ public class Sunucu {
 		}
 
 	}
+	public boolean commit(String committerIP){
+		if (Sunucu.DEBUG)
+			System.out.println("commit sinyali alýndý, ip:"+committerIP);
+		AgDosyaCek cekilenDosya = new AgDosyaCek(calismaKlasoru+File.separatorChar+"Temp"+File.separatorChar+"istemci-r"+revizyonNumarasi+".zip");
+		try {
+			cekilenDosya.dosyaCek(committerIP);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		this.revizyonNumarasi++;
+		
+		YazilacakMetinDosya sunucuAyarDosya= new YazilacakMetinDosya("ayarlar.cfg");
+		sunucuAyarDosya.satirYaz(this.calismaKlasoru);
+		sunucuAyarDosya.satirYaz(""+revizyonNumarasi);
+		sunucuAyarDosya.dosyaKapat();
+		return true;
+	}
 	
 	public static void main(String[] args) {
 		Sunucu sunucu = new Sunucu();
@@ -146,6 +170,38 @@ public class Sunucu {
 				sunucu.baslangicIslemleri();
 			}
 		}
+			ServerSocket servsock=null;
+			try {
+				servsock = new ServerSocket(DEFAULTPORT);
+				byte istek[] = new byte[1];
+			    while (true) {
+			    	if(Sunucu.DEBUG)
+			    		System.out.println("Waiting...");
+			    	
+			    	Socket sock = servsock.accept();
+			    	System.out.println("Accepted connection : " + sock);
+			    	InputStream is = sock.getInputStream();
+			    	is.read(istek,0,1);
+			    	if (istek[0]==Sunucu.COMMIT){
+			    		servsock.close();
+			    		String commiterIP = sock.getInetAddress().getHostAddress().toString();
+			    		sock.close();
+			    		Thread.currentThread();
+						Thread.sleep(100);
+						if (Sunucu.DEBUG)
+							System.out.println(commiterIP);
+			    		sunucu.commit(commiterIP);
+			    		servsock = new ServerSocket(DEFAULTPORT);
+			    	}
+			    }   
+			} catch (IOException e) {
+				System.out.println("soket açýlamadý");
+				System.exit(1);
+			} catch (InterruptedException e) {
+				
+				e.printStackTrace();
+			}
+			
 		/*Dosya Çekme Denemesi
 		AgDosyaCek cekilenDosya = new AgDosyaCek(sunucu.calismaKlasoru+File.separatorChar+"istemci-r"+sunucu.revizyonNumarasi+".zip");
 		try {
@@ -154,7 +210,7 @@ public class Sunucu {
 
 			e.printStackTrace();
 		}
-		*/
+		*/ 
 		
 		
 		/* dosya sunma denemesi

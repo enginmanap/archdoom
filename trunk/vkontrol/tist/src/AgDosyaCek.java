@@ -60,7 +60,8 @@ public class AgDosyaCek {
 	    bos.write(mybytearray, 0 , current);
 	    bos.flush();
 	    long end = System.currentTimeMillis();
-	    System.out.println(end-start);
+	    if(Sunucu.DEBUG)
+	    	System.out.println(end-start);
 	    bos.close();
 	    sock.close();
 	    return true;
