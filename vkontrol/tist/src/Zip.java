@@ -36,7 +36,8 @@ public class Zip implements Zipleme {
 	   
 	 //get sub-folder/files list
 	 File[] files = kaynakDizin.listFiles();
-	 System.out.println("Adding directory " + kaynakDizin.getName());
+	 if (Sunucu.DEBUG)
+		 System.out.println("Adding directory " + kaynakDizin.getName());
 	  
 	 for(int i=0; i < files.length; i++)
 	 {
@@ -54,7 +55,8 @@ public class Zip implements Zipleme {
 	  
 	 try
 	 {
-	 System.out.println("Adding file " + files[i].getName());
+		 if (Sunucu.DEBUG)
+			 System.out.println("Adding file " + files[i].getName());
 	  
 	 //create byte buffer
 	 byte[] buffer = new byte[1024];
@@ -97,11 +99,5 @@ public class Zip implements Zipleme {
 	 }
 	  
 	 }
-	  
-   
-   public static void main(String[] args){
-	   Zip zip = new Zip(System.getProperty("user.dir"), "ornek.zip");
-	   zip.ziple();
-   }
 	      
 }
