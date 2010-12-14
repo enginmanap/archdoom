@@ -22,7 +22,8 @@ public class Unzip implements Unzipleme{
 			ZipInputStream(new BufferedInputStream(fis));
 		    ZipEntry entry;
 		    while((entry = zis.getNextEntry()) != null) {
-		    	System.out.println("Extracting: " +entry);
+		    	if (Sunucu.DEBUG)
+		    		System.out.println("Extracting: " +entry);
 		        int count;
 		        byte data[] = new byte[BUFFER];
 		        // write the files to the disk
@@ -49,10 +50,6 @@ public class Unzip implements Unzipleme{
 		
 	}
 	
-	public static void main(String[] args) {
-		Unzip unzip = new Unzip("/home/mesutcan/workspace/w", "ornek.zip");
-		unzip.unziple();
-	}
 	
 
 
