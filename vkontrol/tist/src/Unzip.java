@@ -6,8 +6,8 @@ public class Unzip implements Unzipleme{
 	private String zipYolu = null;
 	private String dizinYolu = null;
 	final int BUFFER = 2048;
-	public Unzip(String dosyaYolu, String zipAdi){
-		this.zipYolu = dosyaYolu+File.separatorChar+".tist"+File.separatorChar+zipAdi;
+	public Unzip(String dosyaYolu, String zipYolu){
+		this.zipYolu = zipYolu;
 //		this.zipYolu = System.getProperty("user.dir")+File.separatorChar+".tist"+File.separatorChar+zipAdi;
 		this.dizinYolu = dosyaYolu + File.separatorChar;
 		
