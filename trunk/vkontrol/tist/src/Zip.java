@@ -6,18 +6,21 @@ public class Zip implements Zipleme {
    private File ziplenecekDizin = null;
    private ZipOutputStream zipYolu = null;
    private String dizinIsmi = null;
+   private String zipIsmi = null;
    
-   public Zip(String dosyaYolu, String zipAdi){
+   public Zip(String dosyaYolu, String zipYolu){
 	   this.ziplenecekDizin = new File(dosyaYolu+File.separatorChar);
 	   int index = dosyaYolu.lastIndexOf(File.separatorChar);
 	   dizinIsmi = dosyaYolu.substring(index);
 	   FileOutputStream fout = null;
+	   index = zipYolu.lastIndexOf(File.separatorChar);
+	   zipIsmi = zipYolu.substring(index+1);
 	try {
-		fout = new FileOutputStream(dosyaYolu+File.separatorChar+".tist"+File.separatorChar+zipAdi);
+		fout = new FileOutputStream(zipYolu);
 	} catch (FileNotFoundException e) {
 		e.printStackTrace();
 	}
-	   zipYolu = new ZipOutputStream(fout);
+	   this.zipYolu = new ZipOutputStream(fout);
 	   
    }
    
@@ -42,6 +45,10 @@ public class Zip implements Zipleme {
 	 for(int i=0; i < files.length; i++)
 	 {
 	 //if the file is directory, call the function recursively
+
+		 if (files[i].getName().equals(zipIsmi))
+			 continue;
+	
 	 if(files[i].isDirectory())
 	 {
 		 addDirectory(zout, files[i]);
@@ -63,10 +70,9 @@ public class Zip implements Zipleme {
 	  
 	 //create object of FileInputStream
 	 FileInputStream fin = new FileInputStream(files[i]);
-	 int index = kaynakDizin.getAbsolutePath().lastIndexOf(dizinIsmi)+1;
+	 int index = kaynakDizin.getAbsolutePath().lastIndexOf(dizinIsmi)+1+dizinIsmi.length()-1;
 	 String gercekYol = kaynakDizin.getAbsolutePath().substring(index);
 	 zout.putNextEntry(new ZipEntry(gercekYol+File.separatorChar+files[i].getName()));
-	  
 	 /*
 	 * After creating entry in the zip file, actually
 	 * write the file.
@@ -99,5 +105,6 @@ public class Zip implements Zipleme {
 	 }
 	  
 	 }
+
 	      
 }
