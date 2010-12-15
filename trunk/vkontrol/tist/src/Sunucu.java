@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -83,7 +84,7 @@ public class Sunucu {
 		File gelenKlasor = new File(gelenKlasorAdi);
 		String yalnizGelenKlasor = gelenKlasor.getName();
 		if (Sunucu.DEBUG)
-			System.out.println("yalnýz gelen klasor :" + yalnizGelenKlasor);
+			System.out.println("yalnï¿½z gelen klasor :" + yalnizGelenKlasor);
 		File[] files = gelenKlasor.listFiles();
 		if (Sunucu.DEBUG)
 			System.out.println("Adding directory " + gelenKlasor.getName());
@@ -202,8 +203,21 @@ public class Sunucu {
 		File gelenKlasor = new File(this.calismaKlasoru+File.separatorChar+"Deltas");
 		String yalnizGelenKlasor = gelenKlasor.getName();
 		if (Sunucu.DEBUG)
-			System.out.println("yalnýz gelen klasor :" + yalnizGelenKlasor);
+			System.out.println("yalnï¿½z gelen klasor :" + yalnizGelenKlasor);
 		File[] files = gelenKlasor.listFiles();
+		File[] _files = null;
+//		FILES YUNIQ YAPMA YERI---
+		for (File a: files){
+			if (a.getName().lastIndexOf(".r") == -1){
+				_files[_files.length] = new File(a.getAbsolutePath());
+				
+			}
+		}
+		
+		for (File m: _files)
+			System.out.println(m.getName());
+		
+		
 		if (Sunucu.DEBUG)
 			System.out.println("Adding directory " + gelenKlasor.getName());
 		for (int i = 0; i < files.length; i++) {
@@ -225,7 +239,7 @@ public class Sunucu {
 
 	public boolean commit(String committerIP){
 		if (Sunucu.DEBUG)
-			System.out.println("commit sinyali alýndý, ip:"+committerIP);
+			System.out.println("commit sinyali alï¿½ndï¿½, ip:"+committerIP);
 		AgDosyaCek cekilenDosya = new AgDosyaCek(calismaKlasoru+File.separatorChar+"Temp"+File.separatorChar+"istemci-r"+revizyonNumarasi+".zip");
 		try {
 			cekilenDosya.dosyaCek(committerIP);
@@ -290,12 +304,12 @@ public class Sunucu {
 				}
 			}
 		} catch (IOException e) {
-			System.out.println("soket açýlamadý");
+			System.out.println("soket aï¿½ï¿½lamadï¿½");
 			System.exit(1);
 		}
 
 		/*
-		 * Dosya Çekme Denemesi AgDosyaCek cekilenDosya = new
+		 * Dosya ï¿½ekme Denemesi AgDosyaCek cekilenDosya = new
 		 * AgDosyaCek(sunucu.calismaKlasoru
 		 * +File.separatorChar+"istemci-r"+sunucu.revizyonNumarasi+".zip"); try
 		 * { cekilenDosya.dosyaCek("192.168.1.41"); } catch (IOException e) {
@@ -319,4 +333,20 @@ public class Sunucu {
 		 * sunucu.patchEkranaYazdir(patch2);
 		 */
 	}
+	
+public List<File> ozelBul(List<File> files){
+	List<File> unik = new ArrayList<File>();
+	for (File a: files){
+		if (a.getName().lastIndexOf(".r") != -1){
+			if (!unik.contains(new File(a.getAbsolutePath().substring(0, a.getAbsolutePath().lastIndexOf(".r")))))
+				unik.add(new File(a.getAbsolutePath().substring(0, a.getAbsolutePath().lastIndexOf(".r"))));
+			
+		}
+	}
+	for (File a: unik){
+		if (Sunucu.DEBUG)
+			System.out.println(a.getName());
+	}
+	return unik;
+}
 }
