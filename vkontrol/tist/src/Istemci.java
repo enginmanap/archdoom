@@ -48,7 +48,7 @@ public class Istemci {
 				istemci = new Istemci(sunucuIP);
 				Zip yollanacakZip = new Zip(istemci.getDosyaYolu(), "ornek17.zip");
 				yollanacakZip.ziple();
-				byte[] bytedizi = new byte[1];
+				byte[] bytedizi = new byte[5];
 				bytedizi[0] = 1;
 				
 				
@@ -74,10 +74,8 @@ public class Istemci {
 						AgDosyaSun agdanYollanacakDosya = new AgDosyaSun("/home/mesutcan/workspace/tist/.tist/ornek17.zip");
 						agdanYollanacakDosya.dosyaSun();
 				} catch (UnknownHostException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				

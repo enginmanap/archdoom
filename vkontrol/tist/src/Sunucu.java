@@ -16,6 +16,7 @@ public class Sunucu {
 	public final static boolean DEBUG = true;
 	private static final int OrtakSatir = 2;
 	private static final byte COMMIT = 1;
+	private static final byte CHECKOUT = 2;
 	public static int DEFAULTPORT = 13267;
 	private String calismaKlasoru = null;
 	private int revizyonNumarasi = 0;
@@ -187,8 +188,11 @@ public class Sunucu {
 			@SuppressWarnings("unchecked")
 			List<String> yeniDosya = (List<String>) DiffUtils.patch(
 					dosyadanSatira(farkUygulanacakDosya), uygulanacakFark);
+			if(Sunucu.DEBUG)
+				System.out.println("patch listeye uygulandi");
 			YazilacakMetinDosya yazilacakDosya = new YazilacakMetinDosya(
 					farkUygulanacakDosya);
+			if(Sunucu.DEBUG) System.out.println("dosya fark yazmak icin acildi.");
 			yazilacakDosya.satirYaz(yeniDosya);
 			return true;
 		} catch (PatchFailedException e) {
@@ -200,24 +204,20 @@ public class Sunucu {
 	}
 	
 	public void patchUygula(String yazilacakKlasorAdi, int revizyon){
+		String yazilacakKlasor = yazilacakKlasorAdi.substring(this.calismaKlasoru.length()+1);
 		File gelenKlasor = new File(this.calismaKlasoru+File.separatorChar+"Deltas");
 		String yalnizGelenKlasor = gelenKlasor.getName();
 		if (Sunucu.DEBUG)
 			System.out.println("yaln�z gelen klasor :" + yalnizGelenKlasor);
-		File[] files = gelenKlasor.listFiles();
-		File[] _files = null;
-//		FILES YUNIQ YAPMA YERI---
-		for (File a: files){
-			if (a.getName().lastIndexOf(".r") == -1){
-				_files[_files.length] = new File(a.getAbsolutePath());
-				
-			}
+		File[] fileArray = gelenKlasor.listFiles();
+		List<File> fileList = new ArrayList<File>();
+		for(File i:fileArray)
+			fileList.add(i);
+		fileList = ozelBul(fileList);
+		File[] files = new File[fileList.size()];
+		for(int i=0;i<fileList.size();i++){
+			files[i]=fileList.get(i);
 		}
-		
-		for (File m: _files)
-			System.out.println(m.getName());
-		
-		
 		if (Sunucu.DEBUG)
 			System.out.println("Adding directory " + gelenKlasor.getName());
 		for (int i = 0; i < files.length; i++) {
@@ -230,9 +230,12 @@ public class Sunucu {
 			if (Sunucu.DEBUG)
 				System.out.println("patch icin revizyon :"+revizyon);
 			for(int rev=1;rev <= revizyon; rev++){
+				Patch uygulanacakFark = patchDosyadanOku(files[i].getAbsolutePath().substring( this.calismaKlasoru.length() + 8, files[i].getAbsolutePath().lastIndexOf(".delta")), rev);
+				String uygulanacakDosya = this.calismaKlasoru+File.separatorChar+yazilacakKlasor+File.separatorChar + files[i].getAbsolutePath().substring( this.calismaKlasoru.length() + 8, files[i].getAbsolutePath().lastIndexOf(".delta"));
 				if (Sunucu.DEBUG)
-					System.out.println("patch uygulaniyor, dosya:"+files[i].getAbsolutePath()+" patch :"+files[i].getAbsolutePath().substring( this.calismaKlasoru.length() + 6));
-				patchUygula(files[i].getAbsolutePath(), patchDosyadanOku(files[i].getAbsolutePath().substring( this.calismaKlasoru.length() + 6), rev));
+					System.out.println("patch uygulaniyor, dosya : "+uygulanacakDosya+" patch : "+ uygulanacakFark);
+				patchUygula(uygulanacakDosya, uygulanacakFark);
+				
 			}
 		}
 	}
@@ -267,6 +270,23 @@ public class Sunucu {
 		sunucuAyarDosya.dosyaKapat();
 		return true;
 	}
+	
+	public boolean checkOut(int revizyonNumarasi){
+		if (Sunucu.DEBUG)
+			System.out.println("revizyon Numarasi:"+revizyonNumarasi);
+		
+		
+		AgDosyaSun sunulacakDosya = new AgDosyaSun(this.calismaKlasoru+File.separatorChar+"temp"+File.separatorChar+"checkOut.r"+this.revizyonNumarasi+".zip");
+		try {
+			sunulacakDosya.dosyaSun();
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		
+	}
 
 	public static void main(String[] args) {
 		Sunucu sunucu = new Sunucu();
@@ -283,7 +303,7 @@ public class Sunucu {
 		ServerSocket servsock = null;
 		try {
 			servsock = new ServerSocket(DEFAULTPORT);
-			byte istek[] = new byte[1];
+			byte istek[] = new byte[5];
 			while (true) {
 				if (Sunucu.DEBUG)
 					System.out.println("Waiting...");
@@ -300,6 +320,12 @@ public class Sunucu {
 					if (Sunucu.DEBUG)
 						System.out.println(commiterIP);
 					sunucu.commit(commiterIP);
+					servsock = new ServerSocket(DEFAULTPORT);
+				}
+				if (istek[0] == Sunucu.CHECKOUT) {
+					servsock.close();
+					sock.close();
+					sunucu.checkOut(sunucu.revizyonNumarasi);
 					servsock = new ServerSocket(DEFAULTPORT);
 				}
 			}
