@@ -16,10 +16,8 @@ public class Unzip implements Unzipleme{
 	public String unziple(){
 		try {
 			BufferedOutputStream dest = null;
-		    FileInputStream fis = new 
-			FileInputStream(zipYolu);
-		    ZipInputStream zis = new 
-			ZipInputStream(new BufferedInputStream(fis));
+		    FileInputStream fis = new FileInputStream(zipYolu);
+		    ZipInputStream zis = new ZipInputStream(new BufferedInputStream(fis));
 		    ZipEntry entry;
 		    while((entry = zis.getNextEntry()) != null) {
 		    	if (Sunucu.DEBUG)
