@@ -96,4 +96,5 @@ INSTALLED_APPS = (
      'bmforum.forum',
      'bmforum.member',
      'bmforum.planet',
+     'bmforum.ogrenciCalismalari',
 )
