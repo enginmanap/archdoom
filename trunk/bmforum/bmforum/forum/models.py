@@ -15,6 +15,9 @@ class Topic(models.Model):
 	owner = models.ForeignKey(User, related_name = "creater_of_topic")
 	firstEntry = models.ForeignKey('Entry', related_name = "ilk_girdi", null=True, blank=True)
 
+	def __unicode__(self):
+		return self.title
+
 class Entry(models.Model):
 	user = models.ForeignKey(User, related_name = "entry_author")
 	topic = models.ForeignKey(Topic, related_name = "topic_of_entry", null=False, blank=False)
@@ -27,8 +30,13 @@ class Entry(models.Model):
 	editdate = models.DateTimeField("date_edited", blank=True, null=True)
 	editBy = models.ForeignKey(User, related_name ="entry_editer", blank=True, null=True)
 
+	def __unicode__(self):
+		return unicode(self.user) +" : "+ self.text[0:30]
+
 class Vote(models.Model):
 	vote = models.IntegerField()
 	entry = models.ForeignKey("Entry")
 	voter = models.ForeignKey(User, related_name = "voter_user")
-
+	
+	def __unicode__(self):
+		return unicode(self.voter)

@@ -1,6 +1,8 @@
 {% include "base.html" %}
 
 <body>
+	{% for topic in topic_list %}
     <br>
-    <a href="topicentry.html" name="Baslik">Baslik</a>
+    <a href="/forum/{{ topic.id }}-{{ topic.title }}/" name="{{ topic.title }}">{{ topic.title }}</a>
+	{% endfor %}
 </body>
