@@ -1,4 +1,7 @@
-{% include "header.html" %}
+{% include "base.html" %}
+
+<h1>Topic Basligi</h1>
+{% for entry in entry_list %}
 
 <table border=1>
     <tr>
@@ -8,7 +11,7 @@
     </tr>
     <tr>
         <td height=30 >Kullanici adi</td>
-        <td colspan=2 rowspan=2>Mesaj icerigidflaksjflfjsaljfalkjafal <br>jdsaklfjaklsfaklsfjfalsdkjlk<br>dajfıllasdfjalskfsda<br>sdsajojfsakl</td>
+        <td colspan=2 rowspan=2>{{ Entry.text }}</td>
     </tr>
     <tr>
         <td></td>
@@ -16,3 +19,5 @@
     </td>
 
 </table>
+
+{% endfor %}
