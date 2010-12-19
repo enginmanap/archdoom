@@ -27,15 +27,15 @@ def showTopic(request, topic_id, topic_name):
             entry.topic = get_object_or_404(Topic, pk = topic_id)
             entry.text = form.cleaned_data['text']
             entry.save()
-            return HttpResponseRedirect(reverse('bmforum.forum.views.showTopic', args = (topic_id ,topic_name)), context_instance=RequestContext(request))
+            return HttpResponseRedirect(reverse('bmforum.forum.views.showTopic', args = (topic_id ,topic_name)),)
     else:
         topic = get_object_or_404(Topic, pk = topic_id)
         entry_list = Entry.objects.filter(topic = topic)
         form = EntryForm()
         try:
-            user = get_object_or_404(Member, user = request.user)
-            print "user :",user.user.username
-            return render_to_response('forum/topicentry.html', {'entry_list': entry_list, 'topic':topic, "form":form,"user":user}, context_instance=RequestContext(request))
+            member = get_object_or_404(Member, user = request.user)
+            print "member :",member.user.username
+            return render_to_response('forum/topicentry.html', {'entry_list': entry_list, 'topic':topic, "form":form,"member":member}, context_instance=RequestContext(request))
         except:
             return render_to_response('forum/topicentry.html', {'entry_list': entry_list, 'topic':topic, "form":form, }, context_instance=RequestContext(request))
 
