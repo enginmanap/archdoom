@@ -3,21 +3,24 @@
 <h1>{{ topic.title }}</h1>
 {% for entry in entry_list %}
 
-<table border=1>
-    <tr>
-        <td></td>
-        <td>Baslik</td>
-        <td>Tarih</td>
+<table>
+    <tr bgcolor=#ffccff>
+        
+        
+        	<td colspan=2 width=200 align=right>{{ entry.date }}</td>
     </tr>
     <tr>
-        <td height=30 >Kullanici adi</td>
-        <td colspan=2 rowspan=2>{{ entry.text }}</td>
+        <td align=center height=30 width=100 bgcolor=#ffaaff>{{ entry.member.user.username }}</td>
+        <td rowspan=2 width=600 style="vertical-align:top" >{{ entry.text }}</td>
+        <td height=100 width=60 bgcolor=#ff00ff>
+         	<table>
+         	<tr><td align=center >begendim</td></tr>
+			<tr><td align=center >kararsizim</td></tr>
+			<tr><td align=center >begenmedim</td></tr>
+			</table>
+        </td>
     </tr>
-    <tr>
-        <td></td>
-        <td></td>
-    </td>
-
+   
 </table>
 
 {% endfor %}

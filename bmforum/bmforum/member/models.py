@@ -12,7 +12,7 @@ class Member(models.Model):
     birthDate = models.DateTimeField("dogum_tarihi")
     studentNo = models.IntegerField(verbose_name = "ogrenci_numarasi")
     studentClass = models.IntegerField(verbose_name = "ogrenci_sinifi")
-    notifyOption = models.ForeignKey(NotifyOptions, related_name = "uyarma_ayarlari")
+    notifyOption = models.ForeignKey(NotifyOptions, null=True, blank=True, related_name = "uyarma_ayarlari")
 
 class PrivateMessage(models.Model):
     title = models.CharField(max_length = 100, verbose_name="mesaj_basligi")
