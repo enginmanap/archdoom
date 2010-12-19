@@ -13,12 +13,7 @@
         {% if user.is_authenticated %}
         <a href= "{% url deauth %}" >logout</a>
         {% else %}
-        <form action="/forum/auth/" method=POST>
-        {% csrf_token %}
-        <input type="text" name="username">
-        <input type="text" name="password">
-        <input type=submit>
-        </form>
+        <a href="{% url authlogin %}" >uye girisi</a>
         {% endif %}
     </body>
 </html>

@@ -7,5 +7,4 @@ urlpatterns = patterns('bmforum.forum.views',
         url(r'^$', 'topicList', name='topicList'),
         url(r'^topicList/$','topicList', name='topicList'),
         url(r'^(?P<topic_id>\d+)-(?P<topic_name>.*)/$','showTopic', name='showTopic'),
-        url(r'^auth/$','auth', name='auth'),
         )
