@@ -1,6 +1,7 @@
 {% include "base.html" %}
 
 <h1>{{ topic.title }}</h1>
+<h2>{{ user.user.username }} </h2>
 {% for entry in entry_list %}
 
 <table>
@@ -24,7 +25,7 @@
 </table>
 
 {% endfor %}
-{% if perms.forum.can_add_entry %}
+{% if perms.forum.add_entry %}
 <form action="{% url showTopic topic.id topic.title %}" method="post">
 {% csrf_token %}
 {% for field in form %}
