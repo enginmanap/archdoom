@@ -17,5 +17,7 @@ urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
     (r'^forum/', include('bmforum.forum.urls')),
     (r'^media/(.*)$', 'django.views.static.serve', {'document_root': '%s/media' % DOCUMENT_ROOT, 'show_indexes': True}),
+    url(r'^auth/$','forum.views.auth', name='auth'),
     url(r'^deauth/$','forum.views.deauth', name='deauth'),
+    url(r'^authlogin/$','forum.views.authlogin', name='authlogin'),
 )

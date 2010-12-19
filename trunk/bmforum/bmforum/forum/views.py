@@ -54,7 +54,10 @@ def auth(request):
     else:
         # Return an 'invalid login' error message.
         return HttpResponseRedirect(reverse('bmforum.forum.views.topicList'))
-    
+
 def deauth(request):
     logout(request)
     return HttpResponseRedirect(reverse('bmforum.forum.views.topicList'))
+
+def authlogin(request):
+    return render_to_response('auth.html', context_instance=RequestContext(request))
