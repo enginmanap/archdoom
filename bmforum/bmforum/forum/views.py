@@ -14,7 +14,7 @@ def giris(request):
 
 def topicList(request):
     topic_list = Topic.objects.all()
-    return render_to_response('forum/topiclist.html', {'topic_list':topic_list})
+    return render_to_response('forum/topiclist.html', {'topic_list':topic_list}, context_instance=RequestContext(request))
 
 
 def showTopic(request, topic_id, topic_name):
@@ -27,7 +27,7 @@ def showTopic(request, topic_id, topic_name):
             entry.topic = get_object_or_404(Topic, pk = topic_id)
             entry.text = form.cleaned_data['text']
             entry.save()
-            return HttpResponseRedirect(reverse('bmforum.forum.views.showTopic', args = (topic_id ,topic_name)))
+            return HttpResponseRedirect(reverse('bmforum.forum.views.showTopic', args = (topic_id ,topic_name)), context_instance=RequestContext(request))
     else:
         topic = get_object_or_404(Topic, pk = topic_id)
         entry_list = Entry.objects.filter(topic = topic)
