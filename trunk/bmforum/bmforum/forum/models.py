@@ -2,6 +2,7 @@ from django.db import models
 from datetime import datetime
 from django.contrib.auth.models import User
 
+
 class TopicPriorities(models.Model):
 	name = models.CharField(max_length = 100)
 	
@@ -18,8 +19,11 @@ class Topic(models.Model):
 	def __unicode__(self):
 		return self.title
 
+# yukari yazarsak, birbirine bagimli olan iki models.py calismayi engelliyorlardi.
+from bmforum.member.models import Member 
+
 class Entry(models.Model):
-	user = models.ForeignKey(User, related_name = "entry_author")
+	member = models.ForeignKey(Member, related_name = "entry_author")
 	topic = models.ForeignKey(Topic, related_name = "topic_of_entry", null=False, blank=False)
 	text = models.TextField(verbose_name = "icerik")
 	date = models.DateTimeField("date_submitted", default = datetime.now())
@@ -31,7 +35,7 @@ class Entry(models.Model):
 	editBy = models.ForeignKey(User, related_name ="entry_editer", blank=True, null=True)
 
 	def __unicode__(self):
-		return unicode(self.user) +" : "+ self.text[0:30]
+		return unicode(self.member.user.username) +" : "+ self.text[0:30]
 
 class Vote(models.Model):
 	vote = models.IntegerField()

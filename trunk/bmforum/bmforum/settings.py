@@ -1,5 +1,5 @@
 # Django settings for bmforum project.
-
+from os import path
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -19,6 +19,9 @@ DATABASES = {
         'PORT': '5432',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
+
+WEB_URL = 'http://127.0.0.1:8000'
+DOCUMENT_ROOT = path.abspath(path.dirname(__file__))
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -45,17 +48,16 @@ USE_L10N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = ''
-
+MEDIA_ROOT = '%s/media/' % DOCUMENT_ROOT
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = ''
+MEDIA_URL = '%s/media/' % WEB_URL
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/media/'
+ADMIN_MEDIA_PREFIX = '/media/admin/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '3#8x_bp^fd(&4me*g)go=60)0&ab*p0_kff#-kkv34vx16e*u)'
@@ -78,7 +80,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'bmforum.urls'
 
 TEMPLATE_DIRS = (
-        "/home/mesutcan/archdoom.googlecode.com/trunk/bmforum/bmforum/templates/"
+        '%s/templates/' % DOCUMENT_ROOT
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
