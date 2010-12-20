@@ -12,9 +12,10 @@
 
 {% if root %}
     {% if perms.forum.delete_topic %}
-    <br /><a href="/addtopic" name="addtopic">yeni baslik</a>
+    <br /><a href="{% url addTopic 0 %}" name="addtopic">yeni baslik</a>
     {% endif %}
 {% else  %}
+    <br /><a href="{% url addTopic topic_id %}" name="addtopic">yeni baslik</a>
     <br /><a href="/addentry" name="addentry">entry ekle</a>
 {% endif %}
 
