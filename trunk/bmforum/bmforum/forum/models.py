@@ -1,7 +1,7 @@
 from django.db import models
 from datetime import datetime
 from django.contrib.auth.models import User
-
+from bmforum.member.models import Member
 
 class TopicPriorities(models.Model):
 	name = models.CharField(max_length = 100)
@@ -13,14 +13,14 @@ class Topic(models.Model):
 	title = models.CharField(max_length = 100, verbose_name = "baslik")
 	priority = models.ForeignKey(TopicPriorities, blank=False, null=False, verbose_name = "onem")
 	subTopic = models.ForeignKey('self', blank=True, null=True, verbose_name = "ait_oldugu_baslik")
-	owner = models.ForeignKey(User, related_name = "creater_of_topic")
+	owner = models.ForeignKey(Member, related_name = "creator_of_topic")
 	firstEntry = models.ForeignKey('Entry', related_name = "ilk_girdi", null=True, blank=True)
 
 	def __unicode__(self):
 		return self.title
 
-# yukari yazarsak, birbirine bagimli olan iki models.py calismayi engelliyorlardi.
-from bmforum.member.models import Member 
+
+ 
 
 class Entry(models.Model):
 	member = models.ForeignKey(Member, related_name = "entry_author")
@@ -32,7 +32,7 @@ class Entry(models.Model):
 #FIXME edit should be a new class	
 	isEdited = models.BooleanField("entry_edited?", default = False)
 	editdate = models.DateTimeField("date_edited", blank=True, null=True)
-	editBy = models.ForeignKey(User, related_name ="entry_editer", blank=True, null=True)
+	editBy = models.ForeignKey(Member, related_name ="entry_editer", blank=True, null=True)
 
 	def __unicode__(self):
 		return unicode(self.member.user.username) +" : "+ self.text[0:30]
