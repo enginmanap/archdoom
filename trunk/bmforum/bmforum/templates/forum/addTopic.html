@@ -1,5 +1,7 @@
-{% if perms.forum.delete_topic %}
+{% if perms.forum.add_topic %}
 <form action="{% url addTopic topic_id %}" method="post">
+{% if topic_id == "0" %}
+{% if perms.forum.delete_topic %}
 {% csrf_token %}
 {{ topicForm.as_table }}
 <br />
@@ -7,5 +9,15 @@
 
 <br />
 <input type="submit" value="Submit" />
+{% endif %}
+{% else %}
+{% csrf_token %}
+{{ topicForm.as_table }}
+<br />
+{{ entryForm.as_table }}
+
+<br />
+<input type="submit" value="Submit" />
+{% endif %}
 </form> 
 {% endif %}
