@@ -1,3 +1,4 @@
+{% include "base.html" %}
 {% if perms.forum.add_topic %}
 <form action="{% url addTopic topic_id %}" method="post">
 {% if topic_id == "0" %}
@@ -9,6 +10,8 @@
 
 <br />
 <input type="submit" value="Submit" />
+{% else %}
+{% include "permdenied.html" %}
 {% endif %}
 {% else %}
 {% csrf_token %}
