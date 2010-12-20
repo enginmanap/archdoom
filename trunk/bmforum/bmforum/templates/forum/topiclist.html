@@ -3,6 +3,19 @@
 <body>
 	{% for topic in topic_list %}
     <br>
-    <a href="/forum/{{ topic.id }}-{{ topic.title }}/" name="{{ topic.title }}">{{ topic.title }}</a>
+    {% if root %}
+    <a href="{% url topicList topic.id %}" name="{{ topic.title }}">{{ topic.title }}</a>
+    {% else  %}
+    <a href="{% url showTopic topic.id topic.title %}" name="{{ topic.title }}">{{ topic.title }}</a>
+	{% endif %}
 	{% endfor %}
+
+{% if root %}
+    {% if perms.forum.delete_topic %}
+    <br /><a href="/addtopic" name="addtopic">yeni baslik</a>
+    {% endif %}
+{% else  %}
+    <br /><a href="/addentry" name="addentry">entry ekle</a>
+{% endif %}
+
 </body>
