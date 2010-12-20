@@ -12,10 +12,14 @@ from django.contrib.auth import authenticate, login, logout
 def giris(request):
     return render_to_response('base.html', context_instance=RequestContext(request))
 
-def topicList(request):
-    topic_list = Topic.objects.all()
-    return render_to_response('forum/topiclist.html', {'topic_list':topic_list}, context_instance=RequestContext(request))
-
+def topicList(request, topic_id=0):
+    if topic_id == 0:
+        topic_list = Topic.objects.filter(subTopic = None )
+        return render_to_response('forum/topiclist.html', {'topic_list':topic_list,"root":True}, context_instance=RequestContext(request))
+    else:
+        topic = get_object_or_404(Topic, pk = topic_id)
+        topic_list = Topic.objects.filter(subTopic = topic )
+        return render_to_response('forum/topiclist.html', {'topic_list':topic_list,}, context_instance=RequestContext(request))
 
 def showTopic(request, topic_id, topic_name):
     if request.POST:
