@@ -1,6 +1,6 @@
 {% include "base.html" %}
 
-<body>
+{% block body %}
 	{% for topic in topic_list %}
     <br>
     {% if root %}
@@ -18,4 +18,4 @@
     <br /><a href="{% url addTopic topic_id %}" name="addtopic">yeni baslik</a>
 {% endif %}
 
-</body>
+{% endblock %}

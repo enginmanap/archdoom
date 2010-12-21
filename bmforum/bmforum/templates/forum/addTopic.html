@@ -1,4 +1,6 @@
 {% include "base.html" %}
+
+{% block body %}
 {% if perms.forum.add_topic %}
 <form action="{% url addTopic topic_id %}" method="post">
 {% if topic_id == "0" %}
@@ -24,3 +26,5 @@
 {% endif %}
 </form> 
 {% endif %}
+
+{% endblock %}

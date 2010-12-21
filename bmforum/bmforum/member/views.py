@@ -32,11 +32,11 @@ def privateCompose(request):
     return render_to_response('member/privateCompose.html', {'form':form, }, context_instance=RequestContext(request))
 
 def privateInbox(request):
-    message_list = PrivateMessage.objects.filter(pmTo = get_object_or_404(Member, user=request.user))
+    message_list = PrivateMessage.objects.filter(pmTo = get_object_or_404(Member, user=request.user, isHidden=False ))
     return render_to_response('member/privateInbox.html', {'message_list': message_list,}, context_instance=RequestContext(request))
 
 def privateSent(request):
-    message_list = PrivateMessage.objects.filter(pmFrom = get_object_or_404(Member, user=request.user))
+    message_list = PrivateMessage.objects.filter(pmFrom = get_object_or_404(Member, user=request.user, isHidden=False))
     return render_to_response('member/privateSent.html', {'message_list': message_list,}, context_instance=RequestContext(request))
 
 def userRegister(request):
