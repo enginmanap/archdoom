@@ -1,0 +1,18 @@
+{% include "base.html" %}
+{% for message in message_list %}
+
+<table>
+    <tr bgcolor=#ffccff>
+        <td></td>
+        <td>{{ message.title }} </td>
+        <td width=250 align=right>{{ message.date }}</td>
+    </tr>
+    <tr>
+        <td align=center height=30 width=100 bgcolor=#ffaaff>{{ message.pmTo.user.username }}</td>
+        <td rowspan=2 width=600 style="vertical-align:top" >{{ message.text }}</td>
+           </table>
+        </td>
+    </tr>
+
+</table>
+{% endfor %}

@@ -17,8 +17,8 @@ class PrivateMessage(models.Model):
     title = models.CharField(max_length = 100, verbose_name="mesaj_basligi")
     text = models.TextField(verbose_name = "mesaj_icerigi")
     date = models.DateTimeField(verbose_name = "mesaj_yollama_tarihi", default=datetime.now())
-    pmFrom = models.ForeignKey(User, related_name="mesaj_yollayan")
-    pmTo = models.ForeignKey(User, related_name="mesaj_alan")
+    pmFrom = models.ForeignKey(Member, related_name="mesaj_yollayan")
+    pmTo = models.ForeignKey(Member, related_name="mesaj_alan")
 
 # yukari yazarsak, birbirine bagimli olan iki models.py calismayi engelliyorlardi.
 from bmforum.forum.models import Topic

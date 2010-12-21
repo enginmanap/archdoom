@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from bmforum.member.models import Member
+from bmforum.member.models import Member, PrivateMessage
+from django.contrib.auth.models import User
 
 class MemberForm(forms.ModelForm):
     username = forms.CharField(label='Kullanici Adi', max_length=20)
@@ -16,3 +17,12 @@ class MemberForm(forms.ModelForm):
     class Meta:
         model = Member
         fields =  ('username', 'firstname', 'lastname', 'birthDate', 'email', 'password', 'password_again', 'studentNo', 'studentClass', )
+
+class PrivateMessageForm(forms.ModelForm):
+    pmTo = forms.ModelChoiceField(queryset=Member.objects.all())
+    title = forms.CharField(label='Baslik', max_length=30)
+    text = forms.CharField(label='Mesaj', widget=forms.Textarea(attrs={'style':'width: 760px;'}))
+
+    class Meta:
+        model = PrivateMessage
+        fields = ('pmTo', 'title', 'text', )
