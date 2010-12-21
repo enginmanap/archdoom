@@ -1,8 +1,8 @@
 {% include "base.html" %}
 
+{% block body %}
 <h1>{{ topic.title }}</h1>
 {% for entry in entry_list %}
-
 <table>
     <tr bgcolor=#ffccff>
         <td colspan=2 width=200 align=right>{{ entry.date }}</td>
@@ -32,3 +32,4 @@
 <input type="submit" value="Yolla" />
 </form> 
 {% endif %}
+{% endblock %}

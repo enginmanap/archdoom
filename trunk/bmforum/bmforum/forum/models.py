@@ -15,12 +15,9 @@ class Topic(models.Model):
 	subTopic = models.ForeignKey('self', blank=True, null=True, verbose_name = "ait_oldugu_baslik")
 	owner = models.ForeignKey(Member, related_name = "creator_of_topic")
 	firstEntry = models.ForeignKey('Entry', related_name = "ilk_girdi", null=True, blank=True)
-
+	isHidden = models.BooleanField("topic_deleted?", default = False)
 	def __unicode__(self):
 		return self.title
-
-
- 
 
 class Entry(models.Model):
 	member = models.ForeignKey(Member, related_name = "entry_author")

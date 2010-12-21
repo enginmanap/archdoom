@@ -14,11 +14,11 @@ def giris(request):
 
 def topicList(request, topic_id=0):
     if topic_id == 0:
-        topic_list = Topic.objects.filter(subTopic = None )
+        topic_list = Topic.objects.filter(subTopic = None, isHidden=False )
         return render_to_response('forum/topiclist.html', {'topic_list':topic_list,"root":True}, context_instance=RequestContext(request))
     else:
         topic = get_object_or_404(Topic, pk = topic_id)
-        topic_list = Topic.objects.filter(subTopic = topic )
+        topic_list = Topic.objects.filter(subTopic = topic, isHidden=False )
         return render_to_response('forum/topiclist.html', {'topic_list':topic_list, "topic_id":topic_id}, context_instance=RequestContext(request))
 
 def addTopic(request, topic_id):
@@ -71,7 +71,7 @@ def showTopic(request, topic_id, topic_name):
             return HttpResponseRedirect(reverse('bmforum.forum.views.showTopic', args = (topic_id ,topic_name)),)
     else:
         topic = get_object_or_404(Topic, pk = topic_id)
-        entry_list = Entry.objects.filter(topic = topic)
+        entry_list = Entry.objects.filter(topic = topic, isHidden=False)
         form = EntryForm()
         return render_to_response('forum/topicentry.html', {'entry_list': entry_list, 'topic':topic, "form":form, }, context_instance=RequestContext(request))
 
@@ -82,14 +82,13 @@ def auth(request):
     if user is not None:
         if user.is_active:
             login(request, user)
-            print "login"
             return HttpResponseRedirect(reverse('bmforum.forum.views.topicList'))
         else:
-            # Return a 'disabled account' error message
-            return HttpResponseRedirect(reverse('bmforum.forum.views.topicList'))
+            error = 'disabled account'
+            return render_to_response('error.html', {'error': error})
     else:
-        # Return an 'invalid login' error message.
-        return HttpResponseRedirect(reverse('bmforum.forum.views.topicList'))
+        error = 'invalid login'
+        return render_to_response('error.html', {'error': error})
 
 def deauth(request):
     logout(request)
