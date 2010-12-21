@@ -21,4 +21,5 @@ urlpatterns = patterns('',
     url(r'^deauth/$','forum.views.deauth', name='deauth'),
     url(r'^authlogin/$','forum.views.authlogin', name='authlogin'),
     (r'^member/', include('bmforum.member.urls')),
+    (r'^planet/', include('bmforum.planet.urls')),
 )

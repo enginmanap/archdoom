@@ -11,8 +11,8 @@
         <a href="/forum/" name="Forum"><img src="/media/menu/Forum.gif"></a>
         <a href="/gezegen/" name="Gezegen"><img src="/media/menu/Gezegen.gif"></a>
         {% if user.is_authenticated %}
-        <a href= "{% url deauth %}" >cikis yap, {{ user.username }}</a>
-        <a href= "{% url privateMessage %}" >Ozel mesajlarim</a>
+        <a href= "{% url deauth %}" >cikis yap</a>, 
+        <a href= "{% url userMenu %}" > {{ user.username }}</a>
         {% else %}
         <a href="{% url authlogin %}" >uye girisi</a>
         <a href="{% url userRegister %}" >uye ol</a>
