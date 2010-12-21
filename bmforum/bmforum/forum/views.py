@@ -43,7 +43,7 @@ def addTopic(request, topic_id):
                 print "sacmaladin mi?"
                 topic.subTopic = get_object_or_404(Topic, pk = topic_id)
                 topic.save()
-                
+
                 entry = entryForm.save(commit = False)
                 entry.member = get_object_or_404(Member, user = request.user)
                 entry.date = datetime.now()

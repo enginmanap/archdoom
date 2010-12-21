@@ -9,7 +9,7 @@ from bmforum.member.models import Member, PrivateMessage
 from django.contrib.auth import authenticate, login, logout
 from datetime import datetime
 
-def privateMessage(request, hede=0):
+def userMenu(request):
     if request.POST:
         form = PrivateMessageForm(request.POST)
         if form.is_valid():
@@ -23,9 +23,9 @@ def privateMessage(request, hede=0):
             message.text = form.cleaned_data['text']
             message.save()
 
-            return render_to_response('member/privateMessage.html', context_instance=RequestContext(request))
+            return render_to_response('member/userMenu.html', context_instance=RequestContext(request))
     else:
-        return render_to_response('member/privateMessage.html', context_instance=RequestContext(request))
+        return render_to_response('member/userMenu.html', context_instance=RequestContext(request))
 
 def privateCompose(request):
     form = PrivateMessageForm()
