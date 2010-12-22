@@ -3,4 +3,8 @@
 <a href="{% url privateCompose %}"> Yeni Mesaj</a>
 <a href="{% url privateInbox %}"> Gelen Kutusu</a>
 <a href="{% url privateSent %}"> Gonderilmis Mesajlar</a>
-<a href="{% url planetRegister %}"> Gezegene Kayit Ol</a>
+{% if blog_varmi %}
+	<a href="{% url planetUnregister %}"> Gezegenden ayril</a>
+{% else%}
+	<a href="{% url planetRegister %}"> Gezegene Kayit Ol</a>
+{% endif %}

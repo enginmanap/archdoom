@@ -9,6 +9,7 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.db import connection
+from django.contrib.auth.decorators import login_required, permission_required
 
 
 def giris(request):
@@ -25,6 +26,7 @@ def topicList(request, topic_id=0):
         print connection.queries
         return render_to_response('forum/topiclist.html', {'topic_list':topic_list, "topic_id":topic_id}, context_instance=RequestContext(request))
 
+@login_required
 def addTopic(request, topic_id):
     if request.POST:
         if topic_id == "0":
@@ -83,6 +85,7 @@ def showTopic(request, topic_id, topic_name):
         print connection.queries
         return render_to_response('forum/topicentry.html', {'entry_list': entry_list, 'topic':topic, "form":form, }, context_instance=RequestContext(request))
 
+@permission_required('forum.change_entry')
 def editEntry(request,entry_id):
     if request.POST:
         form = EntryEditForm(request.POST)
@@ -106,6 +109,7 @@ def editEntry(request,entry_id):
         print connection.queries
         return render_to_response('forum/editEntry.html', {'form':form, 'entry_id':entry.id}, context_instance=RequestContext(request))
 
+@permission_required('forum.delete_entry')
 def deleteEntry(request, entry_id):
     entry = get_object_or_404(Entry, pk=entry_id)
     topic = get_object_or_404(Topic, pk=entry.topic.id)
@@ -135,6 +139,7 @@ def auth(request):
         print connection.queries
         return render_to_response('error.html', {'error': error})
 
+@login_required
 def deauth(request):
     logout(request)
     print connection.queries
