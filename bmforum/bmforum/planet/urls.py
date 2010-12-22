@@ -5,6 +5,7 @@ from os import path
 DOCUMENT_ROOT = path.abspath(path.dirname(__file__))
 admin.autodiscover()
 
-urlpatterns = patterns('',
-    url(r'^planetRegister/$','planet.views.planetRegister', name='planetRegister'),
+urlpatterns = patterns('bmforum.planet.views',
+    url(r'^planetRegister/$','planetRegister', name='planetRegister'),
+    url(r'^planetUnregister/$','planetUnregister', name='planetUnregister'),
 )

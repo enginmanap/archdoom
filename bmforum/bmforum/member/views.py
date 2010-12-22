@@ -6,6 +6,7 @@ from django.template import RequestContext
 from bmforum.member.forms import MemberForm, PrivateMessageForm
 from django.contrib.auth.models import User, Group
 from bmforum.member.models import Member, PrivateMessage
+from bmforum.planet.models import Blog
 from django.contrib.auth import authenticate, login, logout
 from datetime import datetime
 
@@ -22,10 +23,14 @@ def userMenu(request):
             message.pmTo = get_object_or_404(Member, user=_user)
             message.text = form.cleaned_data['text']
             message.save()
-
             return render_to_response('member/userMenu.html', context_instance=RequestContext(request))
     else:
-        return render_to_response('member/userMenu.html', context_instance=RequestContext(request))
+        member = get_object_or_404(Member, user = request.user)
+        userBlog = Blog.objects.filter(member=member)
+        print userBlog
+        if userBlog:
+            return render_to_response('member/userMenu.html', {'blog_varmi': True,}, context_instance=RequestContext(request))
+        return render_to_response('member/userMenu.html', {'blog_varmi': False,}, context_instance=RequestContext(request))
 
 def privateCompose(request):
     form = PrivateMessageForm()
