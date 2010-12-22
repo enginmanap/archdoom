@@ -1,4 +1,5 @@
 from django.db import models
+from bmforum.forum.models import Topic, Entry
 
 academic_titles = (
                    (1, "arastirma gorevlisi" ),
@@ -22,6 +23,7 @@ class Course(models.Model):
     credits = models.IntegerField()
     explanation = models.TextField(verbose_name="Ders_icerigi")
     courseBy = models.ForeignKey(Professor, blank=False, null=False, verbose_name = "Dersin_ogretmeni")
+    isHidden = models.BooleanField(default=False)
     
     def __unicode__(self):
         return self.name
@@ -39,11 +41,17 @@ class LectureNote(models.Model):
     year = models.DateField(blank=False, null=False)
     extra = models.ForeignKey(Extra,blank=True, null=True,verbose_name="Iliskili_Dosya") 
     course = models.ForeignKey(Course, blank=False, null=False, verbose_name="Ait_Oldugu_ders")
+    isHidden = models.BooleanField(default=False)
+    name = models.ForeignKey(Topic, blank=False, null=False, verbose_name="Iliskili_baslik")
+    description = models.ForeignKey(Entry, blank=False, null=False, verbose_name="Iliskili_girdi")
 
 class Exam(models.Model):
     year = models.DateField(blank=False, null=False)
     extra = models.ForeignKey(Extra,blank=True, null=True,verbose_name="Iliskili_Dosya")
     course = models.ForeignKey(Course, blank=False, null=False, verbose_name="Ait_Oldugu_ders")
+    isHidden = models.BooleanField(default=False)
+    name = models.ForeignKey(Topic, blank=False, null=False, verbose_name="Iliskili_baslik")
+    description = models.ForeignKey(Entry, blank=False, null=False, verbose_name="Iliskili_girdi")
     
 class Project(models.Model):
     year = models.DateField(blank=False, null=False)
@@ -51,3 +59,7 @@ class Project(models.Model):
     doneBy = models.CharField(max_length=60, verbose_name="Proje_gelistiricileri")
     extra = models.ForeignKey(Extra,blank=True, null=True,verbose_name="Iliskili_Dosya")
     course = models.ForeignKey(Course, blank=False, null=False, verbose_name="Ait_Oldugu_ders")
+    isHidden = models.BooleanField(default=False)
+    name = models.ForeignKey(Topic, blank=False, null=False, verbose_name="Iliskili_baslik")
+    description = models.ForeignKey(Entry, blank=False, null=False, verbose_name="Iliskili_girdi")
+
