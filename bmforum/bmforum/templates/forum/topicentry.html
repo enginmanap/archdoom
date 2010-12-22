@@ -12,7 +12,7 @@
         <td width=600 style="vertical-align:top" >{{ entry.text }}</td>
         <td height=100 width=60 bgcolor=#ff00ff>
          	<table>
-         	<tr><td align=center ><a href="{% url editEntry entry.id %}">edit</a></td></tr>
+                <tr><td align=center ><a href="{% url editEntry entry.id %}">edit</a> - <a href="{% url deleteEntry entry.id %}">delete</a></td></tr>
          	<tr><td align=center >begendim</td></tr>
 			<tr><td align=center >kararsizim</td></tr>
 			<tr><td align=center >begenmedim</td></tr>

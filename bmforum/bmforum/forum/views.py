@@ -78,7 +78,7 @@ def showTopic(request, topic_id, topic_name):
             return HttpResponseRedirect(reverse('bmforum.forum.views.showTopic', args = (topic_id ,topic_name)),)
     else:
         topic = get_object_or_404(Topic, pk = topic_id)
-        entry_list = Entry.objects.filter(topic = topic, isHidden=False).order_by('-date')
+        entry_list = Entry.objects.filter(topic = topic, isHidden=False).order_by('date')
         form = EntryForm()
         print connection.queries
         return render_to_response('forum/topicentry.html', {'entry_list': entry_list, 'topic':topic, "form":form, }, context_instance=RequestContext(request))
@@ -105,6 +105,13 @@ def editEntry(request,entry_id):
         form = EntryEditForm({'topic':entry.topic.id,'text':entry.text})
         print connection.queries
         return render_to_response('forum/editEntry.html', {'form':form, 'entry_id':entry.id}, context_instance=RequestContext(request))
+
+def deleteEntry(request, entry_id):
+    entry = get_object_or_404(Entry, pk=entry_id)
+    entry.isHidden = True
+    entry.save()
+    print connection.queries
+    return HttpResponseRedirect(reverse('bmforum.forum.views.topicList'))
 
 def auth(request):
     username = request.POST['username']
