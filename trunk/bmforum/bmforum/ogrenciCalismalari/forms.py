@@ -16,9 +16,9 @@ class ProjectForm(forms.ModelForm):
 
 class CourseForm(forms.ModelForm):
     class Meta:
-	model = Course
-	fields = ('name', 'term', 'credits', 'explanation', 'courseBy', )
+        model = Course
+        fields = ('name', 'term', 'credits', 'explanation', 'courseBy', )
 
 class ProfessorForm(forms.ModelForm):
     class Meta:
-	model = Professor
+        model = Professor
