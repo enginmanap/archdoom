@@ -37,7 +37,7 @@ class Entry(models.Model):
 class Vote(models.Model):
 	vote = models.IntegerField()
 	entry = models.ForeignKey("Entry")
-	voter = models.ForeignKey(User, related_name = "voter_user")
+	voter = models.ForeignKey(Member, related_name = "voter_user")
 	
 	def __unicode__(self):
 		return unicode(self.voter)

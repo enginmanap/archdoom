@@ -81,6 +81,20 @@ def showTopic(request, topic_id, topic_name):
     else:
         topic = get_object_or_404(Topic, pk = topic_id)
         entry_list = Entry.objects.filter(topic = topic, isHidden=False).order_by('date')
+        '''        
+        if request.user.is_anonymous():
+            form = EntryForm()
+            print connection.queries
+            return render_to_response('forum/topicentry.html', {'entry_list': entry_list, 'topic':topic, "form":form, }, context_instance=RequestContext(request))
+        else:
+            for entry in entry_list:
+                member = get_object_or_404(Member, user = request.user)
+                working_vote = Vote.objects.filter( voter=member, entry=entry )
+                if working_vote.count() !=0:
+                    voteList.add(working_vote.vote)
+                else:
+                    voteList.add(100)
+            '''
         form = EntryForm()
         print connection.queries
         return render_to_response('forum/topicentry.html', {'entry_list': entry_list, 'topic':topic, "form":form, }, context_instance=RequestContext(request))
@@ -119,6 +133,25 @@ def deleteEntry(request, entry_id):
     entry.isHidden = True
     entry.save()
     print connection.queries
+    return HttpResponseRedirect(reverse('bmforum.forum.views.showTopic', args = (entry.topic.id, entry.topic.title)))
+
+def voteEntry(request, entry_id, vote):
+    entry = get_object_or_404(Entry, pk=entry_id)
+    member = get_object_or_404(Member, user = request.user)
+    working_vote = Vote.objects.filter( voter=member, entry=entry )
+    if working_vote.count() !=0:
+        newVote = working_vote[0]
+    else:
+        newVote = Vote()
+    newVote.entry = entry
+    newVote.voter = member
+    if vote == "0":
+        newVote.vote = 0
+    if vote == "1":
+        newVote.vote = 1
+    if vote == "2":
+        newVote.vote = 2
+    newVote.save()
     return HttpResponseRedirect(reverse('bmforum.forum.views.showTopic', args = (entry.topic.id, entry.topic.title)))
 
 def auth(request):
