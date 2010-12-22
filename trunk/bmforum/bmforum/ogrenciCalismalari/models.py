@@ -54,7 +54,7 @@ class Exam(models.Model):
     description = models.ForeignKey(Entry, blank=False, null=False, verbose_name="Iliskili_girdi")
     
 class Project(models.Model):
-    year = models.DateField(blank=False, null=False)
+    year = models.IntegerField(blank=False, null=False)
     website = models.URLField()
     doneBy = models.CharField(max_length=60, verbose_name="Proje_gelistiricileri")
     extra = models.ForeignKey(Extra,blank=True, null=True,verbose_name="Iliskili_Dosya")

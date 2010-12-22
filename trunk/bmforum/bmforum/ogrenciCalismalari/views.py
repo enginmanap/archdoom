@@ -6,7 +6,7 @@ from django.template import RequestContext
 from bmforum.member.forms import MemberForm, PrivateMessageForm
 from django.contrib.auth.models import User, Group
 from bmforum.member.models import Member, PrivateMessage
-from bmforum.forum.models import Entry, Topic
+from bmforum.forum.models import Entry, Topic, TopicPriorities
 from bmforum.planet.models import Blog
 from django.contrib.auth import authenticate, login, logout
 from datetime import datetime
@@ -37,6 +37,7 @@ def newProject(request):
             topic.date = datetime.now()
             member = get_object_or_404(Member, user = request.user)
             topic.owner = member
+            topic.priority = get_object_or_404(TopicPriorities, pk=1)
             topic.save()
             print "topic kaydedildi"
 
@@ -49,7 +50,8 @@ def newProject(request):
             entry.date = datetime.now()
             entry.save()
             print "entry kaydedildi"
-
+            topic.firstEntry = get_object_or_404(Entry, pk=entry.id)
+            topic.save()
             project.description = get_object_or_404(Entry, pk=entry.id)
 
             project.course = form.cleaned_data['course']
@@ -57,6 +59,7 @@ def newProject(request):
             print "project kaydedil"
             return render_to_response('ogrenciCalismalari/ogrenciCalismalari.html', context_instance=RequestContext(request))
         else:
+            print form.errors
             error = "form is not valid"
             return render_to_response('error.html', {'error': error})
     else:
