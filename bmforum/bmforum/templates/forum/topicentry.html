@@ -9,16 +9,23 @@
     </tr>
     <tr>
         <td align=center height=30 width=100 bgcolor=#ffaaff>{{ entry.member.user.username }}</td>
-        <td rowspan=2 width=600 style="vertical-align:top" >{{ entry.text }}</td>
+        <td width=600 style="vertical-align:top" >{{ entry.text }}</td>
         <td height=100 width=60 bgcolor=#ff00ff>
          	<table>
+         	<tr><td align=center ><a href="{% url editEntry entry.id %}">edit</a></td></tr>
          	<tr><td align=center >begendim</td></tr>
 			<tr><td align=center >kararsizim</td></tr>
 			<tr><td align=center >begenmedim</td></tr>
 			</table>
         </td>
     </tr>
-   
+    {% if entry.isEdited %}
+    <tr align=right height=20>
+    	<td colspan=3>
+    		bu girdi {{ entry.editDate }} tarihinde {{ entry.editBy }} tarafindan tekrar duzenlenmistir.
+    	</td>
+    </tr>
+    {% endif %}
 </table>
 
 {% endfor %}

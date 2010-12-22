@@ -28,7 +28,7 @@ class Entry(models.Model):
 	isVotable = models.BooleanField("entry_votable?", default = True)
 #FIXME edit should be a new class	
 	isEdited = models.BooleanField("entry_edited?", default = False)
-	editdate = models.DateTimeField("date_edited", blank=True, null=True)
+	editDate = models.DateTimeField("date_edited", blank=True, null=True)
 	editBy = models.ForeignKey(Member, related_name ="entry_editer", blank=True, null=True)
 
 	def __unicode__(self):

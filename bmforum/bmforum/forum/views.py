@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponse
 from django.core.context_processors import csrf
 from bmforum.forum.models import *
-from bmforum.forum.forms import EntryForm, TopicForm
+from bmforum.forum.forms import EntryForm, TopicForm, EntryEditForm
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -71,9 +71,30 @@ def showTopic(request, topic_id, topic_name):
             return HttpResponseRedirect(reverse('bmforum.forum.views.showTopic', args = (topic_id ,topic_name)),)
     else:
         topic = get_object_or_404(Topic, pk = topic_id)
-        entry_list = Entry.objects.filter(topic = topic, isHidden=False)
+        entry_list = Entry.objects.filter(topic = topic, isHidden=False).order_by('-date')
         form = EntryForm()
         return render_to_response('forum/topicentry.html', {'entry_list': entry_list, 'topic':topic, "form":form, }, context_instance=RequestContext(request))
+
+def editEntry(request,entry_id):
+    if request.POST:
+        form = EntryEditForm(request.POST)
+        if form.is_valid():
+            entry = get_object_or_404(Entry, pk=entry_id)
+            if entry.topic != form.cleaned_data['topic']:
+                topic = get_object_or_404(Topic, pk=entry.topic.id)
+                if topic.firstEntry.id == entry.id:
+                    error = "bir basligin ilk girdisi tasinamaz, lutfen basligi tasimayi deneyiniz."
+                    return render_to_response('error.html', {'error': error})
+            entry.text = form.cleaned_data['text']
+            entry.isEdited = True
+            entry.editDate = datetime.now()
+            entry.editBy = get_object_or_404(Member, user = request.user)
+            entry.save()
+            return HttpResponseRedirect(reverse('bmforum.forum.views.showTopic', args = (entry.topic.id ,entry.topic.title)),)
+    else:
+        entry = get_object_or_404(Entry, pk=entry_id)
+        form = EntryEditForm({'topic':entry.topic.id,'text':entry.text})
+        return render_to_response('forum/editEntry.html', {'form':form, 'entry_id':entry.id}, context_instance=RequestContext(request))
 
 def auth(request):
     username = request.POST['username']
