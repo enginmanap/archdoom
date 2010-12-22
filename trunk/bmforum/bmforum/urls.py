@@ -22,4 +22,5 @@ urlpatterns = patterns('',
     url(r'^authlogin/$','forum.views.authlogin', name='authlogin'),
     (r'^member/', include('bmforum.member.urls')),
     (r'^planet/', include('bmforum.planet.urls')),
+    (r'^ogrenciCalismalari/', include('bmforum.ogrenciCalismalari.urls')),
 )
