@@ -108,10 +108,14 @@ def editEntry(request,entry_id):
 
 def deleteEntry(request, entry_id):
     entry = get_object_or_404(Entry, pk=entry_id)
+    topic = get_object_or_404(Topic, pk=entry.topic.id)
+    if topic.firstEntry.id == entry.id:
+        error = "bir basligin ilk girdisi silinemez, lutfen basligi silmeyi deneyiniz."
+        return render_to_response('error.html', {'error': error})    
     entry.isHidden = True
     entry.save()
     print connection.queries
-    return HttpResponseRedirect(reverse('bmforum.forum.views.topicList'))
+    return HttpResponseRedirect(reverse('bmforum.forum.views.showTopic', args = (entry.topic.id, entry.topic.title)))
 
 def auth(request):
     username = request.POST['username']
