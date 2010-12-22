@@ -16,6 +16,7 @@ class Topic(models.Model):
 	owner = models.ForeignKey(Member, related_name = "creator_of_topic")
 	firstEntry = models.ForeignKey('Entry', related_name = "ilk_girdi", null=True, blank=True)
 	isHidden = models.BooleanField("topic_deleted?", default = False)
+	date = models.DateTimeField("date_created", default = datetime.now())
 	def __unicode__(self):
 		return self.title
 

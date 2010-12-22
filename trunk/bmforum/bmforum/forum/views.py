@@ -46,7 +46,6 @@ def addTopic(request, topic_id):
                 topic.title =  topicForm.cleaned_data['title']
                 topic.priority = get_object_or_404(TopicPriorities, pk=1)
                 topic.owner = get_object_or_404(Member, user = request.user)
-                print "sacmaladin mi?"
                 topic.subTopic = get_object_or_404(Topic, pk = topic_id)
                 topic.save()
 
