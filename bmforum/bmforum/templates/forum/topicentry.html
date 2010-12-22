@@ -11,11 +11,25 @@
         <td align=center height=30 width=100 bgcolor=#ffaaff>{{ entry.member.user.username }}</td>
         <td  colspan=2 width="600" style="vertical-align:top" >{{ entry.text }}</td>
         <td height=100 width="60" bgcolor=#ff00ff>
+        {% if perms.forum.add_vote %}
          	<table>
-         	<tr><td align=center width="60">begendim</td></tr>
-			<tr><td align=center >kararsizim</td></tr>
-			<tr><td align=center >begenmedim</td></tr>
+         	<tr>
+	         	<td align=center width="60">
+    	     		<a href="{% url voteEntry entry.id 1 %}">Begendim</a>
+        	 	</td>
+         	</tr>
+			<tr>
+				<td align=center >
+					<a href="{% url voteEntry entry.id 0 %}">Begenmedim</a>
+				</td>
+			</tr>
+			<tr>
+				<td align=center >
+					<a href="{% url voteEntry entry.id 2 %}">kararsizim</a>
+				</td>
+			</tr>
 			</table>
+		{% endif%}
         </td>
     </tr>
 {% if perms.forum.change_entry or perms.forum.change_entry %}

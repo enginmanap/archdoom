@@ -10,4 +10,5 @@ urlpatterns = patterns('bmforum.forum.views',
         url(r'^addTopic-(?P<topic_id>\d+)/$','addTopic', name='addTopic'),
         url(r'^editEntry-(?P<entry_id>\d+)/$','editEntry', name='editEntry'),
         url(r'^deleteEntry-(?P<entry_id>\d+)/$','deleteEntry', name='deleteEntry'),
+        url(r'^voteEntry-(?P<entry_id>\d+)-(?P<vote>\d+)/$','voteEntry', name='voteEntry'),
         )
