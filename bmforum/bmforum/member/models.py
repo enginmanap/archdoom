@@ -19,6 +19,7 @@ class PrivateMessage(models.Model):
     date = models.DateTimeField(verbose_name = "mesaj_yollama_tarihi", default=datetime.now())
     pmFrom = models.ForeignKey(Member, related_name="mesaj_yollayan")
     pmTo = models.ForeignKey(Member, related_name="mesaj_alan")
+    isHidden = models.BooleanField("message_deleted?", default = False)
 
 # yukari yazarsak, birbirine bagimli olan iki models.py calismayi engelliyorlardi.
 from bmforum.forum.models import Topic

@@ -3,40 +3,53 @@
 {% block body %}
 <h1>{{ topic.title }}</h1>
 {% for entry in entry_list %}
-<table>
+<table border=0>
     <tr bgcolor=#ffccff>
-        <td colspan=2 width=200 align=right>{{ entry.date }}</td>
+        <td colspan=3 width=630 align=right>{{ entry.date }}</td>
     </tr>
     <tr>
         <td align=center height=30 width=100 bgcolor=#ffaaff>{{ entry.member.user.username }}</td>
-        <td width=600 style="vertical-align:top" >{{ entry.text }}</td>
-        <td height=100 width=60 bgcolor=#ff00ff>
+        <td  colspan=2 width="600" style="vertical-align:top" >{{ entry.text }}</td>
+        <td height=100 width="60" bgcolor=#ff00ff>
          	<table>
-                <tr><td align=center ><a href="{% url editEntry entry.id %}">edit</a> - <a href="{% url deleteEntry entry.id %}">delete</a></td></tr>
-         	<tr><td align=center >begendim</td></tr>
+         	<tr><td align=center width="60">begendim</td></tr>
 			<tr><td align=center >kararsizim</td></tr>
 			<tr><td align=center >begenmedim</td></tr>
 			</table>
         </td>
     </tr>
-    {% if entry.isEdited %}
+{% if perms.forum.change_entry or perms.forum.change_entry %}
+{% if perms.forum.change_entry or entry.isEdited %}
     <tr align=right height=20>
-    	<td colspan=3>
+    {% if perms.forum.change_entry %}
+    	<td>
+    		<a href="{% url editEntry entry.id %}">edit</a>
+    	</td>
+    {% endif %}
+    {% if perms.forum.delete_entry %}
+    	<td width=60 >
+    		<a href="{% url deleteEntry entry.id %}">delete</a>
+    	</td>
+    {% endif %}
+    	<td colspan=2>
+		{% if entry.isEdited %}
     		bu girdi {{ entry.editDate }} tarihinde {{ entry.editBy }} tarafindan tekrar duzenlenmistir.
+    	{% endif %}
     	</td>
     </tr>
-    {% endif %}
+{% endif %}
+{% endif %}
 </table>
 
 {% endfor %}
 {% if perms.forum.add_entry %}
-<form action="{% url showTopic topic.id topic.title %}" method="post">
-{% csrf_token %}
-{% for field in form %}
-	{{ field }}
-{% endfor %}
-<br />
-<input type="submit" value="Yolla" />
-</form> 
+	<form action="{% url showTopic topic.id topic.title %}" method="post">
+		{% csrf_token %}
+		{% for field in form %}
+			{{ field }}
+		{% endfor %}
+		<br />
+		<input type="submit" value="Yolla" />
+	</form> 
 {% endif %}
 {% endblock %}
