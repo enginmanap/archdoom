@@ -12,6 +12,7 @@ from bmforum.planet.models import Blog
 from django.contrib.auth import authenticate, login, logout
 from datetime import datetime
 from bmforum.ogrenciCalismalari.models import *
+from django.db import connection
 import os
 from bmforum.ogrenciCalismalari.forms import ProjectForm, ProfessorForm, CourseForm, ExamForm, LectureNoteForm, ExtraForm
 
@@ -24,24 +25,28 @@ def projects(request):
     project_list = Project.objects.filter(isHidden=False)
     exam_list = Exam.objects.filter(isHidden=False)
     lectureNote_list = LectureNote.objects.filter(isHidden=False)
+    print connection.queries
     return render_to_response('ogrenciCalismalari/projects.html', {'project_list':project_list, 'exam_list':exam_list, 'lectureNote_list':lectureNote_list, }, context_instance=RequestContext(request))
 
 def showProject(request, project_id):
     project = get_object_or_404(Project, pk=project_id)
     entry_list = Entry.objects.filter(topic = project.name, isHidden=False).order_by('date')
     form = EntryForm()
+    print connection.queries
     return render_to_response('ogrenciCalismalari/showProject.html', {'entry_list':entry_list, 'project':project, 'form':form, 'from':'project'}, context_instance=RequestContext(request))
 
 def showExam(request, exam_id):
     exam = get_object_or_404(Exam, pk=exam_id)
     entry_list = Entry.objects.filter(topic = exam.name, isHidden=False).order_by('date')
     form = EntryForm()
+    print connection.queries
     return render_to_response('ogrenciCalismalari/showProject.html', {'entry_list':entry_list, 'project':exam, 'form':form, 'from':'exam'}, context_instance=RequestContext(request))
 
 def showLectureNote(request, lectureNote_id):
     lectureNote = get_object_or_404(LectureNote, pk=lectureNote_id)
     entry_list = Entry.objects.filter(topic = lectureNote.name, isHidden=False).order_by('date')
     form = EntryForm()
+    print connection.queries
     return render_to_response('ogrenciCalismalari/showProject.html', {'entry_list':entry_list, 'project':lectureNote, 'form':form, 'from':'lectureNote'}, context_instance=RequestContext(request))
 
 def projectAddEntry(request, project_id):
@@ -55,8 +60,10 @@ def projectAddEntry(request, project_id):
             entry.date = datetime.now()
             entry.text = form.cleaned_data['text']
             entry.save()
+            print connection.queries
             return HttpResponseRedirect(reverse('showProject', args = (project.id,)))
     else:
+        print connection.queries
         return render_to_response('ogrenciCalismalari/projects.html', context_instance=RequestContext(request))
 
 def examAddEntry(request, exam_id):
@@ -70,8 +77,10 @@ def examAddEntry(request, exam_id):
             entry.date = datetime.now()
             entry.text = form.cleaned_data['text']
             entry.save()
+            print connection.queries
             return HttpResponseRedirect(reverse('showProject', args = (exam.id,)))
     else:
+        print connection.queries
         return render_to_response('ogrenciCalismalari/projects.html', context_instance=RequestContext(request))
 
 def lectureNoteAddEntry(request, lectureNote_id):
@@ -85,8 +94,10 @@ def lectureNoteAddEntry(request, lectureNote_id):
             entry.date = datetime.now()
             entry.text = form.cleaned_data['text']
             entry.save()
+            print connection.queries
             return HttpResponseRedirect(reverse('showProject', args = (lectureNote.id,)))
     else:
+        print connection.queries
         return render_to_response('ogrenciCalismalari/projects.html', context_instance=RequestContext(request))
 
 def newExam(request):
@@ -130,6 +141,7 @@ def newExam(request):
 
             exam.course = form.cleaned_data['course']
             exam.save()
+            print connection.queries
             return render_to_response('ogrenciCalismalari/ogrenciCalismalari.html', context_instance=RequestContext(request))
         else:
             print form.errors
@@ -138,6 +150,7 @@ def newExam(request):
     else:
         form = ExamForm(prefix ='examForm')
         extraForm = ExtraForm(request.POST, prefix ='extraForm')
+        print connection.queries
         return render_to_response('ogrenciCalismalari/newExam.html', {'form':form, 'extraForm':extraForm}, context_instance=RequestContext(request))
 
 def newLectureNote(request):
@@ -180,6 +193,7 @@ def newLectureNote(request):
 
             lectureNote.course = form.cleaned_data['course']
             lectureNote.save()
+            print connection.queries
             return render_to_response('ogrenciCalismalari/ogrenciCalismalari.html', context_instance=RequestContext(request))
         else:
             print form.errors
@@ -188,6 +202,7 @@ def newLectureNote(request):
     else:
         form = LectureNoteForm(prefix ='lectureNoteForm')
         extraForm = ExtraForm(request.POST, prefix ='extraForm')
+        print connection.queries
         return render_to_response('ogrenciCalismalari/newLectureNote.html', {'form':form, 'extraForm':extraForm}, context_instance=RequestContext(request))
     
     
@@ -234,6 +249,7 @@ def newProject(request):
 
             project.course = form.cleaned_data['course']
             project.save()
+            print connection.queries
             return render_to_response('ogrenciCalismalari/ogrenciCalismalari.html', context_instance=RequestContext(request))
         else:
             print form.errors
@@ -242,6 +258,7 @@ def newProject(request):
     else:
         form = ProjectForm(prefix ='projectForm')
         extraForm = ExtraForm(request.POST, prefix ='extraForm')
+        print connection.queries
         return render_to_response('ogrenciCalismalari/newProject.html', {'form':form, 'extraForm':extraForm}, context_instance=RequestContext(request))
 
 def newExtra(request):
@@ -254,6 +271,7 @@ def newExtra(request):
             extra.description = extraForm.cleaned_data['description']
             extra.fileName =  os.path.split(extra.file.name)[1:]
             extra.save()
+            print connection.queries
             return render_to_response('ogrenciCalismalari/ogrenciCalismalari.html', context_instance=RequestContext(request))
         else:
             print extraForm.errors
@@ -261,6 +279,7 @@ def newExtra(request):
             return render_to_response('error.html', {'error': error})
     else:
         extraForm = ExtraForm(prefix ='extraForm')
+        print connection.queries
         return render_to_response('ogrenciCalismalari/newExtra.html', {'extraForm':extraForm,}, context_instance=RequestContext(request))
 
 def newProfessor(request):
@@ -271,10 +290,11 @@ def newProfessor(request):
             professor.name = form.cleaned_data['name']
             professor.academicTitle = form.cleaned_data['academicTitle']
             professor.save()
-
+            print connection.queries
             return render_to_response('ogrenciCalismalari/ogrenciCalismalari.html', context_instance=RequestContext(request))
     else:
         form = ProfessorForm()
+        print connection.queries
         return render_to_response('ogrenciCalismalari/newProfessor.html', {'form':form, }, context_instance=RequestContext(request))
 
 def newCourse(request):
@@ -288,8 +308,9 @@ def newCourse(request):
             course.explanation = form.cleaned_data['explanation']
             course.courseBy = form.cleaned_data['courseBy']
             course.save()
-
+            print connection.queries
             return render_to_response('ogrenciCalismalari/ogrenciCalismalari.html', context_instance=RequestContext(request))
     else:
         form = CourseForm()
+        print connection.queries
         return render_to_response('ogrenciCalismalari/newCourse.html', {'form':form, }, context_instance=RequestContext(request))

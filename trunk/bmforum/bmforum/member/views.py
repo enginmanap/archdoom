@@ -9,6 +9,7 @@ from bmforum.member.models import Member, PrivateMessage
 from bmforum.planet.models import Blog
 from django.contrib.auth import authenticate, login, logout
 from datetime import datetime
+from django.db import connection
 
 def userMenu(request):
     if request.POST:
@@ -23,25 +24,30 @@ def userMenu(request):
             message.pmTo = get_object_or_404(Member, user=_user)
             message.text = form.cleaned_data['text']
             message.save()
+            print connection.queries
             return render_to_response('member/userMenu.html', context_instance=RequestContext(request))
     else:
         member = get_object_or_404(Member, user = request.user)
         userBlog = Blog.objects.filter(member=member)
         print userBlog
+        print connection.queries
         if userBlog:
             return render_to_response('member/userMenu.html', {'blog_varmi': True,}, context_instance=RequestContext(request))
         return render_to_response('member/userMenu.html', {'blog_varmi': False,}, context_instance=RequestContext(request))
 
 def privateCompose(request):
     form = PrivateMessageForm()
+    print connection.queries
     return render_to_response('member/privateCompose.html', {'form':form, }, context_instance=RequestContext(request))
 
 def privateInbox(request):
     message_list = PrivateMessage.objects.filter(pmTo = get_object_or_404(Member, user=request.user) , isHidden=False )
+    print connection.queries
     return render_to_response('member/privateInbox.html', {'message_list': message_list,}, context_instance=RequestContext(request))
 
 def privateSent(request):
     message_list = PrivateMessage.objects.filter(pmFrom = get_object_or_404(Member, user=request.user) , isHidden=False)
+    print connection.queries
     return render_to_response('member/privateSent.html', {'message_list': message_list,}, context_instance=RequestContext(request))
 
 def userRegister(request):
@@ -66,8 +72,9 @@ def userRegister(request):
             logUser = authenticate(username = username, password = password)
             if logUser.is_active:
                 login(request, logUser)
-
+            print connection.queries
             return HttpResponseRedirect(reverse('bmforum.forum.views.topicList'),)
     else:
         form = MemberForm()
+        print connection.queries
         return render_to_response('member/registerMember.html', {"form":form, }, context_instance=RequestContext(request))

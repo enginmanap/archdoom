@@ -151,6 +151,7 @@ def voteEntry(request, entry_id, vote):
     if vote == "2":
         newVote.vote = 2
     newVote.save()
+    print connection.queries
     return HttpResponseRedirect(reverse('bmforum.forum.views.showTopic', args = (entry.topic.id, entry.topic.title)))
 
 def auth(request):

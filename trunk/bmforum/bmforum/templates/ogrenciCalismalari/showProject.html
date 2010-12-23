@@ -2,7 +2,7 @@
 
 {% block body %}
 <h1>{{ project.name.title }}</h1>
-<h3> Yıl: {{ project.year }} <br>
+<h3> Yil: {{ project.year }} <br>
 Web Sitesi: {{ project.website }} <br>
 Projeyi Yapanlar: {{ project.doneBy }} <br>
 Ders Adi: {{ project.course.name }} <br></h3>
@@ -69,7 +69,7 @@ Ders Adi: {{ project.course.name }} <br></h3>
 		<form action="{% url lectureNoteAddEntry project.id %}" method="post">
 	{% endif %}
 	{% if from == 'exam' %}
-		<form action="{% url examAddEntry project.id %}" method="post">
+		<form action="{% url bmforum.ogrenciCalismalari.views.examAddEntry project.id %}" method="post">
 	{% endif %}
 		{% csrf_token %}
 		{% for field in form %}
