@@ -7,10 +7,11 @@ from bmforum.member.forms import MemberForm, PrivateMessageForm
 from django.contrib.auth.models import User, Group
 from bmforum.member.models import Member, PrivateMessage
 from bmforum.forum.models import Entry, Topic, TopicPriorities
+from bmforum.forum.forms import EntryForm
 from bmforum.planet.models import Blog
 from django.contrib.auth import authenticate, login, logout
 from datetime import datetime
-from bmforum.ogrenciCalismalari.models import Extra
+from bmforum.ogrenciCalismalari.models import *
 import os
 from bmforum.ogrenciCalismalari.forms import ProjectForm, ProfessorForm, CourseForm, ExamForm, LectureNoteForm, ExtraForm
 
@@ -20,7 +21,43 @@ def ogrenciCalismalari(request):
     return render_to_response('ogrenciCalismalari/ogrenciCalismalari.html', context_instance=RequestContext(request))
 
 def projects(request):
-    return render_to_response('ogrenciCalismalari/projects.html', context_instance=RequestContext(request))
+    project_list = Project.objects.filter(isHidden=False)
+    exam_list = Exam.objects.filter(isHidden=False)
+    lectureNote_list = LectureNote.objects.filter(isHidden=False)
+    return render_to_response('ogrenciCalismalari/projects.html', {'project_list':project_list, 'exam_list':exam_list, 'lectureNote_list':lectureNote_list, }, context_instance=RequestContext(request))
+
+def showProject(request, project_id):
+    project = get_object_or_404(Project, pk=project_id)
+    entry_list = Entry.objects.filter(topic = project.name, isHidden=False).order_by('date')
+    form = EntryForm()
+    return render_to_response('ogrenciCalismalari/showProject.html', {'entry_list':entry_list, 'project':project, 'form':form, }, context_instance=RequestContext(request))
+
+def showExam(request, exam_id):
+    exam = get_object_or_404(Exam, pk=exam_id)
+    entry_list = Entry.objects.filter(topic = exam.name, isHidden=False).order_by('date')
+    form = EntryForm()
+    return render_to_response('ogrenciCalismalari/showProject.html', {'entry_list':entry_list, 'project':exam, 'form':form, }, context_instance=RequestContext(request))
+
+def showLectureNote(request, lectureNote_id):
+    lectureNote = get_object_or_404(LectureNote, pk=lectureNote_id)
+    entry_list = Entry.objects.filter(topic = lectureNote.name, isHidden=False).order_by('date')
+    form = EntryForm()
+    return render_to_response('ogrenciCalismalari/showProject.html', {'entry_list':entry_list, 'project':lectureNote, 'form':form, }, context_instance=RequestContext(request))
+
+def projectAddEntry(request, project_id):
+    if request.POST:
+        form = EntryForm(request.POST)
+        if form.is_valid():
+            entry = form.save(commit = False)
+            project = get_object_or_404(Project, pk=project_id)
+	    entry.topic = project.name
+            entry.member = get_object_or_404(Member, user=request.user)
+            entry.date = datetime.now()
+            entry.text = form.cleaned_data['text']
+            entry.save()
+            return HttpResponseRedirect(reverse('showProject', args = (project.id,)))
+    else:
+        return render_to_response('ogrenciCalismalari/projects.html', context_instance=RequestContext(request))
 
 def newExam(request):
     if request.POST:
