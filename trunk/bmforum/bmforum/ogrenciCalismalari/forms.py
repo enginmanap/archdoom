@@ -1,7 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from django import forms
-from bmforum.ogrenciCalismalari.models import Project, Course, Professor, Exam, Extra
+from bmforum.ogrenciCalismalari.models import Project, Course, Professor, Exam, Extra,\
+    LectureNote
 from django.contrib.auth.models import User
 
 class ExamForm(forms.ModelForm):
@@ -15,7 +16,7 @@ class LectureNoteForm(forms.ModelForm):
     lectureNoteName = forms.CharField(label='Baslik', max_length=30)
     lectureNoteDescription = forms.CharField(label='Aciklama', widget=forms.Textarea(attrs={'style':'width: 760px;'}))
     class Meta:
-        model = Exam
+        model = LectureNote
         fields = ('lectureNoteName', 'lectureNoteDescription', 'year', 'course', )
 
 class ProjectForm(forms.ModelForm):

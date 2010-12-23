@@ -8,6 +8,8 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^projects/$','ogrenciCalismalari.views.projects', name='projects'),
     url(r'^projectAddEntry-(?P<project_id>\d)/$','ogrenciCalismalari.views.projectAddEntry', name='projectAddEntry'),
+    url(r'^examAddEntry-(?P<exam_id>\d)/$','ogrenciCalismalari.views.examAddEntry', name='examAddEntry'),
+    url(r'^lectureNoteAddEntry-(?P<lecture_id>\d)/$','ogrenciCalismalari.views.lectureNoteAddEntry', name='lectureNoteAddEntry'),
     url(r'^showProject-(?P<project_id>\d+)/$','ogrenciCalismalari.views.showProject', name='showProject'),
     url(r'^showExam-(?P<exam_id>\d+)/$','ogrenciCalismalari.views.showExam', name='showExam'),
     url(r'^showLectureNote-(?P<lectureNote_id>\d+)/$','ogrenciCalismalari.views.showLectureNote', name='showLectureNote'),
