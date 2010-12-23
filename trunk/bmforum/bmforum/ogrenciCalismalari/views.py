@@ -25,18 +25,20 @@ def projects(request):
 def newExam(request):
     if request.POST:
         form = ExamForm(request.POST, prefix ='examForm')
-        extraForm = ExtraForm(request.POST, prefix ='extraForm')
+        extraForm = ExtraForm(request.POST, request.FILES, prefix ='extraForm')
         if form.is_valid():
             if extraForm.is_valid():
                 extra = extraForm.save(commit = False)
-                extra.file = extraForm.cleaned_data['file']
+                extra.file = request.FILES['extraForm-file']
                 extra.description = extraForm.cleaned_data['description']
                 extra.fileName =  os.path.split(extra.file.name)[1:]
                 extra.save()
+            else:
+                print extraForm.errors
             #project = Project()
             exam = form.save(commit = False)
             exam.year = form.cleaned_data['year']
-
+            exam.extra = extra
             topic = Topic()
             topic.title = form.cleaned_data['examName']
             topic.subTopic = ogrenciCalismalariTopic
@@ -73,17 +75,19 @@ def newExam(request):
 def newLectureNote(request):
     if request.POST:
         form = LectureNoteForm(request.POST, prefix ='lectureNoteForm')
-        extraForm = ExtraForm(request.POST, prefix ='extraForm')
+        extraForm = ExtraForm(request.POST, request.FILES, prefix ='extraForm')
         if form.is_valid():
             if extraForm.is_valid():
                 extra = extraForm.save(commit = False)
-                extra.file = extraForm.cleaned_data['file']
+                extra.file = request.FILES['extraForm-file']
                 extra.description = extraForm.cleaned_data['description']
                 extra.fileName =  os.path.split(extra.file.name)[1:]
                 extra.save()
+            else:
+                print extraForm.errors
             lectureNote = form.save(commit = False)
             lectureNote.year = form.cleaned_data['year']
-
+            lectureNote.extra = extra
             topic = Topic()
             topic.title = form.cleaned_data['lectureNoteName']
             topic.subTopic = ogrenciCalismalariTopic
@@ -121,20 +125,22 @@ def newLectureNote(request):
 def newProject(request):
     if request.POST:
         form = ProjectForm(request.POST, prefix ='projectForm')
-        extraForm = ExtraForm(request.POST, prefix ='extraForm')
+        extraForm = ExtraForm(request.POST, request.FILES, prefix ='extraForm')
         if form.is_valid():
             if extraForm.is_valid():
                 extra = extraForm.save(commit = False)
-                extra.file = extraForm.cleaned_data['file']
+                extra.file = request.FILES['extraForm-file']
                 extra.description = extraForm.cleaned_data['description']
                 extra.fileName =  os.path.split(extra.file.name)[1:]
                 extra.save()
+            else:
+                print extraForm.errors
             #project = Project()
             project = form.save(commit = False)
             project.year = form.cleaned_data['year']
             project.website = form.cleaned_data['website']
             project.doneBy = form.cleaned_data['doneBy']
-
+            project.extra = extra
             topic = Topic()
             topic.title = form.cleaned_data['projectName']
             topic.subTopic = ogrenciCalismalariTopic
@@ -170,7 +176,8 @@ def newProject(request):
 
 def newExtra(request):
     if request.POST:
-        extraForm = ExtraForm(request.POST, prefix ='extraForm')
+        extraForm = ExtraForm(request.POST, request.FILES, prefix ='extraForm')
+        print request.FILES
         if extraForm.is_valid():
             extra = extraForm.save(commit = False)
             extra.file = extraForm.cleaned_data['file']

@@ -1,7 +1,7 @@
 {% include "base.html" %}
 
 <h1> Yeni Ders Notu Kayidi </h1>
-<form action="{% url newLectureNote %}" method="POST">
+<form action="{% url newLectureNote %}" enctype="multipart/form-data" method="POST" >
 {% csrf_token %}
     <table>
         {{ form.as_table }} <br>
