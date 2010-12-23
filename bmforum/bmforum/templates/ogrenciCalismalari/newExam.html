@@ -1,0 +1,13 @@
+{% include "base.html" %}
+
+<h1> Yeni Sinav Kayidi </h1>
+<form action="{% url newExam %}" method="POST">
+{% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Kaydet" />
+    <input type="reset" value="Sifirla" />
+
+</form>
+

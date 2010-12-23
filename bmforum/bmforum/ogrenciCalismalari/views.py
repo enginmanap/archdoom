@@ -10,7 +10,7 @@ from bmforum.forum.models import Entry, Topic, TopicPriorities
 from bmforum.planet.models import Blog
 from django.contrib.auth import authenticate, login, logout
 from datetime import datetime
-from bmforum.ogrenciCalismalari.forms import ProjectForm, ProfessorForm, CourseForm
+from bmforum.ogrenciCalismalari.forms import ProjectForm, ProfessorForm, CourseForm, ExamForm, LectureNoteForm
 
 ogrenciCalismalariTopic = get_object_or_404(Topic, pk=1)
 
@@ -20,6 +20,84 @@ def ogrenciCalismalari(request):
 def projects(request):
     return render_to_response('ogrenciCalismalari/projects.html', context_instance=RequestContext(request))
 
+def newExam(request):
+    if request.POST:
+        form = ExamForm(request.POST)
+        if form.is_valid():
+            #project = Project()
+            exam = form.save(commit = False)
+            exam.year = form.cleaned_data['year']
+
+            topic = Topic()
+            topic.title = form.cleaned_data['examName']
+            topic.subTopic = ogrenciCalismalariTopic
+            topic.date = datetime.now()
+            member = get_object_or_404(Member, user = request.user)
+            topic.owner = member
+            topic.priority = get_object_or_404(TopicPriorities, pk=1)
+            topic.save()
+
+            project.name = get_object_or_404(Topic, pk=topic.id)
+
+            entry = Entry()
+            entry.member = member
+            entry.topic = topic
+            entry.text = form.cleaned_data['examDescription']
+            entry.date = datetime.now()
+            entry.save()
+            topic.firstEntry = get_object_or_404(Entry, pk=entry.id)
+            topic.save()
+            exam.description = get_object_or_404(Entry, pk=entry.id)
+
+            exam.course = form.cleaned_data['course']
+            project.save()
+            return render_to_response('ogrenciCalismalari/ogrenciCalismalari.html', context_instance=RequestContext(request))
+        else:
+            print form.errors
+            error = "form is not valid"
+            return render_to_response('error.html', {'error': error})
+    else:
+        form = ExamForm()
+        return render_to_response('ogrenciCalismalari/newExam.html', {'form':form,}, context_instance=RequestContext(request))
+
+def newLectureNote(request):
+    if request.POST:
+        form = LectureNoteForm(request.POST)
+        if form.is_valid():
+            lectureNote = form.save(commit = False)
+            lectureNote.year = form.cleaned_data['year']
+
+            topic = Topic()
+            topic.title = form.cleaned_data['lectureNoteName']
+            topic.subTopic = ogrenciCalismalariTopic
+            topic.date = datetime.now()
+            member = get_object_or_404(Member, user = request.user)
+            topic.owner = member
+            topic.priority = get_object_or_404(TopicPriorities, pk=1)
+            topic.save()
+
+            lectureNote.name = get_object_or_404(Topic, pk=topic.id)
+
+            entry = Entry()
+            entry.member = member
+            entry.topic = topic
+            entry.text = form.cleaned_data['lectureNoteDescription']
+            entry.date = datetime.now()
+            entry.save()
+            topic.firstEntry = get_object_or_404(Entry, pk=entry.id)
+            topic.save()
+            lectureNote.description = get_object_or_404(Entry, pk=entry.id)
+
+            lectureNote.course = form.cleaned_data['course']
+            lectureNote.save()
+            return render_to_response('ogrenciCalismalari/ogrenciCalismalari.html', context_instance=RequestContext(request))
+        else:
+            print form.errors
+            error = "form is not valid"
+            return render_to_response('error.html', {'error': error})
+    else:
+        form = LectureNoteForm()
+        return render_to_response('ogrenciCalismalari/newLectureNote.html', {'form':form,}, context_instance=RequestContext(request))
 def newProject(request):
     if request.POST:
         form = ProjectForm(request.POST)
@@ -29,7 +107,6 @@ def newProject(request):
             project.year = form.cleaned_data['year']
             project.website = form.cleaned_data['website']
             project.doneBy = form.cleaned_data['doneBy']
-            print "proje dolduruldu"
 
             topic = Topic()
             topic.title = form.cleaned_data['projectName']
@@ -39,7 +116,6 @@ def newProject(request):
             topic.owner = member
             topic.priority = get_object_or_404(TopicPriorities, pk=1)
             topic.save()
-            print "topic kaydedildi"
 
             project.name = get_object_or_404(Topic, pk=topic.id)
 
@@ -49,14 +125,12 @@ def newProject(request):
             entry.text = form.cleaned_data['projectDescription']
             entry.date = datetime.now()
             entry.save()
-            print "entry kaydedildi"
             topic.firstEntry = get_object_or_404(Entry, pk=entry.id)
             topic.save()
             project.description = get_object_or_404(Entry, pk=entry.id)
 
             project.course = form.cleaned_data['course']
             project.save()
-            print "project kaydedil"
             return render_to_response('ogrenciCalismalari/ogrenciCalismalari.html', context_instance=RequestContext(request))
         else:
             print form.errors

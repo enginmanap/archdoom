@@ -38,7 +38,7 @@ class Extra(models.Model):
         return self.fileName
     
 class LectureNote(models.Model):
-    year = models.DateField(blank=False, null=False)
+    year = models.IntegerField(blank=False, null=False)
     extra = models.ForeignKey(Extra,blank=True, null=True,verbose_name="Iliskili_Dosya") 
     course = models.ForeignKey(Course, blank=False, null=False, verbose_name="Ait_Oldugu_ders")
     isHidden = models.BooleanField(default=False)
@@ -46,7 +46,7 @@ class LectureNote(models.Model):
     description = models.ForeignKey(Entry, blank=False, null=False, verbose_name="Iliskili_girdi")
 
 class Exam(models.Model):
-    year = models.DateField(blank=False, null=False)
+    year = models.IntegerField(blank=False, null=False)
     extra = models.ForeignKey(Extra,blank=True, null=True,verbose_name="Iliskili_Dosya")
     course = models.ForeignKey(Course, blank=False, null=False, verbose_name="Ait_Oldugu_ders")
     isHidden = models.BooleanField(default=False)
