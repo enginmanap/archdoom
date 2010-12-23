@@ -62,7 +62,15 @@ Ders Adi: {{ project.course.name }} <br></h3>
 
 {% endfor %}
 {% if perms.forum.add_entry %}
-	<form action="{% url projectAddEntry project.id %}" method="post">
+	{% if from == 'project' %}
+		<form action="{% url projectAddEntry project.id %}" method="post">
+	{% endif %}
+	{% if from == 'lectureNote' %}
+		<form action="{% url lectureNoteAddEntry project.id %}" method="post">
+	{% endif %}
+	{% if from == 'exam' %}
+		<form action="{% url examAddEntry project.id %}" method="post">
+	{% endif %}
 		{% csrf_token %}
 		{% for field in form %}
 			{{ field }}

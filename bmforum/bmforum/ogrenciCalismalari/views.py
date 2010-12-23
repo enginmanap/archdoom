@@ -30,19 +30,19 @@ def showProject(request, project_id):
     project = get_object_or_404(Project, pk=project_id)
     entry_list = Entry.objects.filter(topic = project.name, isHidden=False).order_by('date')
     form = EntryForm()
-    return render_to_response('ogrenciCalismalari/showProject.html', {'entry_list':entry_list, 'project':project, 'form':form, }, context_instance=RequestContext(request))
+    return render_to_response('ogrenciCalismalari/showProject.html', {'entry_list':entry_list, 'project':project, 'form':form, 'from':'project'}, context_instance=RequestContext(request))
 
 def showExam(request, exam_id):
     exam = get_object_or_404(Exam, pk=exam_id)
     entry_list = Entry.objects.filter(topic = exam.name, isHidden=False).order_by('date')
     form = EntryForm()
-    return render_to_response('ogrenciCalismalari/showProject.html', {'entry_list':entry_list, 'project':exam, 'form':form, }, context_instance=RequestContext(request))
+    return render_to_response('ogrenciCalismalari/showProject.html', {'entry_list':entry_list, 'project':exam, 'form':form, 'from':'exam'}, context_instance=RequestContext(request))
 
 def showLectureNote(request, lectureNote_id):
     lectureNote = get_object_or_404(LectureNote, pk=lectureNote_id)
     entry_list = Entry.objects.filter(topic = lectureNote.name, isHidden=False).order_by('date')
     form = EntryForm()
-    return render_to_response('ogrenciCalismalari/showProject.html', {'entry_list':entry_list, 'project':lectureNote, 'form':form, }, context_instance=RequestContext(request))
+    return render_to_response('ogrenciCalismalari/showProject.html', {'entry_list':entry_list, 'project':lectureNote, 'form':form, 'from':'lectureNote'}, context_instance=RequestContext(request))
 
 def projectAddEntry(request, project_id):
     if request.POST:
@@ -50,12 +50,42 @@ def projectAddEntry(request, project_id):
         if form.is_valid():
             entry = form.save(commit = False)
             project = get_object_or_404(Project, pk=project_id)
-	    entry.topic = project.name
+            entry.topic = project.name
             entry.member = get_object_or_404(Member, user=request.user)
             entry.date = datetime.now()
             entry.text = form.cleaned_data['text']
             entry.save()
             return HttpResponseRedirect(reverse('showProject', args = (project.id,)))
+    else:
+        return render_to_response('ogrenciCalismalari/projects.html', context_instance=RequestContext(request))
+
+def examAddEntry(request, exam_id):
+    if request.POST:
+        form = EntryForm(request.POST)
+        if form.is_valid():
+            entry = form.save(commit = False)
+            exam = get_object_or_404(Exam, pk=exam_id)
+            entry.topic = exam.name
+            entry.member = get_object_or_404(Member, user=request.user)
+            entry.date = datetime.now()
+            entry.text = form.cleaned_data['text']
+            entry.save()
+            return HttpResponseRedirect(reverse('showProject', args = (exam.id,)))
+    else:
+        return render_to_response('ogrenciCalismalari/projects.html', context_instance=RequestContext(request))
+
+def lectureNoteAddEntry(request, lectureNote_id):
+    if request.POST:
+        form = EntryForm(request.POST)
+        if form.is_valid():
+            entry = form.save(commit = False)
+            lectureNote = get_object_or_404(LectureNote, pk=lectureNote_id)
+            entry.topic = lectureNote.name
+            entry.member = get_object_or_404(Member, user=request.user)
+            entry.date = datetime.now()
+            entry.text = form.cleaned_data['text']
+            entry.save()
+            return HttpResponseRedirect(reverse('showProject', args = (lectureNote.id,)))
     else:
         return render_to_response('ogrenciCalismalari/projects.html', context_instance=RequestContext(request))
 
@@ -75,7 +105,8 @@ def newExam(request):
             #project = Project()
             exam = form.save(commit = False)
             exam.year = form.cleaned_data['year']
-            exam.extra = extra
+            if extraForm.is_valid():
+                exam.extra = extra
             topic = Topic()
             topic.title = form.cleaned_data['examName']
             topic.subTopic = ogrenciCalismalariTopic
@@ -124,7 +155,8 @@ def newLectureNote(request):
                 print extraForm.errors
             lectureNote = form.save(commit = False)
             lectureNote.year = form.cleaned_data['year']
-            lectureNote.extra = extra
+            if extraForm.is_valid():
+                lectureNote.extra = extra
             topic = Topic()
             topic.title = form.cleaned_data['lectureNoteName']
             topic.subTopic = ogrenciCalismalariTopic
@@ -177,7 +209,8 @@ def newProject(request):
             project.year = form.cleaned_data['year']
             project.website = form.cleaned_data['website']
             project.doneBy = form.cleaned_data['doneBy']
-            project.extra = extra
+            if extraForm.is_valid():
+                project.extra = extra
             topic = Topic()
             topic.title = form.cleaned_data['projectName']
             topic.subTopic = ogrenciCalismalariTopic
