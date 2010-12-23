@@ -10,6 +10,10 @@ from bmforum.forum.models import Entry, Topic, TopicPriorities
 from bmforum.planet.models import Blog
 from django.contrib.auth import authenticate, login, logout
 from datetime import datetime
+from bmforum.ogrenciCalismalari.forms import ProjectForm, ProfessorForm, CourseForm,\
+    ExtraForm
+from bmforum.ogrenciCalismalari.models import Extra
+import os
 from bmforum.ogrenciCalismalari.forms import ProjectForm, ProfessorForm, CourseForm, ExamForm, LectureNoteForm
 
 ogrenciCalismalariTopic = get_object_or_404(Topic, pk=1)
@@ -139,6 +143,24 @@ def newProject(request):
     else:
         form = ProjectForm()
         return render_to_response('ogrenciCalismalari/newProject.html', {'form':form,}, context_instance=RequestContext(request))
+
+def newExtra(request):
+    if request.POST:
+        form = ExtraForm(request.POST)
+        if form.is_valid():
+            extra = form.save(commit = False)
+            extra.file = form.cleaned_data['file']
+            extra.description = form.cleaned_data['description']
+            extra.fileName =  os.path.split(extra.file.name)[1:]
+            extra.save()
+            return render_to_response('ogrenciCalismalari/ogrenciCalismalari.html', context_instance=RequestContext(request))
+        else:
+            print form.errors
+            error = "form is not valid"
+            return render_to_response('error.html', {'error': error})
+    else:
+        form = ExtraForm()
+        return render_to_response('ogrenciCalismalari/newExtra.html', {'form':form,}, context_instance=RequestContext(request))
 
 def newProfessor(request):
     if request.POST:
