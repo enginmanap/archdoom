@@ -10,11 +10,9 @@ from bmforum.forum.models import Entry, Topic, TopicPriorities
 from bmforum.planet.models import Blog
 from django.contrib.auth import authenticate, login, logout
 from datetime import datetime
-from bmforum.ogrenciCalismalari.forms import ProjectForm, ProfessorForm, CourseForm,\
-    ExtraForm
 from bmforum.ogrenciCalismalari.models import Extra
 import os
-from bmforum.ogrenciCalismalari.forms import ProjectForm, ProfessorForm, CourseForm, ExamForm, LectureNoteForm
+from bmforum.ogrenciCalismalari.forms import ProjectForm, ProfessorForm, CourseForm, ExamForm, LectureNoteForm, ExtraForm
 
 ogrenciCalismalariTopic = get_object_or_404(Topic, pk=1)
 
@@ -41,7 +39,7 @@ def newExam(request):
             topic.priority = get_object_or_404(TopicPriorities, pk=1)
             topic.save()
 
-            project.name = get_object_or_404(Topic, pk=topic.id)
+            exam.name = get_object_or_404(Topic, pk=topic.id)
 
             entry = Entry()
             entry.member = member
@@ -54,7 +52,7 @@ def newExam(request):
             exam.description = get_object_or_404(Entry, pk=entry.id)
 
             exam.course = form.cleaned_data['course']
-            project.save()
+            exam.save()
             return render_to_response('ogrenciCalismalari/ogrenciCalismalari.html', context_instance=RequestContext(request))
         else:
             print form.errors
@@ -102,6 +100,8 @@ def newLectureNote(request):
     else:
         form = LectureNoteForm()
         return render_to_response('ogrenciCalismalari/newLectureNote.html', {'form':form,}, context_instance=RequestContext(request))
+    
+    
 def newProject(request):
     if request.POST:
         form = ProjectForm(request.POST)

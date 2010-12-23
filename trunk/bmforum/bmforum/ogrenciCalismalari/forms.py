@@ -9,14 +9,14 @@ class ExamForm(forms.ModelForm):
     examDescription = forms.CharField(label='Aciklama', widget=forms.Textarea(attrs={'style':'width: 760px;'}))
     class Meta:
         model = Exam
-        fields = ('year', 'course', 'examName', 'examDescription', )
+        fields = ('examName', 'examDescription', 'year', 'course', )
 
 class LectureNoteForm(forms.ModelForm):
     lectureNoteName = forms.CharField(label='Baslik', max_length=30)
     lectureNoteDescription = forms.CharField(label='Aciklama', widget=forms.Textarea(attrs={'style':'width: 760px;'}))
     class Meta:
         model = Exam
-        fields = ('year', 'course', 'lectureNoteName', 'lectureNoteDescription', )
+        fields = ('lectureNoteName', 'lectureNoteDescription', 'year', 'course', )
 
 class ProjectForm(forms.ModelForm):
     projectName = forms.CharField(label='Baslik', max_length=30)
@@ -25,7 +25,7 @@ class ProjectForm(forms.ModelForm):
 
     class Meta:
         model = Project
-        fields = ('year', 'website', 'doneBy', 'course', 'projectName', 'projectDescription', )
+        fields = ('projectName', 'projectDescription', 'year', 'website', 'doneBy', 'course', )
 
 class CourseForm(forms.ModelForm):
     class Meta:
