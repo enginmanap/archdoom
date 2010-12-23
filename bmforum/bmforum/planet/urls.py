@@ -6,6 +6,7 @@ DOCUMENT_ROOT = path.abspath(path.dirname(__file__))
 admin.autodiscover()
 
 urlpatterns = patterns('bmforum.planet.views',
+    url(r'^$', 'blogList', name='blogList'),
     url(r'^planetRegister/$','planetRegister', name='planetRegister'),
     url(r'^planetUnregister/$','planetUnregister', name='planetUnregister'),
 )

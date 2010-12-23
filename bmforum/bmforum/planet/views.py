@@ -5,6 +5,11 @@ from bmforum.planet.forms import BlogForm
 from bmforum.member.models import Member
 from bmforum.planet.models import Blog
 
+
+def blogList(request):
+    blogsList = Blog.objects.all()
+    return render_to_response('planet/blogList.html', {'blogList':blogsList})
+
 def planetRegister(request):
     if request.POST:
         form = BlogForm(request.POST)

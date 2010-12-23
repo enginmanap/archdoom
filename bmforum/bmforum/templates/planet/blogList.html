@@ -1,0 +1,9 @@
+{% include "base.html" %}
+
+{% block body %}
+	{% for blog in blogList %}
+    <a href="{{blog.blogAddress}}" name="blog.member.username">blog.member.username</a>
+	{% endfor %}
+
+
+{% endblock %}
