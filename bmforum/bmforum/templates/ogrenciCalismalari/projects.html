@@ -1,2 +1,14 @@
 {% include "base.html" %}
 <h1> projeler </h1>
+
+{% for project in project_list %}
+    <a href="{% url showProject project.id %}" name="{{ project.name.title }}">{{ project.name.title }}</a><br>
+{% endfor %}
+
+{% for project in exam_list %}
+    <a href="{% url showExam project.id %}" name="{{ project.name.title }}">{{ project.name.title }}</a><br>
+{% endfor %}
+
+{% for project in lectureNote_list %}
+    <a href="{% url showLectureNote project.id %}" name="{{ project.name.title }}">{{ project.name.title }}</a><br>
+{% endfor %}
