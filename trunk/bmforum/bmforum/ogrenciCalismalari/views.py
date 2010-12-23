@@ -24,8 +24,15 @@ def projects(request):
 
 def newExam(request):
     if request.POST:
-        form = ExamForm(request.POST)
+        form = ExamForm(request.POST, prefix ='examForm')
+        extraForm = ExtraForm(request.POST, prefix ='extraForm')
         if form.is_valid():
+            if extraForm.is_valid():
+                extra = extraForm.save(commit = False)
+                extra.file = extraForm.cleaned_data['file']
+                extra.description = extraForm.cleaned_data['description']
+                extra.fileName =  os.path.split(extra.file.name)[1:]
+                extra.save()
             #project = Project()
             exam = form.save(commit = False)
             exam.year = form.cleaned_data['year']
@@ -59,13 +66,21 @@ def newExam(request):
             error = "form is not valid"
             return render_to_response('error.html', {'error': error})
     else:
-        form = ExamForm()
-        return render_to_response('ogrenciCalismalari/newExam.html', {'form':form,}, context_instance=RequestContext(request))
+        form = ExamForm(prefix ='examForm')
+        extraForm = ExtraForm(request.POST, prefix ='extraForm')
+        return render_to_response('ogrenciCalismalari/newExam.html', {'form':form, 'extraForm':extraForm}, context_instance=RequestContext(request))
 
 def newLectureNote(request):
     if request.POST:
-        form = LectureNoteForm(request.POST)
+        form = LectureNoteForm(request.POST, prefix ='lectureNoteForm')
+        extraForm = ExtraForm(request.POST, prefix ='extraForm')
         if form.is_valid():
+            if extraForm.is_valid():
+                extra = extraForm.save(commit = False)
+                extra.file = extraForm.cleaned_data['file']
+                extra.description = extraForm.cleaned_data['description']
+                extra.fileName =  os.path.split(extra.file.name)[1:]
+                extra.save()
             lectureNote = form.save(commit = False)
             lectureNote.year = form.cleaned_data['year']
 
@@ -98,14 +113,22 @@ def newLectureNote(request):
             error = "form is not valid"
             return render_to_response('error.html', {'error': error})
     else:
-        form = LectureNoteForm()
-        return render_to_response('ogrenciCalismalari/newLectureNote.html', {'form':form,}, context_instance=RequestContext(request))
+        form = LectureNoteForm(prefix ='lectureNoteForm')
+        extraForm = ExtraForm(request.POST, prefix ='extraForm')
+        return render_to_response('ogrenciCalismalari/newLectureNote.html', {'form':form, 'extraForm':extraForm}, context_instance=RequestContext(request))
     
     
 def newProject(request):
     if request.POST:
-        form = ProjectForm(request.POST)
+        form = ProjectForm(request.POST, prefix ='projectForm')
+        extraForm = ExtraForm(request.POST, prefix ='extraForm')
         if form.is_valid():
+            if extraForm.is_valid():
+                extra = extraForm.save(commit = False)
+                extra.file = extraForm.cleaned_data['file']
+                extra.description = extraForm.cleaned_data['description']
+                extra.fileName =  os.path.split(extra.file.name)[1:]
+                extra.save()
             #project = Project()
             project = form.save(commit = False)
             project.year = form.cleaned_data['year']
@@ -141,26 +164,27 @@ def newProject(request):
             error = "form is not valid"
             return render_to_response('error.html', {'error': error})
     else:
-        form = ProjectForm()
-        return render_to_response('ogrenciCalismalari/newProject.html', {'form':form,}, context_instance=RequestContext(request))
+        form = ProjectForm(prefix ='projectForm')
+        extraForm = ExtraForm(request.POST, prefix ='extraForm')
+        return render_to_response('ogrenciCalismalari/newProject.html', {'form':form, 'extraForm':extraForm}, context_instance=RequestContext(request))
 
 def newExtra(request):
     if request.POST:
-        form = ExtraForm(request.POST)
-        if form.is_valid():
-            extra = form.save(commit = False)
-            extra.file = form.cleaned_data['file']
-            extra.description = form.cleaned_data['description']
+        extraForm = ExtraForm(request.POST, prefix ='extraForm')
+        if extraForm.is_valid():
+            extra = extraForm.save(commit = False)
+            extra.file = extraForm.cleaned_data['file']
+            extra.description = extraForm.cleaned_data['description']
             extra.fileName =  os.path.split(extra.file.name)[1:]
             extra.save()
             return render_to_response('ogrenciCalismalari/ogrenciCalismalari.html', context_instance=RequestContext(request))
         else:
-            print form.errors
-            error = "form is not valid"
+            print extraForm.errors
+            error = "extraForm is not valid"
             return render_to_response('error.html', {'error': error})
     else:
-        form = ExtraForm()
-        return render_to_response('ogrenciCalismalari/newExtra.html', {'form':form,}, context_instance=RequestContext(request))
+        extraForm = ExtraForm(prefix ='extraForm')
+        return render_to_response('ogrenciCalismalari/newExtra.html', {'extraForm':extraForm,}, context_instance=RequestContext(request))
 
 def newProfessor(request):
     if request.POST:
