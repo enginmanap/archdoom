@@ -4,10 +4,11 @@ from django.template import RequestContext
 from bmforum.planet.forms import BlogForm
 from bmforum.member.models import Member
 from bmforum.planet.models import Blog
-
+from django.db import connection
 
 def blogList(request):
     blogsList = Blog.objects.all()
+    print connection.queries
     return render_to_response('planet/blogList.html', {'blogList':blogsList})
 
 def planetRegister(request):
@@ -19,13 +20,14 @@ def planetRegister(request):
             blog.member = get_object_or_404(Member, user = _user)
             blog.blogAddress = form.cleaned_data['blogAddress']
             blog.save()
-
+            print connection.queries
             return render_to_response('member/userMenu.html', context_instance=RequestContext(request))
         else:
             error = "form is not valid"
             return render_to_response('error.html', { 'error': error }, context_instance=RequestContext(request))
     else:
         form = BlogForm()
+        print connection.queries
         return render_to_response('planet/registerPlanet.html', {'form':form, }, context_instance=RequestContext(request))
 
 
@@ -38,4 +40,5 @@ def planetUnregister(request):
     blog.save()
     '''
     blog.delete()
+    print connection.queries
     return render_to_response('member/userMenu.html', context_instance=RequestContext(request))
