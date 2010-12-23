@@ -4,7 +4,8 @@
 <form action="{% url newProject %}" method="POST">
 {% csrf_token %}
     <table>
-        {{ form.as_table }}
+        {{ form.as_table }} <br>
+	{{ extraForm.as_table }}
     </table>
     <input type="submit" value="Kaydet" />
     <input type="reset" value="Sifirla" />
