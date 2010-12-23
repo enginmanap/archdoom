@@ -10,5 +10,7 @@ urlpatterns = patterns('',
     url(r'^newProject/$','ogrenciCalismalari.views.newProject', name='newProject'),
     url(r'^newProfessor/$','ogrenciCalismalari.views.newProfessor', name='newProfessor'),
     url(r'^newCourse/$','ogrenciCalismalari.views.newCourse', name='newCourse'),
+    url(r'^newExam/$','ogrenciCalismalari.views.newExam', name='newExam'),
+    url(r'^newLectureNote/$','ogrenciCalismalari.views.newLectureNote', name='newLectureNote'),
     url(r'^$','ogrenciCalismalari.views.ogrenciCalismalari', name='ogrenciCalismalari'),
 )

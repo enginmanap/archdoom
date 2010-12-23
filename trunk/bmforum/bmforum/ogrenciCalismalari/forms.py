@@ -2,8 +2,22 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from bmforum.ogrenciCalismalari.models import Project, Course, Professor
+from bmforum.ogrenciCalismalari.models import Project, Course, Professor, Exam
 from django.contrib.auth.models import User
+
+class ExamForm(forms.ModelForm):
+    examName = forms.CharField(label='Baslik', max_length=30)
+    examDescription = forms.CharField(label='Aciklama', widget=forms.Textarea(attrs={'style':'width: 760px;'}))
+    class Meta:
+        model = Exam
+        fields = ('year', 'course', 'examName', 'examDescription', )
+
+class LectureNoteForm(forms.ModelForm):
+    lectureNoteName = forms.CharField(label='Baslik', max_length=30)
+    lectureNoteDescription = forms.CharField(label='Aciklama', widget=forms.Textarea(attrs={'style':'width: 760px;'}))
+    class Meta:
+        model = Exam
+        fields = ('year', 'course', 'lectureNoteName', 'lectureNoteDescription', )
 
 class ProjectForm(forms.ModelForm):
     projectName = forms.CharField(label='Baslik', max_length=30)
