@@ -9,7 +9,7 @@ from django.db import connection
 def blogList(request):
     blogsList = Blog.objects.all()
     print connection.queries
-    return render_to_response('planet/blogList.html', {'blogList':blogsList})
+    return render_to_response('planet/blogList.html', {'blogList':blogsList}, context_instance=RequestContext(request))
 
 def planetRegister(request):
     if request.POST:
