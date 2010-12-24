@@ -26,7 +26,6 @@ def topicList(request, topic_id=0):
         print connection.queries
         return render_to_response('forum/topiclist.html', {'topic_list':topic_list, "topic_id":topic_id}, context_instance=RequestContext(request))
 
-@login_required
 def addTopic(request, topic_id):
     if request.POST:
         if topic_id == "0":
@@ -172,7 +171,6 @@ def auth(request):
         print connection.queries
         return render_to_response('error.html', {'error': error})
 
-@login_required
 def deauth(request):
     logout(request)
     print connection.queries
