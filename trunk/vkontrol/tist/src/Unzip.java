@@ -26,9 +26,32 @@ public class Unzip{
 		        // write the files to the disk
 		        int index = entry.getName().lastIndexOf(File.separatorChar)+1;
 		        File dosya = new File(dizinYolu + File.separatorChar+ entry.getName().substring(0, index));
+		        System.out.println("ZIP: acilan dosya :"+ dosya);
 		        if (!dosya.exists())
 		        	dosya.mkdir();
-		        FileOutputStream fos = new FileOutputStream(dizinYolu + entry.getName());
+		        System.out.println("ZIP: entry name :"+ entry.getName());
+		        String fixedEntryName = entry.getName().replace('/', File.separatorChar);
+		        System.out.println("ZIP: fixed entry name :"+ fixedEntryName);
+		        System.out.println("Last index of :"+ fixedEntryName.lastIndexOf(File.separatorChar));
+		        String dizinYapisi = fixedEntryName;
+		        if( fixedEntryName.lastIndexOf(File.separatorChar) != -1 ){
+		        	String yedekDizinYolu = dizinYolu;
+		        	do{
+		        		if (dizinYapisi.indexOf(File.separatorChar) != -1) {
+			        	DizinOlustur yeniDizin = new DizinOlustur(yedekDizinYolu+File.separatorChar+dizinYapisi.substring(0,dizinYapisi.indexOf(File.separatorChar)));
+			        	yeniDizin.olustur();
+		        		}
+			        	if (dizinYapisi.indexOf(File.separatorChar) == -1)
+			        		break;
+			        	yedekDizinYolu = yedekDizinYolu + File.separatorChar + dizinYapisi.substring(0, dizinYapisi.indexOf(File.separatorChar));
+			        	dizinYapisi = dizinYapisi.substring(dizinYapisi.indexOf(File.separatorChar)+1);
+			        	System.out.println("dizin yapisi :"+ dizinYapisi);
+			        }while(true);	
+
+		        }
+		        Thread.currentThread().sleep(100);
+		        FileOutputStream fos = new FileOutputStream(dizinYolu + fixedEntryName);
+		        Thread.currentThread().sleep(100);
 		        dest = new 
 		              BufferedOutputStream(fos, BUFFER);
 		        while ((count = zis.read(data, 0, BUFFER)) 
@@ -41,6 +64,7 @@ public class Unzip{
 		       zis.close();
 		} catch(Exception e) {
 			e.printStackTrace();
+			
 		}
 		return zipYolu;	
 	}
