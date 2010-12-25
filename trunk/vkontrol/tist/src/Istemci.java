@@ -8,6 +8,9 @@ import java.net.UnknownHostException;
 
 
 public class Istemci {
+	
+	private static String COMMITZIPISMI = "committed.zip";
+	
 	private String dosyaYolu;
 	private String sunucuIP;
 	public Istemci(String IP) {
@@ -46,7 +49,7 @@ public class Istemci {
 				OkunacakMetinDosya sunucutxt = new OkunacakMetinDosya(System.getProperty("user.dir")+File.separatorChar+".tist"+File.separatorChar+"sunucu.txt");
 				String sunucuIP = sunucutxt.satirOku();
 				istemci = new Istemci(sunucuIP);
-				Zip yollanacakZip = new Zip(istemci.getDosyaYolu(), "ornek17.zip");
+				Zip yollanacakZip = new Zip(istemci.getDosyaYolu(), COMMITZIPISMI);
 				yollanacakZip.ziple();
 				byte[] bytedizi = new byte[5];
 				bytedizi[0] = 1;
@@ -71,7 +74,7 @@ public class Istemci {
 						cikisAkisi.close();
 						socket.close();
 				
-						AgDosyaSun agdanYollanacakDosya = new AgDosyaSun("/home/mesutcan/workspace/tist/.tist/ornek17.zip");
+						AgDosyaSun agdanYollanacakDosya = new AgDosyaSun(System.getProperty("user.dir")+File.separatorChar+".tist"+File.separatorChar+COMMITZIPISMI);
 						agdanYollanacakDosya.dosyaSun();
 				} catch (UnknownHostException e) {
 					e.printStackTrace();
