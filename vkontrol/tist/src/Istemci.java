@@ -52,7 +52,7 @@ public class Istemci {
 				Zip yollanacakZip = new Zip(istemci.getDosyaYolu(), COMMITZIPISMI);
 				yollanacakZip.ziple();
 				byte[] bytedizi = new byte[5];
-				bytedizi[0] = 1;
+				bytedizi[0] = Sunucu.COMMIT;
 				
 				
 				try {

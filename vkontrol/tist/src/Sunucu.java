@@ -15,8 +15,9 @@ import difflib.PatchFailedException;
 public class Sunucu {
 	public final static boolean DEBUG = true;
 	private static final int OrtakSatir = 2;
-	private static final byte COMMIT = 1;
-	private static final byte CHECKOUT = 2;
+	public static final byte COMMIT = 1;
+	public static final byte CHECKOUT = 2;
+
 	public static int DEFAULTPORT = 13267;
 	private String calismaKlasoru = null;
 	private int revizyonNumarasi = 0;
@@ -274,9 +275,12 @@ public class Sunucu {
 	public boolean checkOut(int revizyonNumarasi){
 		if (Sunucu.DEBUG)
 			System.out.println("revizyon Numarasi:"+revizyonNumarasi);
-		
-		
-		AgDosyaSun sunulacakDosya = new AgDosyaSun(this.calismaKlasoru+File.separatorChar+"temp"+File.separatorChar+"checkOut.r"+this.revizyonNumarasi+".zip");
+		File doluTemp = new File(calismaKlasoru+File.separatorChar+"Temp");
+		doluTemp.delete();
+		DizinOlustur bosTemp = new DizinOlustur(calismaKlasoru+File.separatorChar+"Temp");
+		bosTemp.olustur();
+		patchUygula(this.calismaKlasoru+File.separatorChar+"Temp", revizyonNumarasi);
+		AgDosyaSun sunulacakDosya = new AgDosyaSun(this.calismaKlasoru+File.separatorChar+"Temp"+File.separatorChar+"checkOut.r"+this.revizyonNumarasi+".zip");
 		try {
 			sunulacakDosya.dosyaSun();
 			return true;
@@ -312,7 +316,7 @@ public class Sunucu {
 				Socket sock = servsock.accept();
 				System.out.println("Accepted connection : " + sock);
 				InputStream is = sock.getInputStream();
-				is.read(istek, 0, 1);
+				is.read(istek, 0, 5);
 				if (istek[0] == Sunucu.COMMIT) {
 					servsock.close();
 					String commiterIP = sock.getInetAddress().getHostAddress()
@@ -326,7 +330,11 @@ public class Sunucu {
 				if (istek[0] == Sunucu.CHECKOUT) {
 					servsock.close();
 					sock.close();
-					sunucu.checkOut(sunucu.revizyonNumarasi);
+					if (istek[1] == 0 && istek[2] == 0 && istek[3] == 0 && istek[4] == 0 ){
+						sunucu.checkOut(sunucu.revizyonNumarasi);
+					}
+						int istenenRevizyon = istek[1]*8*8*8+istek[2]*8*8+istek[3]*8+istek[4];
+						sunucu.checkOut(istenenRevizyon);
 					servsock = new ServerSocket(DEFAULTPORT);
 				}
 			}
