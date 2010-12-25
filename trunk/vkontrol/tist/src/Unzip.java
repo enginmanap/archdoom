@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.zip.*;
 
 
-public class Unzip implements Unzipleme{
+public class Unzip{
 	private String zipYolu = null;
 	private String dizinYolu = null;
 	final int BUFFER = 2048;
