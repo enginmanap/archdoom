@@ -45,19 +45,20 @@ public class AgDosyaSun {
 
 		ServerSocket serverSocket = new ServerSocket(Sunucu.DEFAULTPORT);
 			if (Sunucu.DEBUG)
-				System.out.println("Bekleniyor");
+				System.out.println("Dosya sunmak icin bekleniyor");
 			// eger baska bir atama yapimadi ise otomatik olarak agdan yollanacak
 			Socket sock = null;
 			if (cikisAkisi==null){
 				sock = serverSocket.accept();
 				if (Sunucu.DEBUG)
-					System.out.println("Baglantý kabul edildi : " + sock);
+					System.out.println("Dosya sunmak icin baglantý kabul edildi : " + sock);
 					cikisAkisi = sock.getOutputStream();
 				}
 				if (Sunucu.DEBUG)
 					System.out.println("Dosya yollanýyor");
 				cikisAkisi.write(myByteArray,0,myByteArray.length);
 				cikisAkisi.flush();
+				cikisAkisi.close();
 				if (sock!=null)
 					sock.close();
 	}

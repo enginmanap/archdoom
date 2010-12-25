@@ -45,14 +45,15 @@ public class SunucuTest extends TestCase{
 	public void testPatchUygula(){
 		Sunucu sunucu = new Sunucu();
 
-
+		/*
 		YazilacakMetinDosya ilkYazilacakDosya = new YazilacakMetinDosya(sunucu.getCalismaKlasoru()+File.separatorChar+"Head"+File.separatorChar+"denemedosya.txt");
 		ilkYazilacakDosya.satirYaz("engin");
 		ilkYazilacakDosya.satirYaz("mustafa");
 		ilkYazilacakDosya.satirYaz("mesutcan");
 		ilkYazilacakDosya.satirYaz("semih");
 		ilkYazilacakDosya.dosyaKapat();
-
+		*/
+		
 		YazilacakMetinDosya ikinciYazilacakDosya = new YazilacakMetinDosya(sunucu.getCalismaKlasoru()+File.separatorChar+"Temp"+File.separatorChar+"denemedosya.txt");
 		ikinciYazilacakDosya.satirYaz("engin");
 		//ikinciYazilacakDosya.satirYaz("mustafa");

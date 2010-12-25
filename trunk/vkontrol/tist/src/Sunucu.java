@@ -87,10 +87,10 @@ public class Sunucu {
 		File gelenKlasor = new File(gelenKlasorAdi);
 		String yalnizGelenKlasor = gelenKlasor.getName();
 		if (Sunucu.DEBUG)
-			System.out.println("yalniz gelen klasor :" + yalnizGelenKlasor);
+			System.out.println(" farkAl icin yalniz gelen klasor :" + yalnizGelenKlasor);
 		File[] files = gelenKlasor.listFiles();
 		if (Sunucu.DEBUG)
-			System.out.println("Adding directory " + gelenKlasor.getName());
+			System.out.println("farkAl icin Adding directory " + gelenKlasor.getName());
 		for (int i = 0; i < files.length; i++) {
 			// if the file is directory, call the function recursively
 			if (files[i].isDirectory()) {
@@ -192,10 +192,14 @@ public class Sunucu {
 					dosyadanSatira(farkUygulanacakDosya), uygulanacakFark);
 			if(Sunucu.DEBUG)
 				System.out.println("patch listeye uygulandi");
+			File yazilacakdosya = new File(farkUygulanacakDosya);
+			if (yazilacakdosya.exists())
+				yazilacakdosya.delete();
 			YazilacakMetinDosya yazilacakDosya = new YazilacakMetinDosya(
 					farkUygulanacakDosya);
 			if(Sunucu.DEBUG) System.out.println("dosya fark yazmak icin acildi.");
 			yazilacakDosya.satirYaz(yeniDosya);
+			yazilacakDosya.dosyaKapat();
 			return true;
 		} catch (PatchFailedException e) {
 			System.out.println("yama uygulanamadi");
@@ -210,7 +214,7 @@ public class Sunucu {
 		File gelenKlasor = new File(this.calismaKlasoru+File.separatorChar+"Deltas");
 		String yalnizGelenKlasor = gelenKlasor.getName();
 		if (Sunucu.DEBUG)
-			System.out.println("yaln�z gelen klasor :" + yalnizGelenKlasor);
+			System.out.println("patchUygula icin yalniz gelen klasor :" + yalnizGelenKlasor);
 		File[] fileArray = gelenKlasor.listFiles();
 		List<File> fileList = new ArrayList<File>();
 		for(File i:fileArray)
@@ -221,14 +225,25 @@ public class Sunucu {
 			files[i]=fileList.get(i);
 		}
 		if (Sunucu.DEBUG)
-			System.out.println("Adding directory " + gelenKlasor.getName());
+			System.out.println("patch uygula Adding directory " + gelenKlasor.getName());
 		for (int i = 0; i < files.length; i++) {
 			// if the file is directory, call the function recursively
+			String fixedPath = files[i].getAbsolutePath().replace(this.calismaKlasoru+File.separatorChar+"Deltas", this.calismaKlasoru+File.separatorChar+"Temp");
+			
 			if (files[i].isDirectory()) {
-				farkAl(files[i].getAbsolutePath());
+				if (Sunucu.DEBUG)
+					System.out.println("yeni klasor olusturuluyor : "+fixedPath);
+				DizinOlustur eklenecekKlasor = new DizinOlustur(fixedPath);
+				eklenecekKlasor.olustur();
+				patchUygula((files[i].getAbsolutePath()), revizyon);
 				continue;
 
 			}
+			
+			if (Sunucu.DEBUG)
+				System.out.println("yeni dosya olusturuluyor : "+fixedPath.substring(0, fixedPath.length()-6));
+			YazilacakMetinDosya eklenecekDosya = new YazilacakMetinDosya(fixedPath.substring(0, fixedPath.length()-6));
+			eklenecekDosya.dosyaKapat();
 			if (Sunucu.DEBUG)
 				System.out.println("patch icin revizyon :"+revizyon);
 			for(int rev=1;rev <= revizyon; rev++){
@@ -244,7 +259,7 @@ public class Sunucu {
 
 	public boolean commit(String committerIP){
 		if (Sunucu.DEBUG)
-			System.out.println("commit sinyali al�nd�, ip:"+committerIP);
+			System.out.println("commit sinyali alindi, ip : "+committerIP);
 		AgDosyaCek cekilenDosya = new AgDosyaCek(calismaKlasoru+File.separatorChar+"Temp"+File.separatorChar+"istemci-r"+revizyonNumarasi+".zip");
 		try {
 			cekilenDosya.dosyaCek(committerIP);
@@ -275,14 +290,23 @@ public class Sunucu {
 	
 	public boolean checkOut(int revizyonNumarasi){
 		if (Sunucu.DEBUG)
-			System.out.println("revizyon Numarasi:"+revizyonNumarasi);
+			System.out.println("revizyon Numarasi: "+revizyonNumarasi);
 		File doluTemp = new File(calismaKlasoru+File.separatorChar+"Temp");
+		
+		// Get all BCS files
+		File[] fLogs = doluTemp.listFiles();
+		        
+		for (int i = 0; i < fLogs.length; i++){
+			fLogs[i].delete();
+		}       
+		
 		doluTemp.delete();
+		
 		DizinOlustur bosTemp = new DizinOlustur(calismaKlasoru+File.separatorChar+"Temp");
 		bosTemp.olustur();
 		patchUygula(this.calismaKlasoru+File.separatorChar+"Temp", revizyonNumarasi);
 		
-		Zip yollanacakZip = new Zip(this.calismaKlasoru+File.separatorChar+"Temp", Sunucu.CHECKOUTZIPISMI);
+		Zip yollanacakZip = new Zip(this.calismaKlasoru+File.separatorChar+"Temp", this.calismaKlasoru+ File.separatorChar+"Temp"+File.separatorChar+Sunucu.CHECKOUTZIPISMI);
 		yollanacakZip.ziple();
 		
 		AgDosyaSun sunulacakDosya = new AgDosyaSun(this.calismaKlasoru+File.separatorChar+"Temp"+File.separatorChar+Sunucu.CHECKOUTZIPISMI);
@@ -293,7 +317,6 @@ public class Sunucu {
 			e.printStackTrace();
 			return false;
 		}
-		
 		
 	}
 
@@ -338,13 +361,16 @@ public class Sunucu {
 					if (istek[1] == 0 && istek[2] == 0 && istek[3] == 0 && istek[4] == 0 ){
 						sunucu.checkOut(sunucu.revizyonNumarasi);
 					}
+					else {
 						int istenenRevizyon = istek[1]*8*8*8+istek[2]*8*8+istek[3]*8+istek[4];
 						sunucu.checkOut(istenenRevizyon);
+					}
 					servsock = new ServerSocket(DEFAULTPORT);
+					
 				}
 			}
 		} catch (IOException e) {
-			System.out.println("soket acilamadi");
+			System.out.println("SUNUCU: soket acilamadi");
 			
 			System.exit(1);
 		}
@@ -386,7 +412,7 @@ public List<File> ozelBul(List<File> files){
 	}
 	for (File a: unik){
 		if (Sunucu.DEBUG)
-			System.out.println(a.getName());
+			System.out.println("ozel bul, bulunan dosya : " + a.getName());
 	}
 	return unik;
 }
