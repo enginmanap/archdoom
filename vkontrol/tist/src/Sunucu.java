@@ -192,9 +192,11 @@ public class Sunucu {
 					dosyadanSatira(farkUygulanacakDosya), uygulanacakFark);
 			if(Sunucu.DEBUG)
 				System.out.println("patch listeye uygulandi");
+			/*
 			File yazilacakdosya = new File(farkUygulanacakDosya);
 			if (yazilacakdosya.exists())
 				yazilacakdosya.delete();
+			*/
 			YazilacakMetinDosya yazilacakDosya = new YazilacakMetinDosya(
 					farkUygulanacakDosya);
 			if(Sunucu.DEBUG) System.out.println("dosya fark yazmak icin acildi.");
@@ -228,22 +230,27 @@ public class Sunucu {
 			System.out.println("patch uygula Adding directory " + gelenKlasor.getName());
 		for (int i = 0; i < files.length; i++) {
 			// if the file is directory, call the function recursively
+			//fixedPath deltanýn içindeki klasor yapýsýný, temp e olusturuyor.
 			String fixedPath = files[i].getAbsolutePath().replace(this.calismaKlasoru+File.separatorChar+"Deltas", this.calismaKlasoru+File.separatorChar+"Temp");
 			
 			if (files[i].isDirectory()) {
+				// check out icin
 				if (Sunucu.DEBUG)
 					System.out.println("yeni klasor olusturuluyor : "+fixedPath);
 				DizinOlustur eklenecekKlasor = new DizinOlustur(fixedPath);
 				eklenecekKlasor.olustur();
+				
 				patchUygula((files[i].getAbsolutePath()), revizyon);
 				continue;
 
 			}
+			// checkout icin
 			
 			if (Sunucu.DEBUG)
 				System.out.println("yeni dosya olusturuluyor : "+fixedPath.substring(0, fixedPath.length()-6));
 			YazilacakMetinDosya eklenecekDosya = new YazilacakMetinDosya(fixedPath.substring(0, fixedPath.length()-6));
 			eklenecekDosya.dosyaKapat();
+			
 			if (Sunucu.DEBUG)
 				System.out.println("patch icin revizyon :"+revizyon);
 			for(int rev=1;rev <= revizyon; rev++){
@@ -251,7 +258,7 @@ public class Sunucu {
 				String uygulanacakDosya = this.calismaKlasoru+File.separatorChar+yazilacakKlasor+File.separatorChar + files[i].getAbsolutePath().substring( this.calismaKlasoru.length() + 8, files[i].getAbsolutePath().lastIndexOf(".delta"));
 				if (Sunucu.DEBUG)
 					System.out.println("patch uygulaniyor, dosya : "+uygulanacakDosya+" patch : "+ uygulanacakFark);
-				patchUygula(uygulanacakDosya, uygulanacakFark);
+					patchUygula(uygulanacakDosya, uygulanacakFark);
 				
 			}
 		}
