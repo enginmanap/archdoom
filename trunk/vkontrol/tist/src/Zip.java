@@ -76,7 +76,7 @@ public String ziple(){
 	 int index = kaynakDizin.getAbsolutePath().lastIndexOf(dizinIsmi)+1+dizinIsmi.length()-1;
 	 String gercekYol = kaynakDizin.getAbsolutePath().substring(index);
 	 System.out.println("ZIP: gercek yol :"+gercekYol+": uzunlugu"+gercekYol.length());
-	 zout.putNextEntry(new ZipEntry(gercekYol+File.separatorChar+files[i].getName()));
+	 zout.putNextEntry(new ZipEntry(gercekYol+files[i].getName()));
 	/*
 	 * After creating entry in the zip file, actually
 	 * write the file.
