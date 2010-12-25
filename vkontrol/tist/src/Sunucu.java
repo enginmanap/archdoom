@@ -17,6 +17,7 @@ public class Sunucu {
 	private static final int OrtakSatir = 2;
 	public static final byte COMMIT = 1;
 	public static final byte CHECKOUT = 2;
+	public static final String CHECKOUTZIPISMI = "checkout.zip";
 
 	public static int DEFAULTPORT = 13267;
 	private String calismaKlasoru = null;
@@ -280,7 +281,11 @@ public class Sunucu {
 		DizinOlustur bosTemp = new DizinOlustur(calismaKlasoru+File.separatorChar+"Temp");
 		bosTemp.olustur();
 		patchUygula(this.calismaKlasoru+File.separatorChar+"Temp", revizyonNumarasi);
-		AgDosyaSun sunulacakDosya = new AgDosyaSun(this.calismaKlasoru+File.separatorChar+"Temp"+File.separatorChar+"checkOut.r"+this.revizyonNumarasi+".zip");
+		
+		Zip yollanacakZip = new Zip(this.calismaKlasoru+File.separatorChar+"Temp", Sunucu.CHECKOUTZIPISMI);
+		yollanacakZip.ziple();
+		
+		AgDosyaSun sunulacakDosya = new AgDosyaSun(this.calismaKlasoru+File.separatorChar+"Temp"+File.separatorChar+Sunucu.CHECKOUTZIPISMI);
 		try {
 			sunulacakDosya.dosyaSun();
 			return true;
