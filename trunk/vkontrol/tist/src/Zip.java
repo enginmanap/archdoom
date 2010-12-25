@@ -7,15 +7,14 @@ public class Zip {
    private ZipOutputStream zipYolu = null;
    private String dizinIsmi = null;
    private String zipIsmi = null;
-   private FileInputStream fin = null;
    
    public Zip(String dosyaYolu, String zipYolu){
-	   this.ziplenecekDizin = new File(dosyaYolu+File.separatorChar);
-	   int index = dosyaYolu.lastIndexOf(File.separatorChar);
+	   this.ziplenecekDizin = new File(dosyaYolu);
+	   int index = dosyaYolu.lastIndexOf(File.separatorChar)+1;
 	   dizinIsmi = dosyaYolu.substring(index);
 	   FileOutputStream fout = null;
-	   index = zipYolu.lastIndexOf(File.separatorChar);
-	   zipIsmi = zipYolu.substring(index+1);
+	   index = zipYolu.lastIndexOf(File.separatorChar)+1;
+	   zipIsmi = zipYolu.substring(index);
 	try {
 		fout = new FileOutputStream(zipYolu);
 	} catch (FileNotFoundException e) {
@@ -34,7 +33,6 @@ public String ziple(){
 	   try {
 		zipYolu.close();
 	} catch (IOException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
 	   return null;
@@ -74,15 +72,11 @@ public String ziple(){
 	 byte[] buffer = new byte[1024];
 	  
 	 //create object of FileInputStream
-	 fin = new FileInputStream(files[i]);
+	 FileInputStream fin = new FileInputStream(files[i]);
 	 int index = kaynakDizin.getAbsolutePath().lastIndexOf(dizinIsmi)+1+dizinIsmi.length()-1;
 	 String gercekYol = kaynakDizin.getAbsolutePath().substring(index);
 	 System.out.println("ZIP: gercek yol :"+gercekYol+": uzunlugu"+gercekYol.length());
-	 if (gercekYol.length() != 0){
-		 zout.putNextEntry(new ZipEntry(gercekYol+File.separatorChar+files[i].getName()));
-	 }
-	 else
-		 zout.putNextEntry(new ZipEntry(gercekYol+files[i].getName()));
+	 zout.putNextEntry(new ZipEntry(gercekYol+File.separatorChar+files[i].getName()));
 	/*
 	 * After creating entry in the zip file, actually
 	 * write the file.
