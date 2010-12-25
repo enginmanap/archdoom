@@ -24,7 +24,7 @@ public class Unzip{
 		        int count;
 		        byte data[] = new byte[BUFFER];
 		        // write the files to the disk
-		        int index = entry.getName().lastIndexOf(File.separatorChar);
+		        int index = entry.getName().lastIndexOf(File.separatorChar)+1;
 		        File dosya = new File(dizinYolu + File.separatorChar+ entry.getName().substring(0, index));
 		        if (!dosya.exists())
 		        	dosya.mkdir();
