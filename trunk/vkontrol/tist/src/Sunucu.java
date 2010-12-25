@@ -85,7 +85,7 @@ public class Sunucu {
 		File gelenKlasor = new File(gelenKlasorAdi);
 		String yalnizGelenKlasor = gelenKlasor.getName();
 		if (Sunucu.DEBUG)
-			System.out.println("yaln�z gelen klasor :" + yalnizGelenKlasor);
+			System.out.println("yalniz gelen klasor :" + yalnizGelenKlasor);
 		File[] files = gelenKlasor.listFiles();
 		if (Sunucu.DEBUG)
 			System.out.println("Adding directory " + gelenKlasor.getName());
@@ -300,6 +300,7 @@ public class Sunucu {
 			}
 		}
 
+		
 		ServerSocket servsock = null;
 		try {
 			servsock = new ServerSocket(DEFAULTPORT);
@@ -330,7 +331,8 @@ public class Sunucu {
 				}
 			}
 		} catch (IOException e) {
-			System.out.println("soket a��lamad�");
+			System.out.println("soket acilamadi");
+			
 			System.exit(1);
 		}
 
