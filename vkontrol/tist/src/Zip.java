@@ -9,9 +9,11 @@ public class Zip {
    private String zipIsmi = null;
    
    public Zip(String dosyaYolu, String zipYolu){
+	   if (dosyaYolu.lastIndexOf(File.separatorChar) == dosyaYolu.length()-1)
+		   dosyaYolu = dosyaYolu.substring(0, dosyaYolu.length()-1);
 	   this.ziplenecekDizin = new File(dosyaYolu);
 	   int index = dosyaYolu.lastIndexOf(File.separatorChar)+1;
-	   dizinIsmi = dosyaYolu.substring(index);
+	   dizinIsmi = dosyaYolu;
 	   FileOutputStream fout = null;
 	   index = zipYolu.lastIndexOf(File.separatorChar)+1;
 	   zipIsmi = zipYolu.substring(index);
@@ -73,10 +75,8 @@ public String ziple(){
 	  
 	 //create object of FileInputStream
 	 FileInputStream fin = new FileInputStream(files[i]);
-	 int index = kaynakDizin.getAbsolutePath().lastIndexOf(dizinIsmi)+1+dizinIsmi.length()-1;
-	 String gercekYol = kaynakDizin.getAbsolutePath().substring(index);
-	 System.out.println("ZIP: gercek yol :"+gercekYol+": uzunlugu"+gercekYol.length());
-	 zout.putNextEntry(new ZipEntry(gercekYol+files[i].getName()));
+	 String icerdekiYol = files[i].getAbsolutePath().substring(dizinIsmi.length()+1);
+	 zout.putNextEntry(new ZipEntry(icerdekiYol));
 	/*
 	 * After creating entry in the zip file, actually
 	 * write the file.
