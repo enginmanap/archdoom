@@ -53,7 +53,7 @@ public class Sunucu {
 		return lines;
 	}
 
-	private List<String> dosyadanSatira(OkunacakMetinDosya okunacakDosya) {
+	List<String> dosyadanSatira(OkunacakMetinDosya okunacakDosya) {
 		List<String> lines = new LinkedList<String>();
 
 		while (true) {
