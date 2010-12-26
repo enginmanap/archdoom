@@ -26,13 +26,10 @@ public class Unzip{
 		        // write the files to the disk
 		        int index = entry.getName().lastIndexOf(File.separatorChar)+1;
 		        File dosya = new File(dizinYolu + File.separatorChar+ entry.getName().substring(0, index));
-		        System.out.println("ZIP: acilan dosya :"+ dosya);
+
 		        if (!dosya.exists())
 		        	dosya.mkdir();
-		        System.out.println("ZIP: entry name :"+ entry.getName());
 		        String fixedEntryName = entry.getName().replace('/', File.separatorChar);
-		        System.out.println("ZIP: fixed entry name :"+ fixedEntryName);
-		        System.out.println("Last index of :"+ fixedEntryName.lastIndexOf(File.separatorChar));
 		        String dizinYapisi = fixedEntryName;
 		        if( fixedEntryName.lastIndexOf(File.separatorChar) != -1 ){
 		        	String yedekDizinYolu = dizinYolu;
@@ -45,7 +42,6 @@ public class Unzip{
 			        		break;
 			        	yedekDizinYolu = yedekDizinYolu + File.separatorChar + dizinYapisi.substring(0, dizinYapisi.indexOf(File.separatorChar));
 			        	dizinYapisi = dizinYapisi.substring(dizinYapisi.indexOf(File.separatorChar)+1);
-			        	System.out.println("dizin yapisi :"+ dizinYapisi);
 			        }while(true);	
 
 		        }
