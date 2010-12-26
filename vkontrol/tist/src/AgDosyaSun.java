@@ -61,5 +61,6 @@ public class AgDosyaSun {
 				cikisAkisi.close();
 				if (sock!=null)
 					sock.close();
+				serverSocket.close();
 	}
 }
