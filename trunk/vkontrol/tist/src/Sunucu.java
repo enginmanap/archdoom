@@ -13,7 +13,7 @@ import difflib.Patch;
 import difflib.PatchFailedException;
 
 public class Sunucu {
-	public final static boolean DEBUG = true;
+	public final static boolean DEBUG = false;
 	private static final int OrtakSatir = 2;
 	public static final byte COMMIT = 1;
 	public static final byte CHECKOUT = 2;
@@ -187,9 +187,10 @@ public class Sunucu {
 				System.out.println(satir);
 		}
 		try {
+
 			@SuppressWarnings("unchecked")
 			List<String> yeniDosya = (List<String>) DiffUtils.patch(
-					dosyadanSatira(farkUygulanacakDosya), uygulanacakFark);
+					eskiDosya, uygulanacakFark);
 			if(Sunucu.DEBUG)
 				System.out.println("patch listeye uygulandi");
 			/*
@@ -200,6 +201,7 @@ public class Sunucu {
 			YazilacakMetinDosya yazilacakDosya = new YazilacakMetinDosya(
 					farkUygulanacakDosya);
 			if(Sunucu.DEBUG) System.out.println("dosya fark yazmak icin acildi.");
+			
 			yazilacakDosya.satirYaz(yeniDosya);
 			yazilacakDosya.dosyaKapat();
 			return true;
@@ -213,11 +215,26 @@ public class Sunucu {
 	
 	public void patchUygula(String yazilacakKlasorAdi, int revizyon){
 		String yazilacakKlasor = yazilacakKlasorAdi.substring(this.calismaKlasoru.length()+1);
-		File gelenKlasor = new File(this.calismaKlasoru+File.separatorChar+"Deltas");
+		if (yazilacakKlasor.indexOf(File.separator) != -1 )
+			yazilacakKlasor = yazilacakKlasor.substring(0,yazilacakKlasor.indexOf(File.separator));
+		System.out.println("Yazilacak Klasor Adi :"+ yazilacakKlasorAdi);
+		String calisilanKlasor=null;
+		if (yazilacakKlasorAdi.indexOf(this.calismaKlasoru+File.separatorChar+"Head") != -1 )
+			calisilanKlasor = yazilacakKlasorAdi.substring(this.calismaKlasoru.length() + 5 );
+		else if (yazilacakKlasorAdi.indexOf(this.calismaKlasoru+File.separatorChar+"Temp") != -1 )
+			calisilanKlasor = yazilacakKlasorAdi.substring(this.calismaKlasoru.length() + 5 );
+		else if (yazilacakKlasorAdi.indexOf(this.calismaKlasoru+File.separatorChar+"Deltas") != -1 )
+			calisilanKlasor = yazilacakKlasorAdi.substring(this.calismaKlasoru.length() + 7 );
+		else
+			System.out.println("Calisma klasoru bulunamadi");
+			if (calisilanKlasor.startsWith(File.separator))
+				calisilanKlasor = calisilanKlasor.substring(1);
+		File gelenKlasor = new File(this.calismaKlasoru+File.separatorChar+"Deltas"+ File.separatorChar + calisilanKlasor);
 		String yalnizGelenKlasor = gelenKlasor.getName();
 		if (Sunucu.DEBUG)
 			System.out.println("patchUygula icin yalniz gelen klasor :" + yalnizGelenKlasor);
-		File[] fileArray = gelenKlasor.listFiles();
+		System.out.println("Gelen Klasor :									"+ this.calismaKlasoru+File.separatorChar+"Deltas"+ File.separatorChar + calisilanKlasor); 
+		File[] fileArray =gelenKlasor.listFiles();
 		List<File> fileList = new ArrayList<File>();
 		for(File i:fileArray)
 			fileList.add(i);
@@ -226,6 +243,10 @@ public class Sunucu {
 		for(int i=0;i<fileList.size();i++){
 			files[i]=fileList.get(i);
 		}
+		System.out.println("FILES :" );
+		for (File fike:files)
+			System.out.print(fike.getName() + " " + fike.getAbsoluteFile());
+		System.out.println("");
 		if (Sunucu.DEBUG)
 			System.out.println("patch uygula Adding directory " + gelenKlasor.getName());
 		for (int i = 0; i < files.length; i++) {
@@ -239,8 +260,11 @@ public class Sunucu {
 					System.out.println("yeni klasor olusturuluyor : "+fixedPath);
 				DizinOlustur eklenecekKlasor = new DizinOlustur(fixedPath);
 				eklenecekKlasor.olustur();
+				System.out.println(" : " + files[i].getAbsolutePath());
 				
-				patchUygula((files[i].getAbsolutePath()), revizyon);
+				String expectedFile = files[i].getAbsolutePath().replace(this.calismaKlasoru + File.separatorChar + "Deltas", this.calismaKlasoru+File.separatorChar + yazilacakKlasor );
+				System.out.println("asil buneeeeeeee 														" + expectedFile);
+				patchUygula(expectedFile, revizyon);
 				continue;
 
 			}
@@ -253,11 +277,34 @@ public class Sunucu {
 			
 			if (Sunucu.DEBUG)
 				System.out.println("patch icin revizyon :"+revizyon);
+			/*
+			File doluHead = new File(calismaKlasoru+File.separatorChar+"Head");
+			
+			// Get all BCS files
+			File[] fLogs = doluHead.listFiles();
+			        
+			for (int j = 0; j < fLogs.length; j++){
+				fLogs[j].delete();
+			}       
+			doluHead.delete();
+			
+			DizinOlustur bosHead = new DizinOlustur(calismaKlasoru+File.separatorChar+"Head");
+			bosHead.olustur();
+			*/
+			
+			String uygulanacakDosya = this.calismaKlasoru+File.separatorChar+yazilacakKlasor+File.separatorChar + files[i].getAbsolutePath().substring( this.calismaKlasoru.length() + 8, files[i].getAbsolutePath().lastIndexOf(".delta"));
+			System.out.println("BUNEEEE :" + uygulanacakDosya);
+			System.out.println("Absolute path : "+ files[i].getAbsolutePath());
+			
+			YazilacakMetinDosya patchlenecekDosya = new YazilacakMetinDosya(uygulanacakDosya);
+			patchlenecekDosya.dosyaKapat();
+												
 			for(int rev=1;rev <= revizyon; rev++){
 				Patch uygulanacakFark = patchDosyadanOku(files[i].getAbsolutePath().substring( this.calismaKlasoru.length() + 8, files[i].getAbsolutePath().lastIndexOf(".delta")), rev);
-				String uygulanacakDosya = this.calismaKlasoru+File.separatorChar+yazilacakKlasor+File.separatorChar + files[i].getAbsolutePath().substring( this.calismaKlasoru.length() + 8, files[i].getAbsolutePath().lastIndexOf(".delta"));
 				if (Sunucu.DEBUG)
 					System.out.println("patch uygulaniyor, dosya : "+uygulanacakDosya+" patch : "+ uygulanacakFark);
+				
+				
 					patchUygula(uygulanacakDosya, uygulanacakFark);
 				
 			}
@@ -267,6 +314,8 @@ public class Sunucu {
 	public boolean commit(String committerIP){
 		if (Sunucu.DEBUG)
 			System.out.println("commit sinyali alindi, ip : "+committerIP);
+		
+		
 		AgDosyaCek cekilenDosya = new AgDosyaCek(calismaKlasoru+File.separatorChar+"Temp"+File.separatorChar+"istemci-r"+revizyonNumarasi+".zip");
 		try {
 			cekilenDosya.dosyaCek(committerIP);
@@ -283,6 +332,9 @@ public class Sunucu {
 			return false;
 		}
 		farkAl(this.calismaKlasoru+File.separatorChar+"Temp");
+		
+		
+		
 		if(Sunucu.DEBUG)
 			System.out.println("Patchler Head'e aktariliyor");
 		patchUygula(this.calismaKlasoru+File.separatorChar+"Head", this.revizyonNumarasi);
@@ -292,6 +344,10 @@ public class Sunucu {
 		sunucuAyarDosya.satirYaz(this.calismaKlasoru);
 		sunucuAyarDosya.satirYaz(""+revizyonNumarasi);
 		sunucuAyarDosya.dosyaKapat();
+		
+		
+		
+		
 		return true;
 	}
 	
@@ -414,8 +470,9 @@ public List<File> ozelBul(List<File> files){
 		if (a.getName().lastIndexOf(".r") != -1){
 			if (!unik.contains(new File(a.getAbsolutePath().substring(0, a.getAbsolutePath().lastIndexOf(".r")))))
 				unik.add(new File(a.getAbsolutePath().substring(0, a.getAbsolutePath().lastIndexOf(".r"))));
-			
 		}
+		if ( a.isDirectory())
+			unik.add(new File(a.getAbsolutePath()));
 	}
 	for (File a: unik){
 		if (Sunucu.DEBUG)
