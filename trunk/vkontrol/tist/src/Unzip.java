@@ -30,6 +30,7 @@ public class Unzip{
 		        if (!dosya.exists())
 		        	dosya.mkdir();
 		        String fixedEntryName = entry.getName().replace('/', File.separatorChar);
+		        fixedEntryName = fixedEntryName.replace('\\', File.separatorChar);
 		        String dizinYapisi = fixedEntryName;
 		        if( fixedEntryName.lastIndexOf(File.separatorChar) != -1 ){
 		        	String yedekDizinYolu = dizinYolu;
