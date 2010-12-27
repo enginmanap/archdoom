@@ -4,10 +4,11 @@ from django.contrib.auth.models import User
 from bmforum.member.models import Member
 
 class TopicPriorities(models.Model):
-	name = models.CharField(max_length = 100)
-	
-	def __unicode__(self):
-		return self.name
+    name = models.CharField(max_length = 100)
+    priority = models.IntegerField()
+
+    def __unicode__(self):
+        return self.name
 
 class Topic(models.Model):
 	title = models.CharField(max_length = 100, verbose_name = "baslik")

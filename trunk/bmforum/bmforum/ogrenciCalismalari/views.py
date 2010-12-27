@@ -16,7 +16,11 @@ from django.db import connection
 import os
 from bmforum.ogrenciCalismalari.forms import ProjectForm, ProfessorForm, CourseForm, ExamForm, LectureNoteForm, ExtraForm
 
-ogrenciCalismalariTopic = get_object_or_404(Topic, pk=1)
+try:
+    ogrenciCalismalariTopic = get_object_or_404(Topic, pk=1)
+
+except:
+    ogrenciCalismalariTopic = Topic()
 
 def ogrenciCalismalari(request):
     return render_to_response('ogrenciCalismalari/ogrenciCalismalari.html', context_instance=RequestContext(request))
