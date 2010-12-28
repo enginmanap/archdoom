@@ -5,6 +5,8 @@ from bmforum.planet.forms import BlogForm
 from bmforum.member.models import Member
 from bmforum.planet.models import Blog
 from django.db import connection
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 
 def blogList(request):
     blogsList = Blog.objects.all()
@@ -21,7 +23,8 @@ def planetRegister(request):
             blog.blogAddress = form.cleaned_data['blogAddress']
             blog.save()
             print connection.queries
-            return render_to_response('member/userMenu.html', context_instance=RequestContext(request))
+        #    return render_to_response('member/userMenu.html', context_instance=RequestContext(request))
+            return HttpResponseRedirect(reverse('userMenu'), )
         else:
             error = "form is not valid"
             return render_to_response('error.html', { 'error': error }, context_instance=RequestContext(request))
@@ -41,4 +44,5 @@ def planetUnregister(request):
     '''
     blog.delete()
     print connection.queries
-    return render_to_response('member/userMenu.html', context_instance=RequestContext(request))
+#    return render_to_response('member/userMenu.html', context_instance=RequestContext(request))
+    return HttpResponseRedirect(reverse('userMenu'), )
