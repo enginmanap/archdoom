@@ -1,13 +1,26 @@
 {% include "base.html" %}
 
 {% block body %}
+	<table style="border-color:#000000" border=1>
+		<tr bgcolor=#FF00FF>
+		<td width=50 >Oncelik</td>
+		<td width=300 >Ad</td>
+		<td width=100 >Olusturan Kullanici</td>
+		<td width=50>Olusturulma Tarihi</td>
+	</tr>
 	{% for topic in topic_list %}
-    <br>
-    {% if root %}
-    <a href="{% url topicList topic.id %}" name="{{ topic.title }}">{{ topic.title }}</a>
-    {% else  %}
-    <a href="{% url showTopic topic.id topic.title %}" name="{{ topic.title }}">{{ topic.title }}</a>
-	{% endif %}
+	<tr>
+		<td bgcolor=#DDDDDD>{{ topic.priority.name }}</td>
+    	<td>
+    		{% if root %}
+    			<a href="{% url topicList topic.id %}" name="{{ topic.title }}">{{ topic.title }}</a>
+    		{% else  %}
+    			<a href="{% url showTopic topic.id topic.title %}" name="{{ topic.title }}">{{ topic.title }}</a>
+			{% endif %}
+		</td>
+        <td bgcolor=#DDDDDD>{{ topic.owner.user.username }}</td>
+        <td>{{ topic.date }}</td>
+    </tr>
 	{% endfor %}
 
 {% if root %}

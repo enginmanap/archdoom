@@ -1,23 +1,41 @@
 {% include "base.html" %}
 <h1> projeler </h1>
-<table>
+<table style="border-color:#000000" border=1>
+	<tr bgcolor=#FF00FF>
+		<td width=50 >Tur</td>
+		<td width=300 >Ad</td>
+		<td width=100 >Olusturan Kullanici</td>
+		<td width=50>Olusturulma Tarihi</td>
+	</tr>
     {% for project in project_list %}
-    <tr><td>Ders Projesi: </td><td>
-            <a href="{% url showProject project.id %}" name="{{ project.name.title }}">{{ project.name.title }}</a></td>
-        <td>{{ project.name.owner.user.username }}</td>
-        <td>{{ project.name.date }}</td></tr>
+    <tr>
+    	<td bgcolor=#DDDDDD>Ders Projesi: </td>
+    	<td>
+            <a href="{% url showProject project.id %}" name="{{ project.name.title }}">{{ project.name.title }}</a>
+        </td>
+        <td bgcolor=#DDDDDD>{{ project.name.owner.user.username }}</td>
+        <td>{{ project.name.date }}</td>
+    </tr>
     {% endfor %}
 
     {% for project in exam_list %}
-    <tr><td>Ders Sinavi: </td><td>
-            <a href="{% url showExam project.id %}" name="{{ project.name.title }}">{{ project.name.title }}</a></td>
-        <td>{{ project.name.owner.user.username }}</td>
-        <td>{{ project.name.date }}</td></tr>
+    <tr>
+    	<td bgcolor=#DDDDDD>Ders Sinavi: </td>
+    	<td>
+            <a href="{% url showExam project.id %}" name="{{ project.name.title }}">{{ project.name.title }}</a>
+		</td>
+        <td bgcolor=#DDDDDD>{{ project.name.owner.user.username }}</td>
+        <td>{{ project.name.date }}</td>
+    </tr>
         {% endfor %}
 
     {% for project in lectureNote_list %}
-    <tr><td>Ders Notu: </td><td>
-            <a href="{% url showLectureNote project.id %}" name="{{ project.name.title }}">{{ project.name.title }}</a></td>
-        <td>{{ project.name.owner.user.username }}</td>
-        <td>{{ project.name.date }}</td></tr>
-        {% endfor %}
+    <tr>
+    	<td bgcolor=#DDDDDD>Ders Notu: </td>
+    	<td>
+            <a href="{% url showLectureNote project.id %}" name="{{ project.name.title }}">{{ project.name.title }}</a>
+        </td>
+        <td bgcolor=#DDDDDD>{{ project.name.owner.user.username }}</td>
+        <td>{{ project.name.date }}</td>
+    </tr>
+    {% endfor %}
