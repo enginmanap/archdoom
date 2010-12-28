@@ -13,15 +13,6 @@ public class CheckTree extends JTree {
 	public CheckTree() {
 		//nodes = createTreeNodes();
 		//super(createTreeNodes()[0]);
-		DefaultMutableTreeNode root, europe;
-		
-		europe = new DefaultMutableTreeNode("Europe");
-		europe.add(new DefaultMutableTreeNode("UK"));
-		europe.add(new DefaultMutableTreeNode("Germany"));
-		europe.add(new DefaultMutableTreeNode("France"));
-		europe.add(new DefaultMutableTreeNode("Norway"));
-		root = new DefaultMutableTreeNode("world");
-		root.add(europe);
 		DefaultTreeModel model = (DefaultTreeModel) this.getModel();
 		System.out.println("root is :"+model.getRoot());
 		model.setRoot(createTreeNodes()[0]);
