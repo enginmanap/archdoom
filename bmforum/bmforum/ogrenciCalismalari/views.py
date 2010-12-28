@@ -113,7 +113,7 @@ def newExam(request):
                 extra = extraForm.save(commit = False)
                 extra.file = request.FILES['extraForm-file']
                 extra.description = extraForm.cleaned_data['description']
-                extra.fileName =  os.path.split(extra.file.name)[1:]
+                extra.fileName =  os.path.split(extra.file.name)[1:][0]
                 extra.save()
             else:
                 print extraForm.errors

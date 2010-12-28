@@ -5,7 +5,9 @@
 <h3> Yil: {{ project.year }} <br>
 Web Sitesi: {{ project.website }} <br>
 Projeyi Yapanlar: {{ project.doneBy }} <br>
-Ders Adi: {{ project.course.name }} <br></h3>
+Ders Adi: {{ project.course.name }} <br>
+Dosya: <a href="{{ project.extra.file.url }}" >{{ project.extra.fileName }}</a>
+</h3>
 {% for entry in entry_list %}
 <table border=0>
     <tr bgcolor=#ffccff>
