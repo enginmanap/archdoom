@@ -41,6 +41,8 @@ public class MainFrame extends JFrame{
 		frame.setSize(400, 250);
 
 		frame.setVisible(true);
+		Database data = new Database();
+		data.startConnection();
 	}
 
 }

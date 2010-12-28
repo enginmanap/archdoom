@@ -13,16 +13,20 @@ import javax.swing.tree.TreePath;
     }
     
     public void mouseClicked(MouseEvent e) {
+    
       int x = e.getX();
       int y = e.getY();
       int row = tree.getRowForLocation(x, y);
       TreePath  path = tree.getPathForRow(row);
       //TreePath  path = tree.getSelectionPath();
+      System.out.println(" path: "+path );
       if (path != null) {
         CheckNode node = (CheckNode)path.getLastPathComponent();
         boolean isSelected = ! (node.isSelected());
         node.setSelected(isSelected);
-        if (node.getSelectionMode() == CheckNode.DIG_IN_SELECTION) {
+        System.out.println("Node = "+ node +"is selected =" +node.isSelected());
+        //if (node.getSelectionMode() == CheckNode.DIG_IN_SELECTION) {
+        if (true){
           if ( isSelected) {
             tree.expandPath(path);
           } else {
@@ -30,11 +34,13 @@ import javax.swing.tree.TreePath;
           }
         }
         ((DefaultTreeModel) tree.getModel()).nodeChanged(node);
+        tree.repaint();
         // I need revalidate if node is root.  but why?
         if (row == 0) {
           tree.revalidate();
           tree.repaint();
         }
       }
+      
     }
   }

@@ -34,7 +34,7 @@ class CheckRenderer extends JPanel implements TreeCellRenderer {
     String stringValue = tree.convertValueToText(value, isSelected,
         expanded, leaf, row, hasFocus);
     setEnabled(tree.isEnabled());
-    check.setSelected(new CheckNode(value).isSelected());
+    check.setSelected(((CheckNode) value).isSelected());
     label.setFont(tree.getFont());
     label.setText(stringValue);
     label.setSelected(isSelected);
