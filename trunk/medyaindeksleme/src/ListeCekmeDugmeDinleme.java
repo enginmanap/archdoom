@@ -19,7 +19,7 @@ public class ListeCekmeDugmeDinleme implements ActionListener {
 	
 	public void actionPerformed(ActionEvent ev) {
 		donusListesi = tree.getSelectedList();
-		System.out.println("Donus list :"+ donusListesi);
+//		System.out.println("Donus list :"+ donusListesi);
 		panel.addList(donusListesi);
 
 	}
