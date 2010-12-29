@@ -20,7 +20,7 @@ public class CheckTree extends JTree {
 		//super(createTreeNodes()[0]);
 		DefaultTreeModel model = (DefaultTreeModel) this.getModel();
 		System.out.println("root is :"+model.getRoot());
-		File de = new File("D:\\Scrubs");
+		File de = new File("/home/mesutcan/Belgeler");
 		model.setRoot(createTreeNodes(de));
 		System.out.println("root is :"+model.getRoot()+ " count : "+model.getChildCount(model.getRoot()));
 		System.out.println("count"+this.getComponentCount());		

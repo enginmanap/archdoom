@@ -1,5 +1,6 @@
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
 
 
@@ -25,15 +28,32 @@ public class MainFrame extends JFrame{
 		JPanel treePanel = new JPanel();
 		treePanel.setLayout(new BorderLayout());
 		
+		JButton saveDatabase = new JButton("Veritabanina Kaydet");
+		JPanel selectionAna = new JPanel();
+		selectionAna.setLayout(new BorderLayout());
+		SelectionPanel selectionPanel = new SelectionPanel();
+		JScrollPane selectionPane = new JScrollPane(selectionPanel);
+		selectionAna.add(selectionPane);
+		selectionAna.add(saveDatabase, BorderLayout.SOUTH);
+		
+		
 		// secilebilir agaci buraya koy.
 		CheckTree tree = new CheckTree();
 		System.out.println("tree eleman sayisi :"+tree.getComponentCount());
 		JScrollPane sp = new JScrollPane(tree);
 		treePanel.add(sp);
-		getContentPane().add(treePanel,    BorderLayout.CENTER);
+		getContentPane().add(treePanel,    BorderLayout.WEST);
 		JButton listeGetir = new JButton("Liste Getir");
-		listeGetir.addActionListener(new ListeCekmeDugmeDinleme(tree, SeciliEleman));
+		listeGetir.addActionListener(new ListeCekmeDugmeDinleme(tree, selectionPanel));
 		treePanel.add(listeGetir, BorderLayout.SOUTH );
+		
+		
+
+//		JScrollPane selectionPane = new JScrollPane();
+
+
+		getContentPane().add(selectionAna, BorderLayout.CENTER);
+		
 		//JPanel ListPanel = new JPanel();
 		//ListPanel.setLayout(new FlowLayout());
 		
