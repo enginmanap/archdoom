@@ -24,7 +24,7 @@ public class DatabaseSaveListener implements ActionListener {
 		
 		mediaID = Integer.parseInt(JOptionPane.showInputDialog("Media ID giriniz"));
 		
-		System.out.println("mediaID: " + mediaID);
+//		System.out.println("mediaID: " + mediaID);
 		
 		
 		

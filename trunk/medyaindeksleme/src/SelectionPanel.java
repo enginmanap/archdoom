@@ -56,6 +56,12 @@ public class SelectionPanel extends JPanel {
 	}
 	
 	public void addList(List<String> listPath){
+		
+		for (int j=0;j<this.listPath.size();j++){
+			this.remove(this.listPath.get(j));
+			this.remove(this.listName.get(j));
+		}
+		
 		this.listPath = new ArrayList<JTextField>();
 		this.listName = new ArrayList<JTextField>();
 		JTextField tf=null;
