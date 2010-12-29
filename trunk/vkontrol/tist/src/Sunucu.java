@@ -13,7 +13,7 @@ import difflib.Patch;
 import difflib.PatchFailedException;
 
 public class Sunucu {
-	public final static boolean DEBUG = false;
+	public final static boolean DEBUG = true;
 	private static final int OrtakSatir = 2;
 	public static final byte COMMIT = 1;
 	public static final byte CHECKOUT = 2;
