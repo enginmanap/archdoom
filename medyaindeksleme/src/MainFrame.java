@@ -1,11 +1,20 @@
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -66,10 +75,64 @@ public class MainFrame extends JFrame{
 		          Database data = new Database();
 		          data.startConnection();
 		          String query = "select `mediaID`, `filePath` from `genel` where `fileName`='"+nameForSearch+"'";
-		          System.out.println(query);
-		          data.query(query);
-		      
+//		          System.out.println(query);
+		          ResultSet rs = data.query(query);
+		          JFrame resultFrame = new JFrame();
+		          resultFrame.setLayout(new GridLayout(0,2));
+		          List<JLabel> labelList = new ArrayList<JLabel>();
+		          JLabel filePath = new JLabel("Dosya Yolu:");
+		          JLabel mediaID = new JLabel("Medya ID:");
+		          resultFrame.add(mediaID);
+		          resultFrame.add(filePath);
+		          int rsCount=0;
+
+		          try {
+					while(rs.next()){
+						rsCount++;
+								labelList.add(new JLabel(rs.getString(1)));
+								labelList.add(new JLabel(rs.getString(2)));
+						}
+				} catch (SQLException e) {
+					JLabel error = new JLabel("Veritabani baglantisinda hata!");
+					resultFrame.add(error);
+					e.printStackTrace();
+				}
+				
+				for (JLabel lab: labelList){
+					resultFrame.add(lab);
+				}
+				
+					
+				if (rsCount < 1){
+						
+					JLabel empty = new JLabel("Sonuc Bulunamadi!");
+					resultFrame.add(empty);
+					JOptionPane.showMessageDialog(null,"Dosya Bulunamadi!. DosyaAdi: " + nameForSearch, "Dosya yok", JOptionPane.INFORMATION_MESSAGE);
+				}
+	
+				else {
+					resultFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+				
+					resultFrame.setSize(550, 200);
+					resultFrame.setTitle("\""+nameForSearch + "\" aramasi sonuclari");
+					resultFrame.setVisible(true);
+				    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+				    
+				    // Determine the new location of the window
+				    int w = resultFrame.getSize().width;
+				    int h = resultFrame.getSize().height;
+				    int x = (dim.width-w)/2;
+				    int y = (dim.height-h)/2;
+				    
+				    // Move the window
+				    resultFrame.setLocation(x, y);
+
+				}
 		          data.printLastQueryResult();
+		          
+				
+		      
+//		          
 		      }
 		});
 		search.add(searchElement);
@@ -92,7 +155,7 @@ public class MainFrame extends JFrame{
 		
 		// secilebilir agaci buraya koy.
 		
-		System.out.println("tree eleman sayisi :"+tree.getComponentCount());
+//		System.out.println("tree eleman sayisi :"+tree.getComponentCount());
 		JScrollPane sp = new JScrollPane(tree);
 		treePanel.add(sp);
 		getContentPane().add(treePanel,    BorderLayout.WEST);
@@ -106,7 +169,7 @@ public class MainFrame extends JFrame{
 
 
 		getContentPane().add(selectionAna, BorderLayout.CENTER);
-		
+
 		//JPanel ListPanel = new JPanel();
 		//ListPanel.setLayout(new FlowLayout());
 		
@@ -124,12 +187,23 @@ public class MainFrame extends JFrame{
 		} 
 		MainFrame frame = new MainFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(400, 250);
+		frame.setSize(600, 400);
 		frame.setTitle("Medya indexleme");
 		frame.setVisible(true);
-		
-		Database data = new Database();
-		data.startConnection();
+	    // Get the size of the screen
+	    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+	    
+	    // Determine the new location of the window
+	    int w = frame.getSize().width;
+	    int h = frame.getSize().height;
+	    int x = (dim.width-w)/2;
+	    int y = (dim.height-h)/2;
+	    
+	    // Move the window
+	    frame.setLocation(x, y);
+
+
+
 	}
 
 }
