@@ -3,7 +3,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
-import javax.swing.AbstractButton;
 import javax.swing.Icon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -16,7 +15,12 @@ import javax.swing.tree.TreeCellRenderer;
 
 
 class CheckRenderer extends JPanel implements TreeCellRenderer {
-  protected JCheckBox check;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1053980998157196640L;
+
+protected JCheckBox check;
 
   protected TreeLabel label;
 
@@ -49,10 +53,6 @@ class CheckRenderer extends JPanel implements TreeCellRenderer {
     return this;
   }
 
-  private Object CheckNode(Object value) {
-	// TODO Auto-generated method stub
-	return null;
-}
 
 public Dimension getPreferredSize() {
     Dimension d_check = check.getPreferredSize();
@@ -85,7 +85,12 @@ public Dimension getPreferredSize() {
   }
 
   public class TreeLabel extends JLabel {
-    boolean isSelected;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5690783497932587800L;
+
+	boolean isSelected;
 
     boolean hasFocus;
 

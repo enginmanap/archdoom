@@ -1,6 +1,10 @@
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+
 import javax.swing.JTree;
-import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreeSelectionModel;
 
 public class CheckTree extends JTree {
@@ -26,6 +30,24 @@ public class CheckTree extends JTree {
 	    this.putClientProperty("JTree.lineStyle", "Angled");
 	    this.addMouseListener(new NodeSelectionListener(this));
 	    
+	}
+	
+	public List<String> getSelectedList(){
+		List<String> selectedList= new ArrayList<String>();
+		CheckNode root = (CheckNode) this.getModel().getRoot();
+		@SuppressWarnings("rawtypes")
+		Enumeration e = root.breadthFirstEnumeration();
+	    while (e.hasMoreElements()) {
+	    	CheckNode node = (CheckNode) e.nextElement();
+	    	if (node.isSelected()) {
+	    		TreeNode[] nodes = node.getPath();
+	    		selectedList.add(nodes[0].toString());
+	    		for (int i = 1; i < nodes.length; i++) {
+	    			selectedList.add(nodes[i].toString());
+	    		}
+	    	}
+	    }
+	    return selectedList;
 	}
 	
 	private static CheckNode[] createTreeNodes() {
