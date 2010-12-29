@@ -51,11 +51,11 @@ public class AgDosyaSun {
 			if (cikisAkisi==null){
 				sock = serverSocket.accept();
 				if (Sunucu.DEBUG)
-					System.out.println("Dosya sunmak icin baglantý kabul edildi : " + sock);
+					System.out.println("Dosya sunmak icin baglanti kabul edildi : " + sock);
 					cikisAkisi = sock.getOutputStream();
 				}
 				if (Sunucu.DEBUG)
-					System.out.println("Dosya yollanýyor");
+					System.out.println("Dosya yollaniyor");
 				cikisAkisi.write(myByteArray,0,myByteArray.length);
 				cikisAkisi.flush();
 				cikisAkisi.close();
