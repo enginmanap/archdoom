@@ -42,14 +42,14 @@
             <manifest>
                 <attribute name="Main-Class" value="Sunucu"/>
             </manifest>
-        	<zipgroupfileset dir="." includes="**/*.jar" />
+        	<zipgroupfileset dir="." includes="java-diff-utils-1.2.jar" />
         </jar>
     	
         <jar destfile="jar/tist.jar" basedir="bin/">
             <manifest>
                 <attribute name="Main-Class" value="Istemci"/>
             </manifest>
-        	<zipgroupfileset dir="." includes="**/*.jar" />
+        	<zipgroupfileset dir="." includes="java-diff-utils-1.2.jar" />
         </jar>
     </target>
 	
