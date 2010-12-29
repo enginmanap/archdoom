@@ -24,7 +24,6 @@ public class MainFrame extends JFrame{
 
 
 	public MainFrame(){
-		List<String> SeciliEleman = new ArrayList<String>();
 		JPanel treePanel = new JPanel();
 		treePanel.setLayout(new BorderLayout());
 		
@@ -71,7 +70,7 @@ public class MainFrame extends JFrame{
 		} 
 		MainFrame frame = new MainFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(400, 250);
+		frame.setSize(640, 480);
 		frame.setVisible(true);
 		
 		Database data = new Database();

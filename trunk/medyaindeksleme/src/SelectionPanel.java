@@ -69,9 +69,11 @@ public class SelectionPanel extends JPanel {
 
 			this.listName.add(listPath.get(i).substring(listPath.get(i).lastIndexOf(File.separatorChar)+1));
 			this.add(tf2);
+			this.setVisible(false);
+
 		}
 		
-		this.repaint();
+		this.setVisible(true);
 
 
 	}
