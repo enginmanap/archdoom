@@ -66,7 +66,8 @@ public class Istemci {
 		
 		istekDinle(istemci);
 		
-		dosyaCek(istemci, args[1], revizyon);
+		if (istemci.revizyon != 0)
+			dosyaCek(istemci, args[1], revizyon);
 	}
 	
 	public static void yolla(Istemci istemci, byte[] byteDizi) {
@@ -158,15 +159,6 @@ public class Istemci {
 		gelen.unziple();
 		File gelenZip = new File(System.getProperty("user.dir")+File.separatorChar+"gelendosya"+istemci.revizyon+".zip");
 		gelenZip.delete();
-		
-		File[] cwdList = new File(System.getProperty("user.dir")).listFiles();
-		
-		if (cwdList.length == 1 && cwdList[0].getName() == "dummy.txt")
-		{
-			File dummy = new File("dummy.txt");
-			dummy.delete();
-		}
-		
 		
 	}
 
