@@ -48,7 +48,7 @@ public class MockGirisAkisi extends InputStream{
 		if (expectedList.size() != actualList.size())
 			Assert.fail("Beklenen deger sayisi:"+expectedList.size()+"Olusan deger sayisi:"+actualList.size());
 		for (int i=0;i<actualList.size();i++){
-			System.out.println("yazýlan eleman : " + actualList.get(i));
+			System.out.println("yazilan eleman : " + actualList.get(i));
 		}
 	}
 }

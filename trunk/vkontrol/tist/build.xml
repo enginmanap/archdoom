@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     29 Ara 2010 21:25:29                                                        
+
+     tist    
+     Surum Takip Sistemi
+                   
+     engin                                                                
+     ====================================================================== -->
+<project name="tist" default="pack">
+    <description>
+            Surum Takip Sistemi
+    </description>
+	
+
+	
+    <path id="classpath">
+        <fileset dir="./" includes="**/*.jar"/>
+    </path>
+
+    <target name="clean">
+    	<delete dir="bin"/>
+    	<delete dir="jar"/>
+    </target>
+
+	<target name="compile" depends="clean" description="Surum Takip Sistemi">
+    	<mkdir dir="bin"/>
+        <javac srcdir="src"
+         destdir="bin"
+		 classpathref = "classpath"
+         debug="on">
+    		<classpath>
+  				<path refid="classpath"/>
+    			<path location="java-diff-utils-1.2.jar"/>
+			</classpath>
+        </javac>
+    </target>
+
+    <target name="pack" depends="compile">
+        <mkdir dir="jar"/>
+        <jar destfile="jar/tist_sunucu.jar" basedir="bin/">
+            <manifest>
+                <attribute name="Main-Class" value="Sunucu"/>
+            </manifest>
+        	<zipgroupfileset dir="." includes="**/*.jar" />
+        </jar>
+    	
+        <jar destfile="jar/tist.jar" basedir="bin/">
+            <manifest>
+                <attribute name="Main-Class" value="Istemci"/>
+            </manifest>
+        	<zipgroupfileset dir="." includes="**/*.jar" />
+        </jar>
+    </target>
+	
+    <target name="run" depends="pack" >
+        <java jar="jar/tist_sunucu.jar" fork="true" >
+    	</java>
+    </target>
+</project>

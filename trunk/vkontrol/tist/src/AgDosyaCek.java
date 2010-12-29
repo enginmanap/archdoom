@@ -50,7 +50,6 @@ public class AgDosyaCek {
 	    bytesRead = girisAkisi.read(mybytearray,0,mybytearray.length);
 	    current = bytesRead;
 
-	    // thanks to A. Cádiz for the bug fix
 	    do {
 	       bytesRead =
 	          girisAkisi.read(mybytearray, current, (mybytearray.length-current));

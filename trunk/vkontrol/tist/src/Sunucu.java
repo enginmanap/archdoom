@@ -251,7 +251,7 @@ public class Sunucu {
 			System.out.println("patch uygula Adding directory " + gelenKlasor.getName());
 		for (int i = 0; i < files.length; i++) {
 			// if the file is directory, call the function recursively
-			//fixedPath deltanýn içindeki klasor yapýsýný, temp e olusturuyor.
+			//fixedPath deltanin icindeki klasor yapisini, temp e olusturuyor.
 			String fixedPath = files[i].getAbsolutePath().replace(this.calismaKlasoru+File.separatorChar+"Deltas", this.calismaKlasoru+File.separatorChar+"Temp");
 			
 			if (files[i].isDirectory()) {
