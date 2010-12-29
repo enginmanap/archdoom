@@ -64,30 +64,39 @@ public class Istemci {
 		
 		istekYolla(args[1], byteDizi);	
 		
-		dosyaCek(args[1], revizyon);
+		istekDinle(istemci);
+		
+		dosyaCek(istemci, args[1], revizyon);
 	}
 	
 	public static void yolla(Istemci istemci, byte[] byteDizi) {
 		OkunacakMetinDosya sunucutxt = new OkunacakMetinDosya(System.getProperty("user.dir")+File.separatorChar+".tist"+File.separatorChar+"sunucu.txt");
 		String sunucuIP = sunucutxt.satirOku();
 		istemci = new Istemci(sunucuIP);
-		Zip yollanacakZip = new Zip(istemci.getDosyaYolu()+File.separatorChar+"calisma", istemci.getDosyaYolu()+File.separatorChar+".tist"+File.separatorChar+COMMITZIPISMI);
+		Zip yollanacakZip = new Zip(istemci.getDosyaYolu(), istemci.getDosyaYolu()+File.separatorChar+".tist"+File.separatorChar+COMMITZIPISMI);
 		yollanacakZip.ziple();
 		byteDizi[0] = Sunucu.COMMIT;
 
+		
 		istekYolla(sunucuIP, byteDizi);
 		
 		dosyaYolla();
+		
+
+		
 	}
 
 	public static void dosyaYolla() {
 		AgDosyaSun agdanYollanacakDosya = new AgDosyaSun(System.getProperty("user.dir")+File.separatorChar+".tist"+File.separatorChar+COMMITZIPISMI);
+		
 		try {
 			agdanYollanacakDosya.dosyaSun();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		File yollanan = new File(System.getProperty("user.dir")+File.separatorChar+".tist"+File.separatorChar+COMMITZIPISMI);
+		yollanan.delete();
 	}
 
 	public static void istekYolla(String sunucuIP, byte[] byteDizi) {
@@ -122,27 +131,35 @@ public class Istemci {
 		ServerSocket servsock = null;
 		try {
 			servsock = new ServerSocket(Sunucu.DEFAULTPORT);
-			byte gelen[] = new byte[5];
+			byte gelen[] = new byte[4];
 			if (Sunucu.DEBUG)
-				System.out.println("Waiting...");
+				System.out.println("Revision No Waiting...");
 			Socket sock = servsock.accept();
 			System.out.println("Accepted connection : " + sock);
 			InputStream is = sock.getInputStream();
-			is.read(gelen, 0, 5);
-			istemci.setRevizyon(gelen[1]*8*8*8+gelen[2]*8*8+gelen[3]*8+gelen[4]);
+			is.read(gelen, 0, gelen.length);
+			istemci.setRevizyon(gelen[3]*8*8*8+gelen[2]*8*8+gelen[1]*8+gelen[0]);
+			servsock.close();
 		} catch (IOException e) {
 			System.out.println("soket acilamadi");
 		}
 		
 	}
 
-	public static void dosyaCek(String sunucuIP, int revizyon) {
-		AgDosyaCek gelenDosya = new AgDosyaCek(System.getProperty("user.dir")+File.separatorChar+"gelendosya"+revizyon+".zip");
+	public static void dosyaCek(Istemci istemci, String sunucuIP, int revizyon) {
+		AgDosyaCek gelenDosya = new AgDosyaCek(System.getProperty("user.dir")+File.separatorChar+"gelendosya"+istemci.revizyon+".zip");
 		try {
 			gelenDosya.dosyaCek(sunucuIP);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		Unzip gelen = new Unzip(System.getProperty("user.dir"), System.getProperty("user.dir")+File.separatorChar+"gelendosya"+istemci.revizyon+".zip");
+		gelen.unziple();
+		File gelenZip = new File(System.getProperty("user.dir")+File.separatorChar+"gelendosya"+istemci.revizyon+".zip");
+		gelenZip.delete();
+		
+		
 	}
 
 
