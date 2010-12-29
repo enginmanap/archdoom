@@ -22,10 +22,11 @@ public class MainFrame extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public static String INDEXDIR = "D:\\Scrubs\\";
+	public static String INDEXDIR = "/home/mesutcan/Belgeler";
 
 
 	public MainFrame(){
+		
 		final CheckTree tree = new CheckTree();
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -62,7 +63,13 @@ public class MainFrame extends JFrame{
 		      public void actionPerformed(ActionEvent event) {
 		          String nameForSearch = JOptionPane.showInputDialog(null, "Aramak istediginiz icerigin adini giriniz : ", 
 		        		  "Arama", 1);
-		          /////
+		          Database data = new Database();
+		          data.startConnection();
+		          String query = "select `mediaID`, `filePath` from `genel` where `fileName`='"+nameForSearch+"'";
+		          System.out.println(query);
+		          data.query(query);
+		      
+		          data.printLastQueryResult();
 		      }
 		});
 		search.add(searchElement);
@@ -70,6 +77,7 @@ public class MainFrame extends JFrame{
 		setJMenuBar(menuBar);
 		
 		
+
 		JPanel treePanel = new JPanel();
 		treePanel.setLayout(new BorderLayout());
 		
@@ -80,7 +88,7 @@ public class MainFrame extends JFrame{
 		JScrollPane selectionPane = new JScrollPane(selectionPanel);
 		selectionAna.add(selectionPane);
 		selectionAna.add(saveDatabase, BorderLayout.SOUTH);
-		
+		saveDatabase.addActionListener(new DatabaseSaveListener(selectionPanel));
 		
 		// secilebilir agaci buraya koy.
 		
@@ -116,7 +124,7 @@ public class MainFrame extends JFrame{
 		} 
 		MainFrame frame = new MainFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(640, 480);
+		frame.setSize(400, 250);
 		frame.setTitle("Medya indexleme");
 		frame.setVisible(true);
 		
