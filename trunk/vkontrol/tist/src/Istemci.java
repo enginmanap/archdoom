@@ -93,7 +93,6 @@ public class Istemci {
 		try {
 			agdanYollanacakDosya.dosyaSun();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		File yollanan = new File(System.getProperty("user.dir")+File.separatorChar+".tist"+File.separatorChar+COMMITZIPISMI);

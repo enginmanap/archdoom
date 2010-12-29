@@ -114,7 +114,7 @@ public class Sunucu {
 
 			}
 			
-			 patchDosyayaYazdir(files[i].getAbsolutePath().substring(
+			patchDosyayaYazdir(files[i].getAbsolutePath().substring(
 						this.calismaKlasoru.length() + 6), this.revizyonNumarasi);
 		}
 	}
@@ -263,7 +263,6 @@ public class Sunucu {
 				System.out.println(" : " + files[i].getAbsolutePath());
 				
 				String expectedFile = files[i].getAbsolutePath().replace(this.calismaKlasoru + File.separatorChar + "Deltas", this.calismaKlasoru+File.separatorChar + yazilacakKlasor );
-				System.out.println("asil buneeeeeeee 														" + expectedFile);
 				patchUygula(expectedFile, revizyon);
 				continue;
 
@@ -351,7 +350,7 @@ public class Sunucu {
 		return true;
 	}
 	
-	public boolean checkOut(int revizyonNumarasi){
+	public boolean checkOut(int revizyonNumarasi, String requestIP) throws IOException{
 		if (Sunucu.DEBUG)
 			System.out.println("revizyon Numarasi: "+revizyonNumarasi);
 		File doluTemp = new File(calismaKlasoru+File.separatorChar+"Temp");
@@ -365,14 +364,38 @@ public class Sunucu {
 		
 		doluTemp.delete();
 		
+		byte[] byteDizi = new byte[4];
+		byteDizi[0] = (byte) (revizyonNumarasi%8);
+		revizyonNumarasi /= 8;
+		byteDizi[1] = (byte) (revizyonNumarasi%8);
+		revizyonNumarasi /= 8;
+		byteDizi[2] = (byte) (revizyonNumarasi%8);
+		revizyonNumarasi /= 8;
+		byteDizi[3] = (byte) (revizyonNumarasi%8);
+		
 		DizinOlustur bosTemp = new DizinOlustur(calismaKlasoru+File.separatorChar+"Temp");
 		bosTemp.olustur();
 		patchUygula(this.calismaKlasoru+File.separatorChar+"Temp", revizyonNumarasi);
+		String fileToSend;
+		if((new File(this.calismaKlasoru+File.separatorChar+"Temp")).listFiles().length > 0){
+			Zip yollanacakZip = new Zip(this.calismaKlasoru+File.separatorChar+"Temp", this.calismaKlasoru+ File.separatorChar+"Temp"+File.separatorChar+Sunucu.CHECKOUTZIPISMI);
+			yollanacakZip.ziple();
+			fileToSend = this.calismaKlasoru+ File.separatorChar+"Temp"+File.separatorChar+Sunucu.CHECKOUTZIPISMI;
+		}else{
+			Istemci.istekYolla(requestIP, new byte[4]);
+			return true;
+		}
 		
-		Zip yollanacakZip = new Zip(this.calismaKlasoru+File.separatorChar+"Temp", this.calismaKlasoru+ File.separatorChar+"Temp"+File.separatorChar+Sunucu.CHECKOUTZIPISMI);
-		yollanacakZip.ziple();
+
 		
-		AgDosyaSun sunulacakDosya = new AgDosyaSun(this.calismaKlasoru+File.separatorChar+"Temp"+File.separatorChar+Sunucu.CHECKOUTZIPISMI);
+
+
+		
+		
+		
+		Istemci.istekYolla(requestIP, byteDizi);
+		
+		AgDosyaSun sunulacakDosya = new AgDosyaSun(fileToSend);
 		try {
 			sunulacakDosya.dosyaSun();
 			return true;
@@ -380,6 +403,7 @@ public class Sunucu {
 			e.printStackTrace();
 			return false;
 		}
+		
 		
 	}
 
@@ -405,13 +429,13 @@ public class Sunucu {
 					System.out.println("Waiting...");
 
 				Socket sock = servsock.accept();
+				String commiterIP = sock.getInetAddress().getHostAddress().toString();
 				System.out.println("Accepted connection : " + sock);
 				InputStream is = sock.getInputStream();
 				is.read(istek, 0, 5);
 				if (istek[0] == Sunucu.COMMIT) {
 					servsock.close();
-					String commiterIP = sock.getInetAddress().getHostAddress()
-							.toString();
+
 					sock.close();
 					if (Sunucu.DEBUG)
 						System.out.println(commiterIP);
@@ -422,11 +446,11 @@ public class Sunucu {
 					servsock.close();
 					sock.close();
 					if (istek[1] == 0 && istek[2] == 0 && istek[3] == 0 && istek[4] == 0 ){
-						sunucu.checkOut(sunucu.revizyonNumarasi);
+						sunucu.checkOut(sunucu.revizyonNumarasi, commiterIP);
 					}
 					else {
 						int istenenRevizyon = istek[1]*8*8*8+istek[2]*8*8+istek[3]*8+istek[4];
-						sunucu.checkOut(istenenRevizyon);
+						sunucu.checkOut(istenenRevizyon, commiterIP);
 					}
 					servsock = new ServerSocket(DEFAULTPORT);
 					
