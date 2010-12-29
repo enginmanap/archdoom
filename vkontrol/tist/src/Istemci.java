@@ -159,6 +159,14 @@ public class Istemci {
 		File gelenZip = new File(System.getProperty("user.dir")+File.separatorChar+"gelendosya"+istemci.revizyon+".zip");
 		gelenZip.delete();
 		
+		File[] cwdList = new File(System.getProperty("user.dir")).listFiles();
+		
+		if (cwdList.length == 1 && cwdList[0].getName() == "dummy.txt")
+		{
+			File dummy = new File("dummy.txt");
+			dummy.delete();
+		}
+		
 		
 	}
 
