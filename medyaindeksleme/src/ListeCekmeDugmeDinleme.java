@@ -2,8 +2,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import javax.swing.JPanel;
-import javax.swing.JTree;
+
+
+
 
 
 public class ListeCekmeDugmeDinleme implements ActionListener {
@@ -20,6 +21,6 @@ public class ListeCekmeDugmeDinleme implements ActionListener {
 		donusListesi = tree.getSelectedList();
 		System.out.println("Donus list :"+ donusListesi);
 		panel.addList(donusListesi);
-		panel.repaint();
+
 	}
 }
