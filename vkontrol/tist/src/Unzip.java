@@ -36,8 +36,8 @@ public class Unzip{
 		        	String yedekDizinYolu = dizinYolu;
 		        	do{
 		        		if (dizinYapisi.indexOf(File.separatorChar) != -1) {
-			        	DizinOlustur yeniDizin = new DizinOlustur(yedekDizinYolu+File.separatorChar+dizinYapisi.substring(0,dizinYapisi.indexOf(File.separatorChar)));
-			        	yeniDizin.olustur();
+		        			DizinOlustur yeniDizin = new DizinOlustur(yedekDizinYolu+File.separatorChar+dizinYapisi.substring(0,dizinYapisi.indexOf(File.separatorChar)));
+			        		yeniDizin.olustur();
 		        		}
 			        	if (dizinYapisi.indexOf(File.separatorChar) == -1)
 			        		break;
@@ -46,13 +46,10 @@ public class Unzip{
 			        }while(true);	
 
 		        }
-		        Thread.currentThread().sleep(100);
 		        FileOutputStream fos = new FileOutputStream(dizinYolu + fixedEntryName);
-		        Thread.currentThread().sleep(100);
 		        dest = new 
 		              BufferedOutputStream(fos, BUFFER);
-		        while ((count = zis.read(data, 0, BUFFER)) 
-		        != -1) {
+		        while ((count = zis.read(data, 0, BUFFER)) != -1) {
 		        dest.write(data, 0, count);
 		        }
 		        dest.flush();
