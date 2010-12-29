@@ -47,7 +47,9 @@ public class CheckTree extends JTree {
 	    	if (node.isSelected()) {
 	    		TreeNode[] nodes = node.getPath();
 	    		String path = "";
-	    		path = nodes[0].toString();
+	    		path = MainFrame.INDEXDIR;
+	    		if (path.charAt(path.length()-1) ==  File.separatorChar)
+	    			path = path.substring(0, path.length()-2);
 	    		for (int i = 1; i < nodes.length; i++) {
 	    			path += File.separatorChar + nodes[i].toString();
 	    		}
