@@ -1,18 +1,20 @@
 
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+
 import javax.swing.UIManager;
-
-
+ 
 
 public class MainFrame extends JFrame{
 	/**
@@ -20,10 +22,54 @@ public class MainFrame extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 
-
+	public static String INDEXDIR = "D:\\Scrubs\\";
 
 
 	public MainFrame(){
+		final CheckTree tree = new CheckTree();
+		
+		JMenuBar menuBar = new JMenuBar();
+		JMenu file = new JMenu("Dosya");
+		file.setMnemonic(KeyEvent.VK_D);
+		JMenuItem yolBelirle = new JMenuItem("Kaynak Dizin");
+		yolBelirle.setMnemonic(KeyEvent.VK_K);
+		yolBelirle.setToolTipText("Icerik Kontrolu icin Klasor secimi");
+		yolBelirle.addActionListener(new ActionListener() {
+		      public void actionPerformed(ActionEvent event) {
+		          INDEXDIR = JOptionPane.showInputDialog(null, "Icerik Kontrolu yapmnak istediginiz dizini seciniz : ", 
+		        		  "Kaynak Dizin", 1);
+		          tree.setroot(INDEXDIR);
+		      }
+		});
+		file.add(yolBelirle);
+		
+		JMenuItem closeWindow = new JMenuItem("Cikis");
+		closeWindow.setMnemonic(KeyEvent.VK_C);
+		closeWindow.setToolTipText("Programdan Cik");
+		closeWindow.addActionListener(new ActionListener() {
+		      public void actionPerformed(ActionEvent event) {
+		    	  System.exit(0);
+		      }
+		});
+		file.add(closeWindow);
+		menuBar.add(file);
+		
+		JMenu search = new JMenu("Arama");
+		file.setMnemonic(KeyEvent.VK_S);
+		JMenuItem searchElement = new JMenuItem("Arama");
+		searchElement.setToolTipText("Icerik Arama");
+		searchElement.addActionListener(new ActionListener() {
+		      public void actionPerformed(ActionEvent event) {
+		          String nameForSearch = JOptionPane.showInputDialog(null, "Aramak istediginiz icerigin adini giriniz : ", 
+		        		  "Arama", 1);
+		          /////
+		      }
+		});
+		search.add(searchElement);
+		menuBar.add(search);
+		setJMenuBar(menuBar);
+		
+		
 		JPanel treePanel = new JPanel();
 		treePanel.setLayout(new BorderLayout());
 		
@@ -37,7 +83,7 @@ public class MainFrame extends JFrame{
 		
 		
 		// secilebilir agaci buraya koy.
-		CheckTree tree = new CheckTree();
+		
 		System.out.println("tree eleman sayisi :"+tree.getComponentCount());
 		JScrollPane sp = new JScrollPane(tree);
 		treePanel.add(sp);
@@ -71,6 +117,7 @@ public class MainFrame extends JFrame{
 		MainFrame frame = new MainFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(640, 480);
+		frame.setTitle("Medya indexleme");
 		frame.setVisible(true);
 		
 		Database data = new Database();

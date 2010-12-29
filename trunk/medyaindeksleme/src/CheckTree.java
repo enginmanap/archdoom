@@ -2,7 +2,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
@@ -18,12 +17,10 @@ public class CheckTree extends JTree {
 	public CheckTree() {
 		//nodes = createTreeNodes();
 		//super(createTreeNodes()[0]);
+		
+		File de = new File(MainFrame.INDEXDIR);
 		DefaultTreeModel model = (DefaultTreeModel) this.getModel();
-		System.out.println("root is :"+model.getRoot());
-		File de = new File("D:\\Scrubs");
 		model.setRoot(createTreeNodes(de));
-		System.out.println("root is :"+model.getRoot()+ " count : "+model.getChildCount(model.getRoot()));
-		System.out.println("count"+this.getComponentCount());		
 		//this.getComponentCount();
 		this.setCellRenderer(new CheckRenderer());
 	    this.getSelectionModel().setSelectionMode(
@@ -32,6 +29,12 @@ public class CheckTree extends JTree {
 	    this.putClientProperty("JTree.lineStyle", "Angled");
 	    this.addMouseListener(new NodeSelectionListener(this));
 	    
+	}
+	public void setroot(String root){
+		DefaultTreeModel model = (DefaultTreeModel) this.getModel();
+		File de = new File(MainFrame.INDEXDIR);
+		model.setRoot(createTreeNodes(de));
+		this.repaint();
 	}
 	
 	public List<String> getSelectedList(){
@@ -70,9 +73,6 @@ public class CheckTree extends JTree {
 					 }
 			 }
 			 
-			 for(int i=0; i < files.length; i++){
-				 System.out.println("files ["+i+"] = " + files[i].getAbsolutePath());
-			 }
 		return nodes;
 	}
 }
