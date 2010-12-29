@@ -6,6 +6,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -31,13 +33,13 @@ public class MainFrame extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public static String INDEXDIR = "/home/mesutcan/Belgeler";
+	public static String INDEXDIR = System.getProperty("user.dir");
 
 
 	public MainFrame(){
 		
 		final CheckTree tree = new CheckTree();
-		
+		final JPanel selectionAna = new JPanel();
 		JMenuBar menuBar = new JMenuBar();
 		JMenu file = new JMenu("Dosya");
 		file.setMnemonic(KeyEvent.VK_D);
@@ -46,9 +48,22 @@ public class MainFrame extends JFrame{
 		yolBelirle.setToolTipText("Icerik Kontrolu icin Klasor secimi");
 		yolBelirle.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent event) {
-		          INDEXDIR = JOptionPane.showInputDialog(null, "Icerik Kontrolu yapmnak istediginiz dizini seciniz : ", 
-		        		  "Kaynak Dizin", 1);
-		          tree.setroot(INDEXDIR);
+//		          INDEXDIR = JOptionPane.showInputDialog(null, "Icerik Kontrolu yapmnak istediginiz dizini seciniz : ", 
+//		        		  "Kaynak Dizin", 1);
+//		    	  
+//		          tree.setroot(INDEXDIR);
+		    	    JFileChooser chooser = new JFileChooser(); 
+		    	    chooser.setCurrentDirectory(new File("."));
+		    	    chooser.setDialogTitle("Dizin Seciniz");
+		    	    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		    	    chooser.setAcceptAllFileFilterUsed(false);
+		    	    //    
+		    	    if (chooser.showOpenDialog(selectionAna) == JFileChooser.APPROVE_OPTION) { 
+		    	    	INDEXDIR=chooser.getSelectedFile().getAbsolutePath();
+		    	    	tree.setroot(INDEXDIR);
+		    	         
+		    	      }
+		    	   
 		      }
 		});
 		file.add(yolBelirle);
@@ -74,23 +89,30 @@ public class MainFrame extends JFrame{
 		        		  "Arama", 1);
 		          Database data = new Database();
 		          data.startConnection();
-		          String query = "select `mediaID`, `filePath` from `genel` where `fileName`='"+nameForSearch+"'";
+		          String query = "select `mediaID`, `fileName`, `filePath` from `genel` where `fileName` = '"+nameForSearch+"'";
+//		      	System.out.println("query1: "+ query);
 //		          System.out.println(query);
 		          ResultSet rs = data.query(query);
 		          JFrame resultFrame = new JFrame();
-		          resultFrame.setLayout(new GridLayout(0,2));
+//		          JScrollPane resultPane = new JScrollPane(resultFrame);
+		          resultFrame.setLayout(new GridLayout(0,3));
+		          List<JLabel> labelListExact = new ArrayList<JLabel>();
 		          List<JLabel> labelList = new ArrayList<JLabel>();
 		          JLabel filePath = new JLabel("Dosya Yolu:");
+		          JLabel fileName = new JLabel("Dosya Adı:");
 		          JLabel mediaID = new JLabel("Medya ID:");
 		          resultFrame.add(mediaID);
 		          resultFrame.add(filePath);
+		          resultFrame.add(fileName);
 		          int rsCount=0;
 
 		          try {
 					while(rs.next()){
 						rsCount++;
-								labelList.add(new JLabel(rs.getString(1)));
-								labelList.add(new JLabel(rs.getString(2)));
+								labelListExact.add(new JLabel(rs.getString(1)));
+								labelListExact.add(new JLabel(rs.getString(3)));
+								labelListExact.add(new JLabel(rs.getString(2)));
+								
 						}
 				} catch (SQLException e) {
 					JLabel error = new JLabel("Veritabani baglantisinda hata!");
@@ -98,22 +120,73 @@ public class MainFrame extends JFrame{
 					e.printStackTrace();
 				}
 				
-				for (JLabel lab: labelList){
+				
+					JLabel exactResult = new JLabel();
+					JLabel exactResult1 = new JLabel("Tam Sonuclar:");
+					JLabel exactResult2 = new JLabel();
+					resultFrame.add(exactResult);
+					resultFrame.add(exactResult1);
+					resultFrame.add(exactResult2);
+				
+				
+				for (JLabel lab: labelListExact){
 					resultFrame.add(lab);
 				}
 				
 					
 				if (rsCount < 1){
-						
-					JLabel empty = new JLabel("Sonuc Bulunamadi!");
+					JLabel empty = new JLabel();
+					JLabel empty1 = new JLabel("Sonuc Bulunamadi!");
+					JLabel empty2 = new JLabel();
 					resultFrame.add(empty);
-					JOptionPane.showMessageDialog(null,"Dosya Bulunamadi!. DosyaAdi: " + nameForSearch, "Dosya yok", JOptionPane.INFORMATION_MESSAGE);
+					resultFrame.add(empty1);
+					resultFrame.add(empty2);
 				}
 	
-				else {
+				
+					
+					query = "select `mediaID`, `fileName`, `filePath` from `genel` where `fileName` LIKE '"+"%"+nameForSearch+"%"+"' AND `fileName` != "+"'"+nameForSearch+"'";
+//					System.out.println("query2: "+ query);
+					rs = data.query(query);
+					rsCount = 0;
+					
+					try {
+						while(rs.next()){
+							rsCount++;
+									labelList.add(new JLabel(rs.getString(1)));
+									labelList.add(new JLabel(rs.getString(3)));
+									labelList.add(new JLabel(rs.getString(2)));
+									
+							}
+					} catch (SQLException e) {
+						JLabel error = new JLabel("Veritabani baglantisinda hata!");
+						resultFrame.add(error);
+						e.printStackTrace();
+					}
+					
+					if (rsCount>0)
+					{
+						JLabel result = new JLabel();
+						JLabel result1 = new JLabel("Yaklasik Sonuclar:");
+						JLabel result2 = new JLabel();
+						resultFrame.add(result);
+						resultFrame.add(result1);
+						resultFrame.add(result2);
+					}
+					
+					for (JLabel lab: labelList){
+						resultFrame.add(lab);
+					}
+					
+					if (rsCount<1){
+						JOptionPane.showMessageDialog(null,"Dosya Bulunamadi!. DosyaAdi: " + nameForSearch, "Dosya yok", JOptionPane.INFORMATION_MESSAGE);
+					}
+					else{
+					
+					
 					resultFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 				
-					resultFrame.setSize(550, 200);
+					resultFrame.setSize(750, 200);
 					resultFrame.setTitle("\""+nameForSearch + "\" aramasi sonuclari");
 					resultFrame.setVisible(true);
 				    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -126,13 +199,11 @@ public class MainFrame extends JFrame{
 				    
 				    // Move the window
 				    resultFrame.setLocation(x, y);
+					
 
 				}
 		          data.printLastQueryResult();
 		          
-				
-		      
-//		          
 		      }
 		});
 		search.add(searchElement);
@@ -145,7 +216,7 @@ public class MainFrame extends JFrame{
 		treePanel.setLayout(new BorderLayout());
 		
 		JButton saveDatabase = new JButton("Veritabanina Kaydet");
-		JPanel selectionAna = new JPanel();
+		
 		selectionAna.setLayout(new BorderLayout());
 		SelectionPanel selectionPanel = new SelectionPanel();
 		JScrollPane selectionPane = new JScrollPane(selectionPanel);
