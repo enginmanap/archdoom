@@ -9,16 +9,17 @@ import javax.swing.JTextField;
 
 
 public class SelectionPanel extends JPanel {
-	private List<String> listPath = new ArrayList<String>();
-	public List<String> getListPath() {
+	private List<JTextField> listPath = new ArrayList<JTextField>();
+	private List<JTextField> listName = new ArrayList<JTextField>();
+	public List<JTextField> getListPath() {
 		return listPath;
 	}
 
-	public List<String> getListName() {
+	public List<JTextField> getListName() {
 		return listName;
 	}
 
-	private List<String> listName = new ArrayList<String>();
+	
 	
 	/**
 	 * 
@@ -27,7 +28,7 @@ public class SelectionPanel extends JPanel {
 
 	public SelectionPanel(){
 		super();
-		this.setLayout(new GridLayout(0, 2, 5, 5));
+		this.setLayout(new GridLayout(0, 2));
 		this.setAutoscrolls(true);
 		this.setSize(200, 300);
 		JTextArea pathText = new JTextArea("Yol:");
@@ -55,19 +56,21 @@ public class SelectionPanel extends JPanel {
 	}
 	
 	public void addList(List<String> listPath){
+		this.listPath = new ArrayList<JTextField>();
+		this.listName = new ArrayList<JTextField>();
 		JTextField tf=null;
 		JTextField tf2=null;
 		for (int i=0;i<listPath.size();i++){
 			tf = new JTextField(listPath.get(i));
 
-
-			this.listPath.add(listPath.get(i));
+			tf.setEditable(false);
+			this.listPath.add(tf);
 			this.add(tf);
 
 			
 			tf2 = new JTextField(listPath.get(i).substring(listPath.get(i).lastIndexOf(File.separatorChar)+1));
 
-			this.listName.add(listPath.get(i).substring(listPath.get(i).lastIndexOf(File.separatorChar)+1));
+			this.listName.add(tf2);
 			this.add(tf2);
 			this.setVisible(false);
 
