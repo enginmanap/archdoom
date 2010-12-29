@@ -19,12 +19,10 @@ import javax.swing.tree.TreePath;
       int row = tree.getRowForLocation(x, y);
       TreePath  path = tree.getPathForRow(row);
       //TreePath  path = tree.getSelectionPath();
-      System.out.println(" path: "+path );
       if (path != null) {
         CheckNode node = (CheckNode)path.getLastPathComponent();
         boolean isSelected = ! (node.isSelected());
         node.setSelected(isSelected);
-        System.out.println("Node = "+ node +"is selected =" +node.isSelected());
         //if (node.getSelectionMode() == CheckNode.DIG_IN_SELECTION) {
         if (true){
           if ( isSelected) {
