@@ -7,6 +7,7 @@ public class Zip {
    private ZipOutputStream zipYolu = null;
    private String dizinIsmi = null;
    private String zipIsmi = null;
+   private final String IgnoreDirectory = ".tist"; 
    
    public Zip(String dosyaYolu, String zipYolu){
 	   if (dosyaYolu.lastIndexOf(File.separatorChar) == dosyaYolu.length()-1)
@@ -56,6 +57,8 @@ public String ziple(){
 	
 	 if(files[i].isDirectory())
 	 {
+		 if(files[i].getName() == IgnoreDirectory)
+			 continue;
 		 addDirectory(zout, files[i]);
 		 continue;
 	 }
