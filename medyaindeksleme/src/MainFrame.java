@@ -82,6 +82,79 @@ public class MainFrame extends JFrame{
 		JMenu search = new JMenu("Arama");
 		file.setMnemonic(KeyEvent.VK_S);
 		JMenuItem searchElement = new JMenuItem("Arama");
+		JMenuItem searchMedia = new JMenuItem("Medya ara");
+		searchMedia.setToolTipText("Medya nin icerigini getir");
+		searchMedia.addActionListener(new ActionListener() {
+		      public void actionPerformed(ActionEvent event) {
+		          String nameForSearch = JOptionPane.showInputDialog(null, "Aramak istediginiz Medya ID sini giriniz : ", 
+		        		  "Arama", 1);
+		          Database data = new Database();
+		          data.startConnection();
+		          String query = "select `mediaID`, `fileName`, `filePath` from `genel` where `mediaID` = '"+Integer.parseInt(nameForSearch)+"'";
+//		      	System.out.println("query1: "+ query);
+//		          System.out.println(query);
+		          ResultSet rs = data.query(query);
+		          JFrame resultFrame = new JFrame();
+//		          JScrollPane resultPane = new JScrollPane(resultFrame);
+		          resultFrame.setLayout(new GridLayout(0,3));
+		          List<JLabel> labelListExact = new ArrayList<JLabel>();
+		          JLabel filePath = new JLabel("Dosya Yolu:");
+		          JLabel fileName = new JLabel("Dosya Adı:");
+		          JLabel mediaID = new JLabel("Medya ID:");
+		          resultFrame.add(mediaID);
+		          resultFrame.add(filePath);
+		          resultFrame.add(fileName);
+		          int rsCount=0;
+
+		          try {
+					while(rs.next()){
+						rsCount++;
+								labelListExact.add(new JLabel(rs.getString(1)));
+								labelListExact.add(new JLabel(rs.getString(3)));
+								labelListExact.add(new JLabel(rs.getString(2)));
+								
+						}
+				} catch (SQLException e) {
+					JLabel error = new JLabel("Veritabani baglantisinda hata!");
+					resultFrame.add(error);
+					e.printStackTrace();
+				}
+				
+		
+				
+				for (JLabel lab: labelListExact){
+					resultFrame.add(lab);
+				}
+				
+					
+
+				if (rsCount < 1){
+					JOptionPane.showMessageDialog(null,"Medya Bulunamadi!. Medya ID: " + nameForSearch, "Medya Yok", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else{
+				
+				
+				resultFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+			
+				resultFrame.setSize(750, 200);
+				resultFrame.setTitle("Medya ID: \""+nameForSearch + "\" aramasi sonuclari");
+				resultFrame.setVisible(true);
+			    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+				    
+				    // Determine the new location of the window
+				    int w = resultFrame.getSize().width;
+				    int h = resultFrame.getSize().height;
+				    int x = (dim.width-w)/2;
+				    int y = (dim.height-h)/2;
+				    
+				    // Move the window
+				    resultFrame.setLocation(x, y);
+					
+
+				}
+		          
+		      }
+		});
 		searchElement.setToolTipText("Icerik Arama");
 		searchElement.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent event) {
@@ -164,7 +237,7 @@ public class MainFrame extends JFrame{
 						e.printStackTrace();
 					}
 					
-					if (rsCount>0)
+					if (rsCount > 0)
 					{
 						JLabel result = new JLabel();
 						JLabel result1 = new JLabel("Yaklasik Sonuclar:");
@@ -178,7 +251,7 @@ public class MainFrame extends JFrame{
 						resultFrame.add(lab);
 					}
 					
-					if (rsCount<1){
+					if (rsCount < 1){
 						JOptionPane.showMessageDialog(null,"Dosya Bulunamadi!. DosyaAdi: " + nameForSearch, "Dosya yok", JOptionPane.INFORMATION_MESSAGE);
 					}
 					else{
@@ -202,11 +275,11 @@ public class MainFrame extends JFrame{
 					
 
 				}
-		          data.printLastQueryResult();
 		          
 		      }
 		});
 		search.add(searchElement);
+		search.add(searchMedia);
 		menuBar.add(search);
 		setJMenuBar(menuBar);
 		
