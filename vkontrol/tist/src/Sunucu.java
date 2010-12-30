@@ -292,9 +292,7 @@ public class Sunucu {
 			*/
 			
 			String uygulanacakDosya = this.calismaKlasoru+File.separatorChar+yazilacakKlasor+File.separatorChar + files[i].getAbsolutePath().substring( this.calismaKlasoru.length() + 8, files[i].getAbsolutePath().lastIndexOf(".delta"));
-			System.out.println("BUNEEEE :" + uygulanacakDosya);
-			System.out.println("Absolute path : "+ files[i].getAbsolutePath());
-			
+						
 			YazilacakMetinDosya patchlenecekDosya = new YazilacakMetinDosya(uygulanacakDosya);
 			patchlenecekDosya.dosyaKapat();
 												
@@ -364,6 +362,12 @@ public class Sunucu {
 		
 		doluTemp.delete();
 		
+
+		
+		DizinOlustur bosTemp = new DizinOlustur(calismaKlasoru+File.separatorChar+"Temp");
+		bosTemp.olustur();
+		patchUygula(this.calismaKlasoru+File.separatorChar+"Temp", revizyonNumarasi);
+		
 		byte[] byteDizi = new byte[4];
 		byteDizi[0] = (byte) (revizyonNumarasi%8);
 		revizyonNumarasi /= 8;
@@ -373,9 +377,6 @@ public class Sunucu {
 		revizyonNumarasi /= 8;
 		byteDizi[3] = (byte) (revizyonNumarasi%8);
 		
-		DizinOlustur bosTemp = new DizinOlustur(calismaKlasoru+File.separatorChar+"Temp");
-		bosTemp.olustur();
-		patchUygula(this.calismaKlasoru+File.separatorChar+"Temp", revizyonNumarasi);
 		String fileToSend;
 		if((new File(this.calismaKlasoru+File.separatorChar+"Temp")).listFiles().length > 0){
 			Zip yollanacakZip = new Zip(this.calismaKlasoru+File.separatorChar+"Temp", this.calismaKlasoru+ File.separatorChar+"Temp"+File.separatorChar+Sunucu.CHECKOUTZIPISMI);
