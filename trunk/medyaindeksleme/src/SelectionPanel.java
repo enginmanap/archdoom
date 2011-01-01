@@ -32,7 +32,9 @@ public class SelectionPanel extends JPanel {
 		this.setAutoscrolls(true);
 		this.setSize(200, 300);
 		JTextArea pathText = new JTextArea("Yol:");
-		JTextArea nameText = new JTextArea("İsim:");
+		pathText.setFont(getFont());
+		JTextArea nameText = new JTextArea("Isim:");
+		nameText.setFont(getFont());
 		this.add(pathText);
 		this.add(nameText);
 		
