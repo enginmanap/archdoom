@@ -28,7 +28,8 @@ import javax.swing.tree.TreePath;
           if ( isSelected) {
             tree.expandPath(path);
           } else {
-            tree.collapsePath(path);
+        	  
+        	  //tree.collapsePath(path);
           }
         }
         ((DefaultTreeModel) tree.getModel()).nodeChanged(node);

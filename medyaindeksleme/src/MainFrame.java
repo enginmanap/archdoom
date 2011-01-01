@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +31,8 @@ public class MainFrame extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
+	public static Boolean DEBUG = true;
 	public static String INDEXDIR = System.getProperty("user.dir");
 
 
@@ -60,6 +60,8 @@ public class MainFrame extends JFrame{
 		    	    //    
 		    	    if (chooser.showOpenDialog(selectionAna) == JFileChooser.APPROVE_OPTION) { 
 		    	    	INDEXDIR=chooser.getSelectedFile().getAbsolutePath();
+		    	    	if (MainFrame.DEBUG)
+		    	    		System.out.println(this.getClass().getName()+": Dizin agaci icin indexDir degistiriliyor, yeni indexDir = "+INDEXDIR );
 		    	    	tree.setroot(INDEXDIR);
 		    	         
 		    	      }

@@ -61,11 +61,11 @@ public class CheckTree extends JTree {
 
 	private CheckNode createTreeNodes(File eklenenKlasor) {
 		CheckNode nodes = new CheckNode(eklenenKlasor.getName());
-				File[] files = eklenenKlasor.listFiles();
+			File[] files = eklenenKlasor.listFiles();
+			if (files == null)
+				return nodes;
 
-
-	  
-			 for(int i=0; i < files.length; i++){
+			for(int i=0; i < files.length; i++){
 				 //if the file is directory, call the function recursively
 					 if(files[i].isDirectory()){
 						 nodes.add(createTreeNodes(files[i]));
