@@ -150,7 +150,7 @@ public class AramaDugmeDinleme implements ActionListener{
 			resultPanel.add(printResult);
 			resultFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		
-			resultFrame.setSize(750, 200);
+			resultFrame.setSize(800, 480);
 			resultFrame.setTitle("\""+nameForSearch + "\" aramasi sonuclari");
 			resultFrame.setVisible(true);
 		    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -158,8 +158,8 @@ public class AramaDugmeDinleme implements ActionListener{
 		    // Determine the new location of the window
 		    int w = resultFrame.getSize().width;
 		    int h = resultFrame.getSize().height;
-		    int x = (dim.width-w)/2;
-		    int y = (dim.height-h)/2;
+		    int x = (dim.width-w)/2 + 200;
+		    int y = (dim.height-h)/2 + 100;
 		    
 		    // Move the window
 		    resultFrame.setLocation(x, y);
