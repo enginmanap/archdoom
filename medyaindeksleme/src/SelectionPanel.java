@@ -19,11 +19,6 @@ public class SelectionPanel extends JPanel {
 		return listName;
 	}
 
-	
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public SelectionPanel(){
@@ -37,23 +32,6 @@ public class SelectionPanel extends JPanel {
 		nameText.setFont(getFont());
 		this.add(pathText);
 		this.add(nameText);
-		
-		/* TEST
-		List<String> a = new ArrayList<String>();
-		a.add("i/a");
-		a.add("k/b");
-		a.add("l/c");
-		a.add("m/d");
-		a.add("n/e");
-		a.add("o/f");
-		a.add("p/g");
-		a.add("q/h");
-		a.add("r/z");
-		a.add("s/t");
-		
-
-		addList(a);
-		    TEST */
 
 	}
 	
@@ -74,19 +52,12 @@ public class SelectionPanel extends JPanel {
 			tf.setEditable(false);
 			this.listPath.add(tf);
 			this.add(tf);
-
 			
 			tf2 = new JTextField(listPath.get(i).substring(listPath.get(i).lastIndexOf(File.separatorChar)+1));
-
 			this.listName.add(tf2);
 			this.add(tf2);
 			this.setVisible(false);
-
-		}
-		
+		}		
 		this.setVisible(true);
-
-
 	}
-
 }
