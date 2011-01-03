@@ -13,7 +13,8 @@ import javax.swing.JOptionPane;
 
 public class Printer {
 	
-	public static int NAMELENGHT = 15;
+	public static int NAMELENGTH = 15;
+	public static int PATHLENGTH = 55;
 
 	public static void printString(final String text) {
 		PageFormat pageFormat = new PageFormat();
@@ -74,7 +75,7 @@ public class Printer {
 		int sayac = 0; 
 		while (sayac < names.size()){
 			outputString +=names.get(sayac);
-			for (int i=0;i <NAMELENGHT - names.get(sayac).length();i++)
+			for (int i=0;i <NAMELENGTH - names.get(sayac).length();i++)
 				outputString +=" ";
 			outputString += paths.get(sayac); 
 			if(MainFrame.DEBUG)

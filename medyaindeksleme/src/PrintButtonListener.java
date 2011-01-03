@@ -18,33 +18,34 @@ public class PrintButtonListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		String outputString="";
 		int sayac = 0; 
-		while (sayac*3 < exactMatchList.size()){
-			outputString +=exactMatchList.get(sayac);
-			for (int i=0;i <Printer.NAMELENGHT - exactMatchList.get(sayac).getName().length();i++)
+		while (sayac < exactMatchList.size()){
+			outputString +=exactMatchList.get(sayac).getText();
+			for (int i=0;i <Printer.NAMELENGTH - exactMatchList.get(sayac).getText().length();i++)
 				outputString +=" ";
-			outputString +=exactMatchList.get(sayac+1);
-			for (int i=0;i <Printer.NAMELENGHT - exactMatchList.get(sayac+1).getName().length();i++)
+			outputString +=exactMatchList.get(sayac+1).getText();
+			for (int i=0;i <Printer.PATHLENGTH - exactMatchList.get(sayac+1).getText().length();i++)
 				outputString +=" ";
-			outputString +=exactMatchList.get(sayac+2);
+			outputString +=exactMatchList.get(sayac+2).getText();
 			outputString +="\n";
 			if (MainFrame.DEBUG)
-				System.out.println("yazilacak satir \""+ outputString +"\"");
-			sayac++;
+				System.out.println("yazilacak satir :\""+ outputString +"\"");
+			sayac += 3;
 		}
+		sayac=0;
 		if (likeMatchList.size()>0){
 			outputString += "Yaklasik Sonuclar :\n";
-			while (sayac*3 < likeMatchList.size()){
-				outputString +=likeMatchList.get(sayac);
-				for (int i=0;i <Printer.NAMELENGHT - likeMatchList.get(sayac).getName().length();i++)
+			while (sayac < likeMatchList.size()){
+				outputString +=likeMatchList.get(sayac).getText();
+				for (int i=0;i <7 - likeMatchList.get(sayac).getText().length();i++)
 					outputString +=" ";
-				outputString +=likeMatchList.get(sayac+1);
-				for (int i=0;i <Printer.NAMELENGHT - likeMatchList.get(sayac+1).getName().length();i++)
+				outputString +=likeMatchList.get(sayac+1).getText();
+				for (int i=0;i <Printer.PATHLENGTH - likeMatchList.get(sayac+1).getText().length();i++)
 					outputString +=" ";
-				outputString +=likeMatchList.get(sayac+2);
+				outputString +=likeMatchList.get(sayac+2).getText();
 				outputString +="\n";
 				if (MainFrame.DEBUG)
-					System.out.println("yazilacak satir \""+ outputString +"\"");
-				sayac++;
+					System.out.println("yazilacak yaklasik satir \""+ outputString +"\"");
+				sayac += 3;
 			}
 		}
 		Printer.printString(outputString);
