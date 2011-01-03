@@ -7,7 +7,7 @@ public class Database {
 	private Connection con;
 	private ResultSet rs;
 	private String MYSQL_PORT="3306";
-	private String MYSQL_IP="localhost";
+	private String MYSQL_IP="192.168.1.40";
 	private String MYSQL_DATABASE_NAME="medyaindeksleme";
 	private String MYSQL_USERNAME="mysql";
 	private String MYSQL_PASSWORD="1qa2ws3ed";
