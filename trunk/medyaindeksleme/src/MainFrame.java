@@ -14,14 +14,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
 import javax.swing.UIManager;
- 
 
 public class MainFrame extends JFrame{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	
 	public static Boolean DEBUG = true;
@@ -29,7 +25,6 @@ public class MainFrame extends JFrame{
 	public static String MEDIASEARCH = "MediaSearch";
 	public static String FILESEARCH = "FileSearch";
 	
-
 	public MainFrame(){
 		
 		final CheckTree tree = new CheckTree();
@@ -42,10 +37,6 @@ public class MainFrame extends JFrame{
 		yolBelirle.setToolTipText("Icerik Kontrolu icin Klasor secimi");
 		yolBelirle.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent event) {
-//		          INDEXDIR = JOptionPane.showInputDialog(null, "Icerik Kontrolu yapmnak istediginiz dizini seciniz : ", 
-//		        		  "Kaynak Dizin", 1);
-//		    	  
-//		          tree.setroot(INDEXDIR);
 		    	    JFileChooser chooser = new JFileChooser(); 
 		    	    chooser.setCurrentDirectory(new File("."));
 		    	    chooser.setDialogTitle("Dizin Seciniz");
@@ -87,8 +78,7 @@ public class MainFrame extends JFrame{
 		search.add(searchMedia);
 		menuBar.add(search);
 		setJMenuBar(menuBar);
-		
-		
+
 
 		JPanel treePanel = new JPanel();
 		treePanel.setLayout(new BorderLayout());
@@ -104,30 +94,16 @@ public class MainFrame extends JFrame{
 		
 		// secilebilir agaci buraya koy.
 		
-//		System.out.println("tree eleman sayisi :"+tree.getComponentCount());
 		JScrollPane sp = new JScrollPane(tree);
 		treePanel.add(sp);
 		getContentPane().add(treePanel,    BorderLayout.WEST);
 		JButton listeGetir = new JButton("Liste Getir");
 		listeGetir.addActionListener(new ListeCekmeDugmeDinleme(tree, selectionPanel));
 		treePanel.add(listeGetir, BorderLayout.SOUTH );
-		
-		
-
-//		JScrollPane selectionPane = new JScrollPane();
-
 
 		getContentPane().add(selectionAna, BorderLayout.CENTER);
-
-		//JPanel ListPanel = new JPanel();
-		//ListPanel.setLayout(new FlowLayout());
-		
-		// secilmislerin listesini buraya koy.
 	}
-	
-	
-	
-	
+
 	public static void main(String[] args) {
 		try {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -139,20 +115,13 @@ public class MainFrame extends JFrame{
 		frame.setSize(800, 600);
 		frame.setTitle("Medya indexleme");
 		frame.setVisible(true);
-	    // Get the size of the screen
 	    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-	    
-	    // Determine the new location of the window
+
 	    int w = frame.getSize().width;
 	    int h = frame.getSize().height;
 	    int x = (dim.width-w)/2;
 	    int y = (dim.height-h)/2;
 	    
-	    // Move the window
 	    frame.setLocation(x, y);
-
-
-
 	}
-
 }

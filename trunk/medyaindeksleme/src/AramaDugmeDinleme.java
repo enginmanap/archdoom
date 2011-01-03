@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
@@ -12,6 +13,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 
 public class AramaDugmeDinleme implements ActionListener{
@@ -37,20 +40,27 @@ public class AramaDugmeDinleme implements ActionListener{
         	query = "select `mediaID`, `fileName`, `filePath` from `genel` where `fileName` = '"+nameForSearch+"'";
         if (this.searchType == MainFrame.MEDIASEARCH )
         	query = "select `mediaID`, `fileName`, `filePath` from `genel` where `mediaID` = '"+Integer.parseInt(nameForSearch)+"'";
-//    	System.out.println("query1: "+ query);
-//        System.out.println(query);
+        if (MainFrame.DEBUG)
+        	System.out.println("query exact: "+ query);
         ResultSet rs = data.query(query);
         JFrame resultFrame = new JFrame();
-//        JScrollPane resultPane = new JScrollPane(resultFrame);
-        resultFrame.setLayout(new GridLayout(0,3));
+        JPanel resultPanel = new JPanel();
+        resultFrame.setLayout(new BorderLayout());
+        JScrollPane resultPane = new JScrollPane(resultPanel);
+        resultFrame.add(resultPane);
+        
+        
+        
+
+        resultPanel.setLayout(new GridLayout(0,3));
         List<JLabel> labelListExact = new ArrayList<JLabel>();
         List<JLabel> labelList = new ArrayList<JLabel>();
         JLabel filePath = new JLabel("Dosya Yolu:");
         JLabel fileName = new JLabel("Dosya Adi:");
         JLabel mediaID = new JLabel("Medya ID:");
-        resultFrame.add(mediaID);
-        resultFrame.add(filePath);
-        resultFrame.add(fileName);
+        resultPanel.add(mediaID);
+        resultPanel.add(filePath);
+        resultPanel.add(fileName);
         int rsCount=0;
 
         try {
@@ -63,7 +73,7 @@ public class AramaDugmeDinleme implements ActionListener{
 				}
 		} catch (SQLException e) {
 			JLabel error = new JLabel("Veritabani baglantisinda hata!");
-			resultFrame.add(error);
+			resultPanel.add(error);
 			e.printStackTrace();
 		}
 		
@@ -75,13 +85,13 @@ public class AramaDugmeDinleme implements ActionListener{
 			else
 				exactResult1 = new JLabel();
 			JLabel exactResult2 = new JLabel();
-			resultFrame.add(exactResult);
-			resultFrame.add(exactResult1);
-			resultFrame.add(exactResult2);
+			resultPanel.add(exactResult);
+			resultPanel.add(exactResult1);
+			resultPanel.add(exactResult2);
 		
 		
 		for (JLabel lab: labelListExact){
-			resultFrame.add(lab);
+			resultPanel.add(lab);
 		}
 		
 			
@@ -89,15 +99,16 @@ public class AramaDugmeDinleme implements ActionListener{
 			JLabel empty = new JLabel();
 			JLabel empty1 = new JLabel("Sonuc Bulunamadi!");
 			JLabel empty2 = new JLabel();
-			resultFrame.add(empty);
-			resultFrame.add(empty1);
-			resultFrame.add(empty2);
+			resultPanel.add(empty);
+			resultPanel.add(empty1);
+			resultPanel.add(empty2);
 		}
 
 		
 		if (this.searchType == MainFrame.FILESEARCH ){
 				query = "select `mediaID`, `fileName`, `filePath` from `genel` where `fileName` LIKE '"+"%"+nameForSearch+"%"+"' AND `fileName` != "+"'"+nameForSearch+"'";
-	//			System.out.println("query2: "+ query);
+				if (MainFrame.DEBUG)
+					System.out.println("query like: "+ query);
 				rs = data.query(query);
 				rsCount = 0;
 				
@@ -111,7 +122,7 @@ public class AramaDugmeDinleme implements ActionListener{
 						}
 				} catch (SQLException e) {
 					JLabel error = new JLabel("Veritabani baglantisinda hata!");
-					resultFrame.add(error);
+					resultPanel.add(error);
 					e.printStackTrace();
 				}
 	
@@ -120,13 +131,13 @@ public class AramaDugmeDinleme implements ActionListener{
 					JLabel result = new JLabel();
 					JLabel result1 = new JLabel("Yaklasik Sonuclar:");
 					JLabel result2 = new JLabel();
-					resultFrame.add(result);
-					resultFrame.add(result1);
-					resultFrame.add(result2);
+					resultPanel.add(result);
+					resultPanel.add(result1);
+					resultPanel.add(result2);
 				}
 				
 				for (JLabel lab: labelList){
-					resultFrame.add(lab);
+					resultPanel.add(lab);
 				}
 			}
 			if (rsCount < 1){
@@ -136,7 +147,7 @@ public class AramaDugmeDinleme implements ActionListener{
 			
 			JButton printResult = new JButton("Sonuclari yazdir");
 			printResult.addActionListener(new PrintButtonListener(labelListExact,labelList));
-			resultFrame.add(printResult);
+			resultPanel.add(printResult);
 			resultFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		
 			resultFrame.setSize(750, 200);
