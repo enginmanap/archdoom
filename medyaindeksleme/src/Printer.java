@@ -30,7 +30,6 @@ public class Printer {
 				int position = fontMetrics.getHeight();
 				int height = fontMetrics.getAscent();
 				int sayac = 0;
-				String name = "";
 				while (stringTokenizer.hasMoreTokens()) {
 					String line = stringTokenizer.nextToken().trim();
 					int lineWidth = fontMetrics.stringWidth(line);
@@ -84,4 +83,6 @@ public class Printer {
 		}
 		return outputString;
 	}
+
+
 }
